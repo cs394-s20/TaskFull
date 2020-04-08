@@ -6,9 +6,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
+        <h2>
           TaskFull Launch Page
-        </p>
+        </h2>
+        <p>an app that matches people in need with willing neighbors to help with errands</p>
       </header>
     </div>
   );
