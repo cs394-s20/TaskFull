@@ -138,8 +138,8 @@ function App() {
         <Grid container spacing={0}>
           <Grid item xs={3}></Grid>
           <Grid item xs={6}>
-          {exampleTasks.map((task, index) => (
-              <TaskCard task={task} key={index}/>
+          {exampleTasks.map((task) => (
+              <TaskCard task={task} key={task.id}/>
           ))}
           </Grid>
         </Grid>
