@@ -42,7 +42,7 @@ const exampleTasks = [
     status: 'unstarted'
   },
   {
-    id: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000',
+    id: '11bf5b87-e0b8-42e0-8dcf-dc8c4aefc000',
     title: 'Need help moving my couch',
     author: 'Drake Bell',
     description: 'I\'m looking for someone to help me carry my couch out of my house. I can provide a facemask!',
@@ -53,7 +53,7 @@ const exampleTasks = [
     status: 'unstarted'
   },
   {
-    id: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000',
+    id: '11f75b37-e0b8-42e0-8dcf-dc8c4aefc000',
     title: 'Fixing a broken bike lock',
     author: 'Todd Meyers',
     description: 'My bike lock seems to be broken and I cannot figure out how to fix it. Tried W-40.',
@@ -64,7 +64,7 @@ const exampleTasks = [
     status: 'unstarted'
   },
   {
-    id: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000',
+    id: '11bf5b37-e0b8-42e0-8dcf-dc8c4iefc000',
     title: 'Garden maintenance',
     author: 'Ping',
     description: 'I don\'t know anything about gardening but want to get started!',
@@ -75,28 +75,6 @@ const exampleTasks = [
     status: 'in progress'
   },
 ]
-
-const useStyles = makeStyles({
-  media: {
-    height: 140,
-  },
-});
-
-const Header = () => {
-  return (
-      <AppBar className={'header'}>
-        <Toolbar variant="dense">
-          <IconButton edge="start" className={'menuButton'} color="inherit" aria-label="menu">
-          
-          </IconButton>
-          <Typography variant="h6" color="inherit">
-            TaskFull
-          </Typography>
-        </Toolbar>
-      </AppBar>
-
-  );
-}
 
 function App() {
   return (

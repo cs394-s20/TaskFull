@@ -4,6 +4,22 @@
 }
 
 
+
+.status{
+  /*border: 1px solid black;*/
+  padding-left:200px;
+}
+
+.header{
+  background-color:yellow;
+}
+
+.marginButton{
+  margin-right: 10px;
+}
+
+
+/* ========= TASKCARD ======== */
 .task-card {
   width: 500px;
   max-width: 500;
@@ -17,16 +33,12 @@
   display: flex;
 }
 
-.status{
-  /*border: 1px solid black;*/
-  padding-left:200px;
+.field-row {
+  display: flex;
+  margin: 1em 0em;
 }
 
-.header{
-  background-color:yellow;
-  
-}
-
-.marginButton{
-  margin-right: 10px;
+.field-icon {
+  font-size: 24px;
+  margin-right: 1em;
 }

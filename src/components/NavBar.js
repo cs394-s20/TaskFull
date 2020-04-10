@@ -30,7 +30,7 @@ const NavBar = () => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
-          Taskfull
+          TaskFull
         </Typography>
         <Button color="inherit">Login</Button>
       </Toolbar>
