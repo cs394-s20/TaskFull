@@ -1,9 +1,12 @@
 .task-card {
   width: 500px;
-  text-align: center;
   max-width: 500;
   min-width: 500;
   background-color: rgb(202, 202, 238);
-  margin: 1em 0em;
-  width: 500px;
+  margin: 2em 0em;
+  width: 100%;
+}
+
+.task-wrapper {
+  text-align: center;
 }
