@@ -106,7 +106,7 @@ const TaskCard = (props) => {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>
+        <CardActions className="action-buttons">
           <Button size="small" color="primary">
             Accept
           </Button>
