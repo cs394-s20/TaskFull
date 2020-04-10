@@ -11,9 +11,16 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Grid from '@material-ui/core/Grid';
 import NavBar from './components/NavBar'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const THEME = createMuiTheme({
   typography: {
@@ -103,15 +110,20 @@ const Header = () => {
 
 // This will be updated to have more than just a title!
 const TaskCard = (props) => {
-  const [detailsOpen, setDetailsOpen] = useState(false)
-  
-  const openCardDetails = task => {
-    setDetailsOpen(true);
-  }
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleCardOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   
   return (
     <Card className={'task-card'}>
-      <CardActionArea onClick={() => openCardDetails(props.task)}>
+      <CardActionArea onClick={() => handleCardOpen(props.task)}>
         <CardContent>
           <Typography gutterBottom variant="h4" fontWeight={700}>
             {props.task.title}
@@ -124,10 +136,45 @@ const TaskCard = (props) => {
           </Typography>
         </CardContent>
       </CardActionArea>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{props.task.title}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            <Typography gutterBottom variant="subtitle1">
+              {props.task.description}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {props.task.author}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {props.task.location}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {props.task.time}
+            </Typography>
+            <ButtonGroup variant="text" scolor="primary" aria-label="text primary button group">
+              <Button>{props.task.requirements[0]}</Button>
+              <Button>{props.task.requirements[1]}</Button>
+            </ButtonGroup>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            Accept Task
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 };
-
 
 function App() {
   return (
