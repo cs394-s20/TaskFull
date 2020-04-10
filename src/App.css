@@ -13,6 +13,10 @@
   width: 100%;
 }
 
+.req-row {
+  display: flex;
+}
+
 .status{
   /*border: 1px solid black;*/
   padding-left:200px;

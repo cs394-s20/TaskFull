@@ -3,10 +3,10 @@ import './App.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Chip from '@material-ui/core/Chip';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -157,10 +157,11 @@ const TaskCard = (props) => {
             <Typography variant="body2" color="textSecondary" component="p">
               {props.task.time}
             </Typography>
-            <ButtonGroup variant="text" scolor="primary" aria-label="text primary button group">
-              <Button>{props.task.requirements[0]}</Button>
-              <Button>{props.task.requirements[1]}</Button>
-            </ButtonGroup>
+            <div class="req-row">
+              {props.task.requirements.map(req => (
+                  <Chip label={req}></Chip>
+              ))}
+            </div>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
