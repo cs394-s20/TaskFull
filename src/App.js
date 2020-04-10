@@ -9,7 +9,16 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
+const THEME = createMuiTheme({
+  typography: {
+    "fontFamily": "\"Poppins\", sans-serif"
+  }
+});
 
 const exampleTasks = [
   {
@@ -65,6 +74,22 @@ const useStyles = makeStyles({
   },
 });
 
+const Header = () => {
+  return (
+      <AppBar className={'header'}>
+        <Toolbar variant="dense">
+          <IconButton edge="start" className={'menuButton'} color="inherit" aria-label="menu">
+          
+          </IconButton>
+          <Typography variant="h6" color="inherit">
+            TaskFull
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+  );
+}
+
 // This will be updated to have more than just a title!
 const TaskCard = (props) => {
     const classes = useStyles();
@@ -88,6 +113,9 @@ const TaskCard = (props) => {
           <Button size="small" color="primary">
             Details
           </Button>
+          <div className={'status'}>
+            {props.task.status}
+          </div>
           <br></br>
         </CardActions>
       </Card>
@@ -98,15 +126,18 @@ const TaskCard = (props) => {
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h2>
-          TaskFull Launch Page
-        </h2>
-        <p>an app that matches people in need with willing neighbors to help with errands</p>
-        {exampleTasks.map((task, index) => 
-          <TaskCard task={task} key={index}/>
-        )}
-      </header>
+      <MuiThemeProvider theme={THEME}>
+        <Header/>
+        <header className="App-header">
+          <h2>
+            TaskFull Launch Page
+          </h2>
+          <p>an app that matches people in need with willing neighbors to help with errands</p>
+          {exampleTasks.map((task, index) => 
+            <TaskCard task={task} key={index}/>
+          )}
+        </header>
+      </MuiThemeProvider>
     </div>
   );
 }
