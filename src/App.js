@@ -7,9 +7,19 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { green, purple } from '@material-ui/core/colors';
-import NavBar from './components/NavBar'
+
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
+import NavBar from './components/NavBar'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const THEME = createMuiTheme({
+  typography: {
+    "fontFamily": "\"Poppins\", sans-serif"
+  }
+});
 
 const exampleTasks = [
   {
@@ -70,6 +80,22 @@ const useStyles = makeStyles({
   },
 });
 
+const Header = () => {
+  return (
+      <AppBar className={'header'}>
+        <Toolbar variant="dense">
+          <IconButton edge="start" className={'menuButton'} color="inherit" aria-label="menu">
+          
+          </IconButton>
+          <Typography variant="h6" color="inherit">
+            TaskFull
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+  );
+}
+
 // This will be updated to have more than just a title!
 const TaskCard = (props) => {  
     return (
@@ -92,6 +118,9 @@ const TaskCard = (props) => {
           <Button size="small" color="primary">
             Details
           </Button>
+          {/* <div className={'status'}>
+            {props.task.status}
+          </div> */}
           <br></br>
         </CardActions>
       </Card>
@@ -103,6 +132,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+      <MuiThemeProvider theme={THEME}>
         <NavBar></NavBar>
         <Grid container spacing={0}>
           <Grid item xs={3}></Grid>
@@ -112,6 +142,7 @@ function App() {
           ))}
           </Grid>
         </Grid>
+      </MuiThemeProvider>
       </header>
     </div>
   );

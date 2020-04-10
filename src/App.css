@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+*{
+  font-family: 'Poppins', sans-serif;
+}
+
+
 .task-card {
   width: 500px;
   max-width: 500;
@@ -7,6 +13,16 @@
   width: 100%;
 }
 
-.task-wrapper {
-  text-align: center;
+.status{
+  /*border: 1px solid black;*/
+  padding-left:200px;
+}
+
+.header{
+  background-color:yellow;
+  
+}
+
+.marginButton{
+  margin-right: 10px;
 }
