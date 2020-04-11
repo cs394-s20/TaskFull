@@ -29,6 +29,24 @@
   width: 100%;
 }
 
+.task-card-unstarted {
+  width: 500px;
+  max-width: 500;
+  min-width: 500;
+  background-color: rgb(69, 179, 78);
+  margin: 2em 0em;
+  width: 100%;
+}
+
+.task-card-in-progress {
+  width: 500px;
+  max-width: 500;
+  min-width: 500;
+  background-color: rgb(202, 202, 238);
+  margin: 2em 0em;
+  width: 100%;
+}
+
 .req-row {
   display: flex;
 }

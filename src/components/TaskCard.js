@@ -38,7 +38,7 @@ const TaskCard = (props) => {
 
 
   return (
-    <Card className={'task-card'}>
+    <Card className={"task-card-" + props.task.status}>
       <CardActionArea onClick={() => handleCardOpen(props.task)}>
         <CardContent>
           <Typography gutterBottom variant="h4" fontWeight={700}>
@@ -105,7 +105,7 @@ const TaskCard = (props) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={()=>props.handleAccept(props.index)} autoFocus>
+          <Button onClick={()=>{props.handleAccept(props.index); handleClose()}} autoFocus>
             Accept Task
           </Button>
         </DialogActions>

@@ -29,10 +29,10 @@ function App() {
       requirements: ['physical', 'car'],
       time: 'Thu, Apr 9, 2020 6:30 PM',
       expires: '7 days',
-      status: 'Unstarted'
+      status: 'unstarted'
     },
     {
-      id: '11bf5b37-e0b8-4250-8dcf-dc8c4aefc000',
+      id: '11bf5b37-e0b8-4250-8dcf-dc8c4aefc001',
       title: 'Dog Walking',
       author: 'Patrick Johnson',
       description: 'I need someone to walk my dogs while my wife is sick.',
@@ -40,10 +40,10 @@ function App() {
       requirements: ['pets'],
       time: 'Fri, Apr 17, 2020 2:00 PM',
       expires: '9 days',
-      status: 'Unstarted'
+      status: 'unstarted'
     },
     {
-      id: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000',
+      id: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc002',
       title: 'Need help moving my couch',
       author: 'Drake Bell',
       description: 'I\'m looking for someone to help me carry my couch out of my house. I can provide a facemask!',
@@ -51,10 +51,10 @@ function App() {
       requirements: ['physical', 'car'],
       time: 'Wed, Aug 9, 2020 6:30 PM',
       expires: '4 mo',
-      status: 'Unstarted'
+      status: 'unstarted'
     },
     {
-      id: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000',
+      id: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc003',
       title: 'Fixing a broken bike lock',
       author: 'Todd Meyers',
       description: 'My bike lock seems to be broken and I cannot figure out how to fix it. Tried W-40.',
@@ -62,10 +62,10 @@ function App() {
       requirements: ['physical'],
       time: 'Fri, Apr 10, 2020 5:00 PM',
       expires: '2 days',
-      status: 'Unstarted'
+      status: 'unstarted'
     },
     {
-      id: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000',
+      id: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc004',
       title: 'Garden maintenance',
       author: 'Ping',
       description: 'I don\'t know anything about gardening but want to get started!',
@@ -73,15 +73,15 @@ function App() {
       requirements: ['physical'],
       time: 'Thu, Apr 9, 2020 11:30 AM',
       expires: '3 days',
-      status: 'in progress'
+      status: 'in-progress'
     },
   ]);
 
   const handleAccept = index => {
     const newTasks = [...exampleTasks];
-    newTasks[index].status = 'In Progress';
+    newTasks[index].status = 'in-progress';
     setExampleTasks(newTasks);
-    
+
   }
 
   return (
@@ -92,11 +92,12 @@ function App() {
         <Grid container spacing={0}>
           <Grid item xs={3}></Grid>
           <Grid item xs={6}>
-          {exampleTasks.map((task,index) => (
+          {exampleTasks.map((task, index) => (
               <TaskCard 
                 key={task.id}
                 task={task} 
                 index={index}
+                class={task.status}
                 handleAccept={handleAccept}
                 />
           ))}
