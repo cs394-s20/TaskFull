@@ -32,6 +32,11 @@ const TaskCard = (props) => {
     setOpen(false);
   };
   
+  const style={
+    backgroundColor: 'green',
+  };
+
+
   return (
     <Card className={'task-card'}>
       <CardActionArea onClick={() => handleCardOpen(props.task)}>
@@ -42,9 +47,14 @@ const TaskCard = (props) => {
           <Typography gutterBottom variant="subtitle1">
             {props.task.description}
           </Typography>
+          <div className='card-last-row'>
           <Typography variant="body2" color="textSecondary" component="p">
             {props.task.time}
           </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {props.task.status}
+          </Typography>
+          </div>
         </CardContent>
       </CardActionArea>
       <Dialog
@@ -95,7 +105,7 @@ const TaskCard = (props) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button onClick={()=>props.handleAccept(props.index)} autoFocus>
             Accept Task
           </Button>
         </DialogActions>

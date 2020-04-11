@@ -42,3 +42,8 @@
   font-size: 24px;
   margin-right: 1em;
 }
+
+.card-last-row{
+  display:flex;
+  justify-content: space-between;
+}
