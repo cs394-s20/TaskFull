@@ -105,7 +105,8 @@ const TaskCard = (props) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={()=>{props.handleAccept(props.index); handleClose()}} autoFocus>
+          {/* onClick={()=>{props.handleAccept(props.index); handleClose()}} autoFocus */}
+          <Button onClick={handleClose} autoFocus>
             Accept Task
           </Button>
         </DialogActions>
