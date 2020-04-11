@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import '../App.css'
+import '../App.css';
 
+// Material UI
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -21,7 +22,6 @@ import NotesIcon from '@material-ui/icons/Notes';
 
 // This will be updated to have more than just a title!
 const TaskCard = (props) => {
-
   const [open, setOpen] = React.useState(false);
 
   const handleCardOpen = () => {
@@ -41,7 +41,7 @@ const TaskCard = (props) => {
     <Card className={"task-card-" + props.task.status}>
       <CardActionArea onClick={() => handleCardOpen(props.task)}>
         <CardContent>
-          <Typography gutterBottom variant="h4" fontWeight={700}>
+          <Typography gutterBottom variant="h4" component="h4" fontWeight={700}>
             {props.task.title}
           </Typography>
           <Typography gutterBottom variant="subtitle1">
@@ -51,9 +51,9 @@ const TaskCard = (props) => {
           <Typography variant="body2" color="textSecondary" component="p">
             {props.task.time}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          {/* <Typography variant="body2" color="textSecondary" component="p">
             {props.task.status}
-          </Typography>
+          </Typography> */}
           </div>
         </CardContent>
       </CardActionArea>
@@ -105,7 +105,7 @@ const TaskCard = (props) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={()=>{props.handleAccept(props.index); handleClose()}} autoFocus>
+          <Button onClick={()=>{props.handleAccept(props.task.id); handleClose()}} autoFocus>
             Accept Task
           </Button>
         </DialogActions>
