@@ -6,6 +6,8 @@ import Filter from './Filter';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 // Firebase
@@ -114,15 +116,20 @@ const TasksFeed = () => {
     for (let i = 0; i < 10; i++) {
       loadingSkeleton.push(
         <div key={i} className="skeleton-card">
-          <Skeleton variant="text" />
+          <Skeleton animation="wave" variant="text" />
           <Skeleton variant="circle" width={40} height={40} />
-          <Skeleton variant="rect" height={118} />
+          <Skeleton animation="wave" variant="rect" height={118} />
         </div>
       )
     }
 
     if (isLoading) {
-      return loadingSkeleton
+      return (
+        <div>
+          <LinearProgress />
+          {loadingSkeleton}
+        </div>
+      )
     }
     return (
         <div>
