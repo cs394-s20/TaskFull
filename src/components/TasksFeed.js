@@ -1,4 +1,4 @@
-import React, { useState, useEffect }from 'react'
+import React, { useState, useEffect } from 'react'
 
 import '../App.css';
 import TaskCard from './TaskCard';
@@ -64,24 +64,46 @@ const exampleTasks = [
   }]
 
 const TasksFeed = () => {
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState(exampleTasks)
   const [query, setQuery] = useState({})
 
-  const handleAccept = id => {
-    const newTasks = [...tasks];
-    newTasks.find(t => t.id === id).status = 'in-progress';
-    setTasks(tasks);
-  }
+  // useEffect(() => {
+  //   // In the real app we will fetch from our API
 
-  useEffect(() => {
-    // In the real app we will fetch from our API
+  //   setTasks(exampleTasks)
+  // }, [setTasks])
 
-    setTasks(exampleTasks)
-  }, [])
+
+  useEffect(()=>{
+    console.log('render')
+  },[setTasks]); 
 
   const handleQuery = (query) => {
     setQuery(query)
   }
+
+  
+
+  const handleAccept = id => {
+    const newTasks = [...tasks];
+    newTasks.find(t => t.id === id).status = 'in-progress';
+    setTasks(newTasks);
+  }
+
+  // const availableTasks = tasks.map((task,index)=>{
+  //   <TaskCard 
+  //               key={task.id}
+  //               task={task} 
+  //               index={index}
+  //               class={task.status}
+  //               handleAccept={handleAccept}
+  //               />
+  //   {task.status==='unstarted' ? }
+  // })
+  
+  
+
+ 
 
   return (
     <Grid container spacing={0}>
@@ -90,7 +112,7 @@ const TasksFeed = () => {
       </Grid>
       <Grid item xs={6}>
         {tasks.filter(t => t.status === 'unstarted').map((task, index) => (
-            <TaskCard 
+          <TaskCard 
                 key={task.id}
                 task={task} 
                 index={index}
