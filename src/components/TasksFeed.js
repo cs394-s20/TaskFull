@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react'
 import '../App.css';
 import TaskCard from './TaskCard';
 import Filter from './Filter';
-
+import Skeleton from '@material-ui/lab/Skeleton';
 import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+
 
 // Firebase
 import firebase from 'firebase/app';
@@ -68,19 +70,34 @@ const exampleTasks = [
   }]
 
 const TasksFeed = () => {
-  const [tasks, setTasks] = useState(exampleTasks)
+  const [isLoading, setisLoading] = useState(true)
+  const [tasks, setTasks] = useState([])
   const [query, setQuery] = useState({})
+
+  const db = firebase.database().ref().child('/tasks');
 
   // useEffect(() => {
   //   // In the real app we will fetch from our API
 
   useEffect(() => {
-    // In the real app we will fetch from our API
-    const db = firebase.database().ref();
-    db.on('value', snap => console.log(snap))
+    const getFeed = snap => {
+      if (snap.val()) {
+        console.log(snap.val());
+        console.log(Object.values(snap.val()));
+        setTasks(Object.values(snap.val()));
+        setisLoading(false)
+      }
+    }
+    db.on('value', getFeed, error => alert(error));
+    return () => { db.off('value', getFeed); };
+  }, []);
+
+  // useEffect(() => {
+  //   // In the real app we will fetch from our API
+  //   db.on('value', snap => console.log(snap))
     
-    setTasks(exampleTasks)
-  }, [])
+  //   setTasks(exampleTasks)
+  // }, [])
 
   const handleQuery = (query) => {
     setQuery(query)
@@ -92,28 +109,24 @@ const TasksFeed = () => {
     setTasks(newTasks);
   }
 
-  // const availableTasks = tasks.map((task,index)=>{
-  //   <TaskCard 
-  //               key={task.id}
-  //               task={task} 
-  //               index={index}
-  //               class={task.status}
-  //               handleAccept={handleAccept}
-  //               />
-  //   {task.status==='unstarted' ? }
-  // })
-  
-  
+  const Feed = () => {
+    let loadingSkeleton = []
+    for (let i = 0; i < 10; i++) {
+      loadingSkeleton.push(
+        <div key={i}>
+          <Skeleton variant="text" />
+          <Skeleton variant="circle" width={40} height={40} />
+          <Skeleton variant="rect" height={118} />
+        </div>
+      )
+    }
 
- 
-
-  return (
-    <Grid container spacing={2}>
-      <Grid style={{ padding: "1em" }} item xs={3} >
-        <Filter onChange={handleQuery}></Filter>
-      </Grid>
-      <Grid item xs={6}>
-        {tasks.filter(t => t.status === 'unstarted').map((task, index) => (
+    if (isLoading) {
+      return loadingSkeleton
+    }
+    return (
+        <div>
+          {tasks.filter(t => t.status === 'unstarted').map((task, index) => (
           <TaskCard 
                 key={task.id}
                 task={task} 
@@ -122,6 +135,17 @@ const TasksFeed = () => {
                 handleAccept={handleAccept}
                 />
         ))}
+        </div>
+      )
+  }
+  
+  return (
+    <Grid container spacing={2}>
+      <Grid style={{ padding: "1em" }} item xs={3} >
+        <Filter onChange={handleQuery}></Filter>
+      </Grid>
+      <Grid style={{ padding: "1em" }} item xs={6} >
+        <Feed></Feed>
       </Grid>
     </Grid>
   )

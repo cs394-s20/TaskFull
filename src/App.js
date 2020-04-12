@@ -9,8 +9,6 @@ import 'firebase/database';
 import TasksFeed from './components/TasksFeed';
 
 // Material UI
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import NavBar from './components/NavBar'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
