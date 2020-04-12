@@ -6,6 +6,10 @@ import Filter from './Filter';
 
 import Grid from '@material-ui/core/Grid';
 
+// Firebase
+import firebase from 'firebase/app';
+import 'firebase/database';
+
 const exampleTasks = [
   {
     id: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000',
@@ -75,6 +79,8 @@ const TasksFeed = () => {
 
   useEffect(() => {
     // In the real app we will fetch from our API
+    const db = firebase.database().ref();
+    db.on('value', snap => console.log(snap))
 
     setTasks(exampleTasks)
   }, [])
@@ -84,8 +90,8 @@ const TasksFeed = () => {
   }
 
   return (
-    <Grid container spacing={0}>
-      <Grid item xs={3}>
+    <Grid container spacing={2}>
+      <Grid style={{ padding: "1em" }} item xs={3} >
         <Filter onChange={handleQuery}></Filter>
       </Grid>
       <Grid item xs={6}>

@@ -65,3 +65,7 @@
   display:flex;
   justify-content: space-between;
 }
+
+.dialog-header {
+  padding: 1rem;
+}

@@ -20,6 +20,12 @@ import PinDropIcon from '@material-ui/icons/PinDrop';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import NotesIcon from '@material-ui/icons/Notes';
 
+const DialogHeader = (props) => {
+  return (
+    <Typography className="dialog-header" fontWeight={700} variant="h4">{props.children}</Typography>
+  )
+}
+
 // This will be updated to have more than just a title!
 const TaskCard = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -36,7 +42,6 @@ const TaskCard = (props) => {
     backgroundColor: 'green',
   };
 
-
   return (
     <Card className={"task-card-" + props.task.status}>
       <CardActionArea onClick={() => handleCardOpen(props.task)}>
@@ -44,7 +49,7 @@ const TaskCard = (props) => {
           <Typography gutterBottom variant="h4" component="h4" fontWeight={700}>
             {props.task.title}
           </Typography>
-          <Typography gutterBottom variant="subtitle1">
+          <Typography gutterBottom variant="subtitle1" component="p">
             {props.task.description}
           </Typography>
           <div className='card-last-row'>
@@ -65,32 +70,31 @@ const TaskCard = (props) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle>
-          <Typography fontWeight={700} variant='h4'>{props.task.title}</Typography>
-        </DialogTitle>
+        <DialogHeader>
+          {props.task.title}
+        </DialogHeader>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
           <span className="field-row">
             <AccountCircle className="field-icon" />
-            <Typography variant="body1" color="textSecondary" pb={3}>
+            <Typography variant="body1" component="p" color="textSecondary" pb={3}>
               {props.task.author}
             </Typography>
           </span>
-          <span class="field-row">
+          <span className="field-row">
           <PinDropIcon className="field-icon" />
-          <Typography variant="body2" color="textSecondary" pb={3}>
+          <Typography variant="body2" component="p" color="textSecondary" pb={3}>
             {props.task.location}
           </Typography>
           </span>
-          <span class="field-row">
+          <span className="field-row">
             <ScheduleIcon className="field-icon"/>
-            <Typography variant="body2" color="textSecondary" pb={3}>
+            <Typography variant="body2" component="p" color="textSecondary" pb={3}>
               {props.task.time}
             </Typography>
           </span>
-          <span class="field-row">
+          <span className="field-row">
             <NotesIcon className="field-icon" />
-            <Typography gutterBottom variant="body1">
+            <Typography gutterBottom component="p" variant="body1">
               {props.task.description}
             </Typography>
           </span>
@@ -99,7 +103,6 @@ const TaskCard = (props) => {
                 <Chip label={req} key={index}></Chip>
             ))}
           </div>
-          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
