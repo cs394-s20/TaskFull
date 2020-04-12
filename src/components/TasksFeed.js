@@ -113,7 +113,7 @@ const TasksFeed = () => {
     let loadingSkeleton = []
     for (let i = 0; i < 10; i++) {
       loadingSkeleton.push(
-        <div key={i}>
+        <div key={i} className="skeleton-card">
           <Skeleton variant="text" />
           <Skeleton variant="circle" width={40} height={40} />
           <Skeleton variant="rect" height={118} />

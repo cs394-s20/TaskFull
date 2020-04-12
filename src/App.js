@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+// Pages
+import Home from './pages/Home';
+import Account from './pages/Account'
 
 //Firebase
 import firebase from 'firebase/app';
 import 'firebase/database';
 
-// Custom
-import TasksFeed from './components/TasksFeed';
-
 // Material UI
-import NavBar from './components/NavBar'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const firebaseConfig = {
@@ -35,8 +36,13 @@ function App() {
     <div className="App">
       <header className="App-header">
       <MuiThemeProvider theme={THEME}>
-        <NavBar></NavBar>
-        <TasksFeed></TasksFeed>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" exact component={Home}></Route>
+            <Route path="/account" exact component={Account}></Route>
+            <Route path="/" render={() => <div>404</div>}></Route>
+          </Switch>
+        </BrowserRouter>
       </MuiThemeProvider>
       </header>
     </div>
