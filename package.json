@@ -12,6 +12,7 @@
     "firebase": "^7.14.0",
     "firebase-tools": "^8.0.2",
     "immer": "^6.0.3",
+    "notistack": "^0.9.9",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
