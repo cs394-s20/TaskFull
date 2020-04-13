@@ -26,7 +26,7 @@ const DialogHeader = (props) => {
 }
 
 // This will be updated to have more than just a title!
-const TaskCard = (props) => {
+const TaskCartCard = (props) => {
   const [open, setOpen] = useState(false);
   const [taskCart, setTaskCart] = useContext(TaskCartContext);
 
@@ -37,11 +37,6 @@ const TaskCard = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const addToCart = () => {
-    const myTask = props.task;
-    setTaskCart(curr => [...curr, myTask]);
-  }
   
   const style={
     backgroundColor: 'green',
@@ -113,8 +108,8 @@ const TaskCard = (props) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={()=>{props.handleAccept(props.task.id); handleClose(); addToCart()}} autoFocus>
-            Accept Task
+          <Button onClick={()=>{props.handleComplete(props.task.id); handleClose()}} autoFocus>
+            Complete Task
           </Button>
         </DialogActions>
       </Dialog>
@@ -122,4 +117,4 @@ const TaskCard = (props) => {
   );
 };
 
-export default TaskCard;
+export default TaskCartCard;

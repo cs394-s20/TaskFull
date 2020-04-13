@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import '../App.css';
 import TaskCard from './TaskCard';
 import Filter from './Filter';
+import TaskCart from './TaskCart';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -150,6 +151,7 @@ const TasksFeed = () => {
     <Grid container spacing={2}>
       <Grid style={{ padding: "1em" }} item xs={3} >
         <Filter onChange={handleQuery}></Filter>
+        <TaskCart></TaskCart>
       </Grid>
       <Grid style={{ padding: "1em" }} item xs={6} >
         <Feed></Feed>
