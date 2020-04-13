@@ -4,6 +4,7 @@ import '../App.css';
 import TaskCard from './TaskCard';
 import Filter from './Filter';
 import TaskCart from './TaskCart';
+import CompletedTasks from './CompletedTasks';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -152,9 +153,11 @@ const TasksFeed = () => {
       <Grid style={{ padding: "1em" }} item xs={3} >
         <Filter onChange={handleQuery}></Filter>
         <TaskCart></TaskCart>
+        <CompletedTasks></CompletedTasks>
       </Grid>
       <Grid style={{ padding: "1em" }} item xs={6} >
         <Feed></Feed>
+        
       </Grid>
     </Grid>
   )

@@ -28,7 +28,7 @@ const DialogHeader = (props) => {
 // This will be updated to have more than just a title!
 const TaskCartCard = (props) => {
   const [open, setOpen] = useState(false);
-  const [taskCart, setTaskCart] = useContext(TaskCartContext);
+  const [completeList, setCompleteList] = useContext(TaskCartContext);
 
   const handleCardOpen = () => {
     setOpen(true);
@@ -38,6 +38,11 @@ const TaskCartCard = (props) => {
     setOpen(false);
   };
   
+  const addToList = id => {
+    const myCompletedTasks = props.task;
+    setCompleteList(curr => [...curr, myCompletedTasks]);
+}
+
   const style={
     backgroundColor: 'green',
   };
@@ -108,7 +113,7 @@ const TaskCartCard = (props) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={()=>{props.handleComplete(props.task.id); handleClose()}} autoFocus>
+          <Button onClick={()=>{props.handleComplete(props.task.id); handleClose(); addToList();}} autoFocus>
             Complete Task
           </Button>
         </DialogActions>
