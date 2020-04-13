@@ -39,7 +39,9 @@ const TaskCartCard = (props) => {
   };
   
   const addToList = id => {
+    //console.log(props.task.filter(t=>t.status==='complete'));
     const myCompletedTasks = props.task;
+    
     setCompleteList(curr => [...curr, myCompletedTasks]);
 }
 

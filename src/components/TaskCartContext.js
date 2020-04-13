@@ -12,3 +12,5 @@ export const TaskCartProvider = (props) =>{
         </TaskCartContext.Provider>
     )
 }
+
+export const TaskCartConsumer = TaskCartContext.consumer;
