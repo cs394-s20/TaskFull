@@ -104,9 +104,9 @@ const TaskCard = (props) => {
             </Typography>
           </span>
           <div className="req-row">
-            {/* {props.task.requirements.map((req, index) => (
+            {Object.values(props.task.requirements).map((req, index) => (
                 <Chip label={req} key={index}></Chip>
-            ))} */}
+            ))}
           </div>
         </DialogContent>
         <DialogActions>

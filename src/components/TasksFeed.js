@@ -96,13 +96,6 @@ const TasksFeed = () => {
     return () => { db.off('value', getFeed); };
   }, []);
 
-  // useEffect(() => {
-  //   // In the real app we will fetch from our API
-  //   db.on('value', snap => console.log(snap))
-    
-  //   setTasks(exampleTasks)
-  // }, [])
-
   const handleQuery = (query) => {
     setQuery(query)
   }
