@@ -9,16 +9,17 @@ const TaskCart = () => {
     const handleComplete = id => {
         const newTaskCart = [...taskCart];
         newTaskCart.find(t => t.id === id).status = 'complete';
+        console.log(newTaskCart);
         setTaskCart(newTaskCart);
       }
-  
+
     return(
         <div>
             <div>My Tasks: </div>
             <div>{taskCart.filter(t=>t.status==='in-progress').map((task,index)=>(
-                <TaskCartCard 
+                <TaskCartCard
                 key={task.id}
-                task={task} 
+                task={task}
                 index={index}
                 class={task.status}
                 handleComplete={handleComplete}

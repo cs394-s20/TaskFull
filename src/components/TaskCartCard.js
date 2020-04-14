@@ -37,11 +37,11 @@ const TaskCartCard = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   const addToList = id => {
     //console.log(props.task.filter(t=>t.status==='complete'));
     const myCompletedTasks = props.task;
-    
+
     setCompleteList(curr => [...curr, myCompletedTasks]);
 }
 
@@ -50,7 +50,7 @@ const TaskCartCard = (props) => {
   };
 
   return (
-    <Card className={"task-card-" + props.task.status}>
+    <Card className={"task-card-unstarted"}>
       <CardActionArea onClick={() => handleCardOpen(props.task)}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h5" fontWeight={700}>

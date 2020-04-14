@@ -8,27 +8,29 @@ const CompletedTasks = () =>{
 
 
     const filteredList = completeList.filter(t=>t.status==='complete');
+    //NOTE: completeList has duplicates of tasks, uniqueList seems to be a temporary work around
     const uniqueList =Array.from(new Set(filteredList.map(a=>a.id))).map(id=>{
         return filteredList.find(a=>a.id===id)
     });
+    console.log(uniqueList);
 
     return(
         <div>
             <div>My Completed Tasks: </div>
-                
-            
-            { <div>{completeList.filter(t=>t.status==='complete').map((task,index)=>(
-                <TaskCartCard 
+
+
+            { <div>{uniqueList.filter(t=>t.status==='complete').map((task,index)=>(
+                <TaskCartCard
                 key={task.id}
-                task={task} 
+                task={task}
                 index={index}
                 class={task.status}
-                
+
                 >
                     {task.title}
             </TaskCartCard>))}</div> }
-            <div>{completeList.length}</div>
-            
+            <div>{uniqueList.length}</div>
+
         </div>
     )
 }
