@@ -46,8 +46,8 @@ const NavBar = ({ history }) => {
         <Typography variant="h6" className={classes.title}>
           TaskFull
         </Typography>
-        <IconButton color="inherit" aria-label="account">
-          <AccountCircleIcon aria-controls="account-menu" aria-haspopup="true" onClick={handleClick}>
+        <IconButton color="inherit" aria-label="account" onClick={handleClick}>
+          <AccountCircleIcon aria-controls="account-menu" aria-haspopup="true">
           </AccountCircleIcon>
         </IconButton>
 

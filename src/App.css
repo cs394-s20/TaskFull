@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
 *{
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 
@@ -57,6 +57,10 @@
   width: 100%;
 }
 
+.req-chip {
+  margin-right: 0.5em;
+}
+
 .req-row {
   display: flex;
 }
@@ -82,4 +86,9 @@
 
 .skeleton-card {
   margin: 1em 0em;
+}
+
+/* ========= NEWTASK ======== */
+.new-task-field {
+  margin: 1em 0em !important;
 }

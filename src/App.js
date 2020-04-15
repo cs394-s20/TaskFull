@@ -27,7 +27,7 @@ firebase.initializeApp(firebaseConfig);
 
 const THEME = createMuiTheme({
   typography: {
-    "fontFamily": "\"Poppins\", sans-serif"
+    "fontFamily": "\"Manrope\", sans-serif"
   }
 });
 

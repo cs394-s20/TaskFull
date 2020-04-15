@@ -48,6 +48,7 @@ const Newtask = ({handleclose}) => {
         title: title,
         author: author,
         description: description,
+        status: "unstarted",
         requirements: requirements
       });
     
@@ -58,38 +59,42 @@ const Newtask = ({handleclose}) => {
   return (
     <form onSubmit={e => submitForm(e)}>
       <Grid style={{ padding: "1em" }}>
-          <Typography  className="dialog-header" fontWeight={700} variant="h4">
+          <Typography className="dialog-header" fontWeight={700} variant="h4">
               Please fill this form to create your task
+          </Typography>
+          <Typography className="dialog-header" fontWeight={400} variant="subtitle">
+              It only takes 2 minutes!
           </Typography>
         <DialogContent>
         <div>
-          <TextField id="standard-basic" label="Title" onChange={e => setTitle(e.target.value)}/>
+          <TextField className="new-task-field" id="standard-basic" label="Title" onChange={e => setTitle(e.target.value)}/>
         </div>
         <div>
-          <TextField id="standard-basic" label="Author" onChange ={e => setAuthor(e.target.value)} />
+          <TextField className="new-task-field" id="standard-basic" label="Author" onChange ={e => setAuthor(e.target.value)} />
         </div>
         <div>
           <TextField 
-              placeholder="Description"
+              className="new-task-field"
               multiline
-              rows={2}
               rowsMax={4}
-              id="standard-basic" label="Title" onChange={e => setDescription(e.target.value)}/>
+              id="standard-basic" label="Description" onChange={e => setDescription(e.target.value)}/>
         </div>
         <Select
+          placeholder="Select Task Requirements"
+          className="new-task-field"
           isMulti
           options={options}
           onChange={handleChange}
         />
-          <TextField id="standard-basic" label="Address" />
-          <TextField id="standard-basic" label="City" />
-          <TextField id="standard-basic" label="State" />
+          <TextField className="new-task-field" id="standard-basic" label="Address" />
+          <TextField className="new-task-field" id="standard-basic" label="City" />
+          <TextField className="new-task-field" id="standard-basic" label="State" />
         </DialogContent>
                   <DialogActions>
             <Button onClick={() => handleclose()} color="primary">
               Cancel {/* BUG: Cancel not closing the Dialog */}
             </Button>
-            <Button type="submit" value="Submit" onClick={() => {handleclose()}} color="primary">
+            <Button variant="contained" type="submit" value="Submit" onClick={() => {handleclose()}} color="primary">
               Submit
             </Button>
           </DialogActions>

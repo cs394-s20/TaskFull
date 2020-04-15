@@ -48,7 +48,7 @@ const TaskCard = (props) => {
   };
 
   return (
-    <Card className={"task-card"}>
+    <Card variant="outlined" className={"task-card"}>
       <CardActionArea onClick={() => handleCardOpen(props.task)}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h5" fontWeight={700}>
@@ -61,9 +61,10 @@ const TaskCard = (props) => {
           <Typography variant="body2" color="textSecondary" component="p">
             {props.task.time}
           </Typography>
-          {/* <Typography variant="body2" color="textSecondary" component="p">
-            {props.task.status}
-          </Typography> */}
+          <div>{Object.values(props.task.requirements).map((req, index) => (
+            <Chip label={req} key={index} className="req-chip"></Chip>
+          ))}
+          </div>
           </div>
         </CardContent>
       </CardActionArea>
@@ -105,7 +106,7 @@ const TaskCard = (props) => {
           </span>
           <div className="req-row">
             {Object.values(props.task.requirements).map((req, index) => (
-                <Chip label={req} key={index}></Chip>
+                <Chip label={req} key={index} className="req-row"></Chip>
             ))}
           </div>
         </DialogContent>
