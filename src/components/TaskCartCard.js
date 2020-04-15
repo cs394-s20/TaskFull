@@ -42,6 +42,17 @@ const TaskCartCard = (props) => {
     backgroundColor: 'green',
   };
 
+  const disabled = () => {
+    console.log(props.task.status)
+    if( props.task.status == "complete") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const disable = disabled();
+
   return (
     <Card className={"task-card-unstarted"}>
       <CardActionArea onClick={() => handleCardOpen(props.task)}>
@@ -108,7 +119,7 @@ const TaskCartCard = (props) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={()=>{props.handleComplete(props.task.id); handleClose();}} autoFocus>
+          <Button onClick={()=>{props.handleComplete(props.task.id); handleClose();}} disabled={disable} autoFocus>
             Complete Task
           </Button>
         </DialogActions>
