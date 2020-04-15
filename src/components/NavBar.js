@@ -22,8 +22,13 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    color: 'white',
+    textDecoration: 'none'
   },
-}));
+  a: {
+    color: 'white',
+  }
+ }));
 
 const NavBar = ({ history }) => {
   const classes = useStyles();
@@ -43,8 +48,8 @@ const NavBar = ({ history }) => {
         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" className={classes.title}>
-          TaskFull
+        <Typography variant="h6" className={classes.title} component={Link} to={'/'}>
+            TaskFull
         </Typography>
         <IconButton color="inherit" aria-label="account" onClick={handleClick}>
           <AccountCircleIcon aria-controls="account-menu" aria-haspopup="true">
