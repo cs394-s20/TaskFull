@@ -12,6 +12,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Newtask from '../components/Newtask'
 import Dialog from '@material-ui/core/Dialog';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 // Firebase
@@ -24,6 +25,25 @@ const TasksFeed = () => {
   const [tasks, setTasks] = useState([])
   const [query, setQuery] = useState({})
   const [formOpen, setFormOpen] = useState(false)
+
+  const useStyles = makeStyles({
+    root: {
+      minWidth: 275,
+  
+    },
+    bullet: {
+      display: 'inline-block',
+      margin: '0 2px',
+      transform: 'scale(0.8)',
+    },
+    title: {
+      fontSize: 14,
+      
+    },
+    pos: {
+      marginBottom: 12,
+    },
+  });
 
 
   useEffect(() => {
@@ -90,7 +110,10 @@ const TasksFeed = () => {
       )
   }
   
+  const classes = useStyles();
+
   return (
+    
     <Grid container spacing={2}>
       <Grid style={{ padding: "1em" }} item xs={3} >
         <Filter onChange={handleQuery}></Filter>
