@@ -57,6 +57,9 @@ const TaskCard = (props) => {
       marginTop: 5,
       marginBottom: 5,
     },
+    button: {
+      background: '#ff9e80',
+    }
   });
 
   const classes = useStyles();
@@ -125,10 +128,10 @@ const TaskCard = (props) => {
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose}>
             Cancel
           </Button>
-          <Button onClick={()=>{props.handleAccept(props.task.id); handleClose(); addToCart()} } autoFocus color="secondary">
+          <Button className={classes.button} onClick={()=>{props.handleAccept(props.task.id); handleClose(); addToCart()} } autoFocus>
             Accept Task
           </Button>
         </DialogActions>
