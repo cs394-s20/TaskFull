@@ -48,7 +48,7 @@ const TaskCard = (props) => {
   };
 
   return (
-    <Card className={"task-card-" + props.task.status}>
+    <Card className={"task-card"}>
       <CardActionArea onClick={() => handleCardOpen(props.task)}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h5" fontWeight={700}>

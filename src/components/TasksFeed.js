@@ -10,6 +10,10 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Newtask from '../components/Newtask'
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
 
 
 // Firebase
@@ -77,6 +81,7 @@ const TasksFeed = () => {
   const [isLoading, setisLoading] = useState(true)
   const [tasks, setTasks] = useState([])
   const [query, setQuery] = useState({})
+  const [formOpen, setFormOpen] = useState(false)
 
   const db = firebase.database().ref().child('/tasks');
 
@@ -86,8 +91,6 @@ const TasksFeed = () => {
   useEffect(() => {
     const getFeed = snap => {
       if (snap.val()) {
-        console.log(snap.val());
-        console.log(Object.values(snap.val()));
         setTasks(Object.values(snap.val()));
         setisLoading(false)
       }
@@ -105,6 +108,12 @@ const TasksFeed = () => {
     newTasks.find(t => t.id === id).status = 'in-progress';
     setTasks(newTasks);
   }
+  
+  const handleClose = () => {
+    setFormOpen(false);
+  }
+
+  
 
   const Feed = () => {
     let loadingSkeleton = []
@@ -149,8 +158,19 @@ const TasksFeed = () => {
         <CompletedTasks></CompletedTasks>
       </Grid>
       <Grid style={{ padding: "1em" }} item xs={6} >
+        <Card onClick={() => setFormOpen(true)}>
+          Test
+        </Card>
+      <Dialog
+        open={formOpen}
+        fullWidth
+        maxWidth={'md'}
+        onClose={() => setFormOpen(false)}
+        aria-labelledby="newtask-dialog-title"
+        aria-describedby="newtask-dialog-description">
+          <Newtask handleclose={handleClose}></Newtask>
+        </Dialog>
         <Feed></Feed>
-        
       </Grid>
     </Grid>
   )
