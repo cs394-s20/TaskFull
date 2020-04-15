@@ -4,7 +4,6 @@ import TaskCartCard from '../components/TaskCartCard';
 
 const CompletedTasks = () =>{
     const [completeList, setCompleteList] = useContext(TaskCartContext);
-    console.log(completeList);
 
 
     const filteredList = completeList.filter(t=>t.status==='complete');
@@ -13,7 +12,6 @@ const CompletedTasks = () =>{
     const uniqueList =Array.from(new Set(filteredList.map(a=>a.id))).map(id=>{
         return filteredList.find(a=>a.id===id)
     });
-    console.log(uniqueList);
 
     return(
         <div>

@@ -34,8 +34,10 @@ const Newtask = ({handleclose}) => {
     // const db = firebase.database().ref().child('/tasks');
 
     const handleChange = (e) => {
-      const requirementsArray = e.map((req, i) => [i, req.value])
-      const entries = new Map([requirementsArray]);
+      if (!e) return;
+      const requirementsArray = []
+      e.map((req, i) => requirementsArray.push([i, req.value]))
+      const entries = new Map(requirementsArray);
       setRequirements(Object.fromEntries(entries));
     }
 

@@ -5,11 +5,9 @@ import TaskCartCard from '../components/TaskCartCard';
 
 const TaskCart = () => {
     const [taskCart, setTaskCart] = useContext(TaskCartContext);
-    console.log(taskCart);
     const handleComplete = id => {
         const newTaskCart = [...taskCart];
         newTaskCart.find(t => t.id === id).status = 'complete';
-        console.log(newTaskCart);
         setTaskCart(newTaskCart);
       }
 

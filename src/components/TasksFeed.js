@@ -8,6 +8,8 @@ import CompletedTasks from './CompletedTasks';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Newtask from '../components/Newtask'
@@ -158,8 +160,10 @@ const TasksFeed = () => {
         <CompletedTasks></CompletedTasks>
       </Grid>
       <Grid style={{ padding: "1em" }} item xs={6} >
-        <Card onClick={() => setFormOpen(true)}>
-          Test
+        <Card>
+          <CardActionArea className="add-task-card" onClick={() => setFormOpen(true)}>
+          Add New Task
+          </CardActionArea>
         </Card>
       <Dialog
         open={formOpen}

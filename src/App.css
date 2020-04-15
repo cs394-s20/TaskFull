@@ -18,6 +18,16 @@
   margin-right: 10px;
 }
 
+/* ========= TASKFEED ======== */
+.add-task-card {
+  padding: 0.2em 3em !important;
+  text-align: center !important;
+  min-width: 100%;
+  font-size: 24px;
+  background-color: #ffde59 !important;
+  color: #2a2a00 !important;
+}
+
 
 /* ========= TASKCARD ======== */
 .task-card {
