@@ -38,13 +38,6 @@ const TaskCartCard = (props) => {
     setOpen(false);
   };
 
-  const addToList = id => {
-    //console.log(props.task.filter(t=>t.status==='complete'));
-    const myCompletedTasks = props.task;
-
-    setCompleteList(curr => [...curr, myCompletedTasks]);
-}
-
   const style={
     backgroundColor: 'green',
   };
@@ -115,7 +108,7 @@ const TaskCartCard = (props) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={()=>{props.handleComplete(props.task.id); handleClose(); addToList();}} autoFocus>
+          <Button onClick={()=>{props.handleComplete(props.task.id); handleClose();}} autoFocus>
             Complete Task
           </Button>
         </DialogActions>

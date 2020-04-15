@@ -48,7 +48,7 @@ const Newtask = ({handleclose}) => {
         title: title,
         author: author,
         description: description,
-        status: "unstarted",
+        //status: "unstarted",
         requirements: requirements
       });
     
@@ -92,7 +92,7 @@ const Newtask = ({handleclose}) => {
         </DialogContent>
                   <DialogActions>
             <Button onClick={() => handleclose()} color="primary">
-              Cancel {/* BUG: Cancel not closing the Dialog */}
+              Cancel 
             </Button>
             <Button variant="contained" type="submit" value="Submit" onClick={() => {handleclose()}} color="primary">
               Submit
