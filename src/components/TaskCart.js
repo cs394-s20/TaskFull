@@ -13,7 +13,7 @@ const TaskCart = () => {
 
     return(
         <div>
-            <div>My Tasks: </div>
+            <div>My Tasks ({taskCart.length})</div>
             <div>{taskCart.filter(t=>t.status==='in-progress').map((task,index)=>(
                 <TaskCartCard
                 key={task.id}

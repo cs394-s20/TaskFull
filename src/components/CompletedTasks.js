@@ -15,7 +15,7 @@ const CompletedTasks = () =>{
 
     return(
         <div>
-            <div>My Completed Tasks: </div>
+            <div>My Completed Tasks ({uniqueList.length})</div>
 
 
             { <div>{uniqueList.filter(t=>t.status==='complete').map((task,index)=>(
@@ -28,8 +28,6 @@ const CompletedTasks = () =>{
                 >
                     {task.title}
             </TaskCartCard>))}</div> }
-            <div>{uniqueList.length}</div>
-
         </div>
     )
 }
