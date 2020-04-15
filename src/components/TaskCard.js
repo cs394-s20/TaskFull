@@ -19,6 +19,8 @@ import PinDropIcon from '@material-ui/icons/PinDrop';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import NotesIcon from '@material-ui/icons/Notes';
 
+import { makeStyles } from '@material-ui/core/styles';
+
 const DialogHeader = (props) => {
   return (
     <Typography className="dialog-header" fontWeight={700} variant="h4">{props.children}</Typography>
@@ -47,8 +49,23 @@ const TaskCard = (props) => {
     backgroundColor: 'green',
   };
 
+  const useStyles = makeStyles({
+    root: {
+      minWidth: 700,
+      maxWidth: 700,
+      background: '#ffecb3',
+      marginTop: 5,
+      marginBottom: 5,
+    },
+    button: {
+      background: '#ff9e80',
+    }
+  });
+
+  const classes = useStyles();
+
   return (
-    <Card variant="outlined" className={"task-card"}>
+    <Card variant="outlined" className={classes.root}>
       <CardActionArea onClick={() => handleCardOpen(props.task)}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h5" fontWeight={700}>
@@ -111,10 +128,10 @@ const TaskCard = (props) => {
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose}>
             Cancel
           </Button>
-          <Button onClick={()=>{props.handleAccept(props.task.id); handleClose(); addToCart()}} autoFocus>
+          <Button className={classes.button} onClick={()=>{props.handleAccept(props.task.id); handleClose(); addToCart()} } autoFocus>
             Accept Task
           </Button>
         </DialogActions>
