@@ -120,8 +120,8 @@ const TasksFeed = () => {
         <TaskCart></TaskCart>
         <CompletedTasks></CompletedTasks>
       </Grid>
-      <Grid style={{ padding: "1em" }} item xs={6} >
-        <Card>
+      <Grid style={{ padding: "1em", minWidth: "550"}} item xs={6} >
+        <Card style={{ width: "550" }}>
           <CardActionArea className="add-task-card" onClick={() => setFormOpen(true)}>
           Add New Task
           </CardActionArea>

@@ -51,8 +51,7 @@ const TaskCard = (props) => {
 
   const useStyles = makeStyles({
     root: {
-      minWidth: 700,
-      maxWidth: 700,
+      minWidth: 275,
       background: '#ffecb3',
       marginTop: 5,
       marginBottom: 5,
