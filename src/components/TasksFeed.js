@@ -59,13 +59,22 @@ const TasksFeed = () => {
     return () => { db.off('value', getFeed); };
   }, []);
 
-  const handleQuery = (query) => {
+  const handleQuery = (query, options) => {
     setQuery(query)
+    handleMultiFilter(options)
   }
 
   const handleAccept = id => {
     const newTasks = [...tasks];
     newTasks.find(t => t.id === id).status = 'in-progress';
+    setTasks(newTasks);
+  }
+
+  const handleMultiFilter = options => {
+    const newTasks = [...tasks];
+    console.log(options)
+    newTasks.filter(t => t.reqs === options);
+    console.log("Made it into mutlifilter")
     setTasks(newTasks);
   }
   
@@ -116,7 +125,7 @@ const TasksFeed = () => {
     
     <Grid container spacing={2}>
       <Grid style={{ padding: "1em" }} item xs={3} >
-        <Filter onChange={handleQuery}></Filter>
+        <Filter onChange={handleQuery} handleMultiFilter={handleMultiFilter}></Filter>
         <TaskCart></TaskCart>
         <CompletedTasks></CompletedTasks>
       </Grid>

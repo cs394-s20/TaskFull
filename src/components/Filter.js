@@ -33,7 +33,7 @@ const Filter = (props) => {
       defaultValue={options}
       isMulti
       options={options}
-      onChange={handleChange}
+      onChange={() => {handleChange(query, options); props.handleMultiFilter(props, options)}}
       />
     </div>
   )
