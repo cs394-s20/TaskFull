@@ -20,10 +20,16 @@ const Filter = (props) => {
   //     setQuery(draftQuery)
   // })
 
+  // function size_dict(d) { c = 0; for (i in d) ++c; return c }
+
   const handleChange = (newOptions) => {
-    //const newReqs = [...query];
-    query.reqs.map(option => option.value)
-    props.onChange(query)
+    const newReqs = newOptions;
+    console.log(newReqs)
+    if (newReqs != null){
+      newReqs.map(option => option.value)
+    }
+    setQuery(newReqs);
+    props.onChange(newReqs);
   }
 
   return (
@@ -33,7 +39,7 @@ const Filter = (props) => {
       defaultValue={options}
       isMulti
       options={options}
-      onChange={() => {handleChange(query, options); props.handleMultiFilter(props, options)}}
+      onChange={handleChange}
       />
     </div>
   )

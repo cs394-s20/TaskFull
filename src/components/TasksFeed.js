@@ -59,9 +59,21 @@ const TasksFeed = () => {
     return () => { db.off('value', getFeed); };
   }, []);
 
-  const handleQuery = (query, options) => {
+  const handleQuery = (query) => {
     setQuery(query)
-    handleMultiFilter(options)
+    console.log("QUERY")
+    console.log(query)
+    const newTasks = [...tasks];
+    console.log(newTasks)
+    if (query != null) {
+      for (var query_req in query) {
+        console.log(query_req)
+          newTasks.filter(t => t.requirements[0] === query[query_req].value);
+      }
+    }
+    console.log("These tasks should be filtered")
+    console.log(newTasks)
+    setTasks(newTasks);
   }
 
   const handleAccept = id => {
@@ -69,15 +81,6 @@ const TasksFeed = () => {
     newTasks.find(t => t.id === id).status = 'in-progress';
     setTasks(newTasks);
   }
-
-  const handleMultiFilter = options => {
-    const newTasks = [...tasks];
-    console.log(options)
-    newTasks.filter(t => t.reqs === options);
-    console.log("Made it into mutlifilter")
-    setTasks(newTasks);
-  }
-  
   const handleClose = () => {
     setFormOpen(false);
   }
@@ -125,7 +128,7 @@ const TasksFeed = () => {
     
     <Grid container spacing={2}>
       <Grid style={{ padding: "1em" }} item xs={3} >
-        <Filter onChange={handleQuery} handleMultiFilter={handleMultiFilter}></Filter>
+        <Filter onChange={handleQuery}></Filter>
         <TaskCart></TaskCart>
         <CompletedTasks></CompletedTasks>
       </Grid>
