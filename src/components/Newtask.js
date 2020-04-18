@@ -69,7 +69,7 @@ const Newtask = ({handleclose}) => {
     const useStyles = makeStyles((theme) => ({
       root: {
         flexGrow: 1,
-        height: 500,
+        height: 550,
       },
       upperfield: {
         marginRight: 50,
@@ -78,6 +78,7 @@ const Newtask = ({handleclose}) => {
       },
       desfield:{
         width: 650,
+        marginTop: 25,
       },
       newtaskfield:{
         marginTop: 1,
@@ -94,7 +95,7 @@ const Newtask = ({handleclose}) => {
 
      const classes = useStyles();
 
-     const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+     const [selectedDate, setSelectedDate] = React.useState(new Date('2020-04-18T16:11:54'));
 
       const handleDateChange = (date) => {
       setSelectedDate(date);
@@ -102,7 +103,7 @@ const Newtask = ({handleclose}) => {
 
 
   return (
-    <form onSubmit={e => submitForm(e)}>
+    <form onSubmit={e => submitForm(e) } >
       <Grid className={classes.root} style={{ padding: "1em" }}>
           <Typography className="dialog-header" fontWeight={700} variant="h4">
               Please fill this form to create your task
@@ -115,6 +116,31 @@ const Newtask = ({handleclose}) => {
           <TextField className={classes.upperfield} id="standard-basic" label="Title" onChange={e => setTitle(e.target.value)}/>
           <TextField className={classes.upperfield} id="standard-basic" label="Author" onChange ={e => setAuthor(e.target.value)} />
         </div>
+
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker className={classes.upperfield}
+            margin="normal"
+            id="date-picker-dialog"
+            label="Choose a date"
+            format="MM/dd/yyyy"
+            value={selectedDate}
+            onChange={handleDateChange}
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
+            }}
+          />
+          <KeyboardTimePicker  className={classes.upperfield}
+            margin="normal"
+            id="time-picker"
+            label="Choose a time"
+            value={selectedDate}
+            onChange={handleDateChange}
+            KeyboardButtonProps={{
+              'aria-label': 'change time',
+            }}
+          />
+        </MuiPickersUtilsProvider>
+
         <div>
           <TextField 
               className={classes.desfield}
@@ -122,34 +148,16 @@ const Newtask = ({handleclose}) => {
               rowsMax={4}
               id="standard-basic" label="Description" onChange={e => setDescription(e.target.value)}/>
         </div>
-      
-
-
-
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      
-        <KeyboardDatePicker
-          margin="normal"
-          id="date-picker-dialog"
-          label="Date picker dialog"
-          format="MM/dd/yyyy"
-          value={selectedDate}
-          onChange={handleDateChange}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-     
-    </MuiPickersUtilsProvider>
-
-       
-        <Select
+        <div>
+          <Select
           placeholder="Select Task Requirements"
           className={classes.selector}
           isMulti
           options={options}
           onChange={handleChange}
         />
+        </div>
+        
           <TextField className={classes.newtaskfield} id="standard-basic" label="Address" />
           <TextField className={classes.newtaskfield} id="standard-basic" label="City" />
           <TextField className={classes.newtaskfield} id="standard-basic" label="State" />
