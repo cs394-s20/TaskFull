@@ -16,6 +16,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    background: '#FF7F24',
+    color: '#FF7F24',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -43,8 +45,8 @@ const NavBar = ({ history }) => {
   };
 
   return (
-      <AppBar position="static">
-      <Toolbar>
+      <AppBar position="static" className={classes.menuButton}>
+      <Toolbar >
         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
           <MenuIcon />
         </IconButton>

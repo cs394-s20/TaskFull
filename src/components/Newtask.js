@@ -9,6 +9,15 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import DialogContent from '@material-ui/core/DialogContent';
+import { makeStyles } from '@material-ui/core/styles';
+
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 
 // Custom
@@ -57,9 +66,44 @@ const Newtask = ({handleclose}) => {
       event.preventDefault();
     }
 
+    const useStyles = makeStyles((theme) => ({
+      root: {
+        flexGrow: 1,
+        height: 500,
+      },
+      upperfield: {
+        marginRight: 50,
+        width: 300,
+        textAlign: "center",
+      },
+      desfield:{
+        width: 650,
+      },
+      newtaskfield:{
+        marginTop: 1,
+        marginRight: 40,
+        width: 220,
+      },
+      selector: {
+       marginTop: 40,
+       marginBottom: 80,
+       width: 650,
+      },
+
+     }));
+
+     const classes = useStyles();
+
+     const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+
+      const handleDateChange = (date) => {
+      setSelectedDate(date);
+    };
+
+
   return (
     <form onSubmit={e => submitForm(e)}>
-      <Grid style={{ padding: "1em" }}>
+      <Grid className={classes.root} style={{ padding: "1em" }}>
           <Typography className="dialog-header" fontWeight={700} variant="h4">
               Please fill this form to create your task
           </Typography>
@@ -68,28 +112,47 @@ const Newtask = ({handleclose}) => {
           </Typography>
         <DialogContent>
         <div>
-          <TextField className="new-task-field" id="standard-basic" label="Title" onChange={e => setTitle(e.target.value)}/>
-        </div>
-        <div>
-          <TextField className="new-task-field" id="standard-basic" label="Author" onChange ={e => setAuthor(e.target.value)} />
+          <TextField className={classes.upperfield} id="standard-basic" label="Title" onChange={e => setTitle(e.target.value)}/>
+          <TextField className={classes.upperfield} id="standard-basic" label="Author" onChange ={e => setAuthor(e.target.value)} />
         </div>
         <div>
           <TextField 
-              className="new-task-field"
+              className={classes.desfield}
               multiline
               rowsMax={4}
               id="standard-basic" label="Description" onChange={e => setDescription(e.target.value)}/>
         </div>
+      
+
+
+
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      
+        <KeyboardDatePicker
+          margin="normal"
+          id="date-picker-dialog"
+          label="Date picker dialog"
+          format="MM/dd/yyyy"
+          value={selectedDate}
+          onChange={handleDateChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+     
+    </MuiPickersUtilsProvider>
+
+       
         <Select
           placeholder="Select Task Requirements"
-          className="new-task-field"
+          className={classes.selector}
           isMulti
           options={options}
           onChange={handleChange}
         />
-          <TextField className="new-task-field" id="standard-basic" label="Address" />
-          <TextField className="new-task-field" id="standard-basic" label="City" />
-          <TextField className="new-task-field" id="standard-basic" label="State" />
+          <TextField className={classes.newtaskfield} id="standard-basic" label="Address" />
+          <TextField className={classes.newtaskfield} id="standard-basic" label="City" />
+          <TextField className={classes.newtaskfield} id="standard-basic" label="State" />
         </DialogContent>
                   <DialogActions>
             <Button onClick={() => handleclose()} color="primary">

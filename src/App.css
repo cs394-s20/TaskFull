@@ -91,4 +91,5 @@
 /* ========= NEWTASK ======== */
 .new-task-field {
   margin: 1em 0em !important;
+  margin-right: 30;
 }
