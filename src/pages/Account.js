@@ -2,10 +2,10 @@ import React from 'react'
 
 import NavBar from '../components/NavBar';
 
-const Account = () => {
+const Account = ({user}) => {
   return (
     <div>
-      <NavBar></NavBar>
+      <NavBar user={user}></NavBar>
       Account page
     </div>
   )

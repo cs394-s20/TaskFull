@@ -43,7 +43,6 @@ const TaskCartCard = (props) => {
   };
 
   const disabled = () => {
-    console.log(props.task.status)
     if( props.task.status == "complete") {
       return true;
     } else {

@@ -6,12 +6,12 @@ import NavBar from '../components/NavBar';
 import TaskCart from '../components/TaskCart';
 import { TaskCartProvider } from '../components/TaskCartContext';
 
-const Home = () => {
+const Home = ({user}) => {
   return (
     <TaskCartProvider>
       <div>
-        <NavBar></NavBar>
-        
+        <NavBar user={user}></NavBar>
+
         <TasksFeed></TasksFeed>
       </div>
     </TaskCartProvider>
