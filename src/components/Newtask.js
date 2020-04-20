@@ -58,7 +58,7 @@ const Newtask = ({handleclose}) => {
         title: title,
         author: author,
         description: description,
-        //status: "unstarted",
+        status: "unstarted",
         requirements: requirements
       });
     
@@ -95,11 +95,11 @@ const Newtask = ({handleclose}) => {
 
      const classes = useStyles();
 
-     const [selectedDate, setSelectedDate] = React.useState(new Date('2020-04-18T16:11:54'));
+    //  const [selectedDate, setSelectedDate] = React.useState(new Date('2020-04-18T16:11:54'));
 
-      const handleDateChange = (date) => {
-      setSelectedDate(date);
-    };
+    //   const handleDateChange = (date) => {
+    //   setSelectedDate(date);
+    // };
 
 
   return (
@@ -117,7 +117,7 @@ const Newtask = ({handleclose}) => {
           <TextField className={classes.upperfield} id="standard-basic" label="Author" onChange ={e => setAuthor(e.target.value)} />
         </div>
 
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker className={classes.upperfield}
             margin="normal"
             id="date-picker-dialog"
@@ -139,7 +139,7 @@ const Newtask = ({handleclose}) => {
               'aria-label': 'change time',
             }}
           />
-        </MuiPickersUtilsProvider>
+        </MuiPickersUtilsProvider> */}
 
         <div>
           <TextField 
