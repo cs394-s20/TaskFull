@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
   },
   a: {
     color: 'white',
+  },
+  logo: {
+    height: 35,
   }
  }));
 
@@ -50,8 +53,8 @@ const NavBar = ({ history }) => {
         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" className={classes.title} component={Link} to={'/'}>
-            TaskFull
+        <Typography className={classes.title} component={Link} to={'/'}>
+          <img src="logo_title.png" className={classes.logo} alt="TaskFull logo"></img>
         </Typography>
         <IconButton color="inherit" aria-label="account" onClick={handleClick}>
           <AccountCircleIcon aria-controls="account-menu" aria-haspopup="true">
