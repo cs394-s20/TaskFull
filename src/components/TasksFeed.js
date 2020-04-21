@@ -63,13 +63,25 @@ const TasksFeed = () => {
     setQuery(query)
     console.log("QUERY")
     console.log(query)
-    const newTasks = [...tasks];
+    var newTasks = [...tasks];
     console.log(newTasks)
     if (query != null) {
+      newTasks = newTasks.filter(task => {
+        for (var query_req in query) {
+          if (task.requirements.indexOf(query[query_req].value) != -1) {
+            return true;
+          }
+        }
+        return false;
+      })
+      /**
       for (var query_req in query) {
-        console.log(query_req)
-          newTasks.filter(t => t.requirements[0] === query[query_req].value);
+        console.log(query);
+        console.log(query_req);
+        console.log(newTasks);
+        newTasks = newTasks.filter(t => t.requirements[0] === query[query_req].value);
       }
+      */
     }
     console.log("These tasks should be filtered")
     console.log(newTasks)

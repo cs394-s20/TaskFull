@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 const options = [
     { value: 'physical', label: 'Physical' },
     { value: 'car', label: 'Car' },
-    { value: 'pet', label: 'Pet' }
+    { value: 'pets', label: 'Pets' }
   ];
 
 const Filter = (props) => {
@@ -24,7 +24,6 @@ const Filter = (props) => {
 
   const handleChange = (newOptions) => {
     const newReqs = newOptions;
-    console.log(newReqs)
     if (newReqs != null){
       newReqs.map(option => option.value)
     }
