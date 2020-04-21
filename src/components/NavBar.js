@@ -13,6 +13,22 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
+//Firebase
+import firebase from '../shared/firebase.js';
+import 'firebase/database';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+
+
+const uiConfig = {
+  signInFlow: 'popup',
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID
+  ],
+  callbacks: {
+    signInSuccessWithAuthResult: () => false
+  }
+};
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -35,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   }
  }));
 
-const NavBar = ({ history }) => {
+const NavBar = ({ user }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null)
 
@@ -69,10 +85,10 @@ const NavBar = ({ history }) => {
           onClose={handleClose}
         >
           <MenuItem component={Link} to={'/account'} onClick={handleClose}>My account</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
+          <MenuItem primary onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
         </Menu>
 
-        <Button color="inherit">Login</Button>
+        {user ? <Button primary onClick={() => firebase.auth().signOut()} color="inherit">Logout</Button> :   <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>}
       </Toolbar>
     </AppBar>
   )
