@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,6 +18,7 @@ import firebase from '../shared/firebase.js';
 import 'firebase/database';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
+const db = firebase.database().ref()
 
 const uiConfig = {
   signInFlow: 'popup',
@@ -25,7 +26,9 @@ const uiConfig = {
     firebase.auth.GoogleAuthProvider.PROVIDER_ID
   ],
   callbacks: {
-    signInSuccessWithAuthResult: () => false
+    signInSuccessWithAuthResult: () => {
+
+    }
   }
 };
 
@@ -62,6 +65,25 @@ const NavBar = ({ user }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    if (user != null) {
+      db.child('/users/' + user.uid).once("value") 
+        .then(snapshot => {
+          if (!snapshot.val()) {
+            db.child('/users/' + user.uid).set({
+              username: user.displayName,
+              tasks: {},
+              acceptedTasks: {},
+              points: 10
+            })
+          }
+          else {
+            console.log("user already exists")
+          }
+        })
+    }
+  }, [user])
 
   return (
       <AppBar position="static" className={classes.menuButton}>
