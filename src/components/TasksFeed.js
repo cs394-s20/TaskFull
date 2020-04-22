@@ -24,7 +24,7 @@ import 'firebase/database';
 const options = [
   { value: 'physical', label: 'Physical' },
   { value: 'car', label: 'Car' },
-  { value: 'pet', label: 'Pet' }
+  { value: 'pets', label: 'Pets' }
 ];
 
 const TasksFeed = () => {
@@ -36,10 +36,13 @@ const TasksFeed = () => {
 
   const handleDropdownChange = (e) => {
     let newState = Object.assign({}, filter);
-    if (!e){
-      return
-    }
+    // if (!e){
+    //   return
+    // }
     const requirementsArray = []
+    if (!e){
+      setFilter({})
+    }
     e.map((req, i) => requirementsArray.push([i, req.value]))
     const entries = new Map(requirementsArray); 
     newState.requirements = Object.fromEntries(entries)
@@ -73,6 +76,8 @@ const TasksFeed = () => {
     const getFeed = snap => {
       if (snap.val()) {
         setTasks(Object.values(snap.val()));
+        console.log(filter)
+        setFilter(Object.values(filter))
         setisLoading(false)
       }
     }
@@ -133,6 +138,7 @@ const TasksFeed = () => {
           
           {tasks.filter(t => t.status === 'unstarted').map((task, index) => {
             console.log(task.requirements)
+            console.log(filter)
             console.log(filter.requirements)
             if (filter.requirements){
               console.log(Object.values(filter.requirements))
@@ -150,6 +156,18 @@ const TasksFeed = () => {
                   )
                 }
               }
+              
+            }
+            else{
+              return (
+                <TaskCard 
+                key={task.id}
+                task={task} 
+                index={index}
+                class={task.status}
+                handleAccept={handleAccept}
+                />
+              )
             }
             //const filter_obj = Object.values(filter.requirements)
             //console.log(Object.values(filter.requirements))
