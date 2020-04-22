@@ -1,0 +1,16 @@
+.addTask
+{
+  border-radius: 30px;
+  border: 0.02px, solid black;
+  box-shadow: 10px 10px 42px 0px rgba(0,0,0,0.75);
+  height: 50px;
+  width: 50px;
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+}
+.fixPlus
+{
+  padding-top: 13px;
+  padding-left: 13px;
+}
