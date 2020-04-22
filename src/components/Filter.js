@@ -22,15 +22,15 @@ const Filter = (props) => {
 
   // function size_dict(d) { c = 0; for (i in d) ++c; return c }
 
-  const handleChange = (newOptions) => {
-    const newReqs = newOptions;
-    console.log(newReqs)
-    if (newReqs != null){
-      newReqs.map(option => option.value)
-    }
-    setQuery(newReqs);
-    props.onChange(newReqs);
-  }
+  // const handleChange = (newOptions) => {
+  //   const newReqs = newOptions;
+  //   console.log(newReqs)
+  //   if (newReqs != null){
+  //     newReqs.map(option => option.value)
+  //   }
+  //   setQuery(newReqs);
+  //   props.onChange(newReqs);
+  // }
 
   return (
     <div>
@@ -39,7 +39,7 @@ const Filter = (props) => {
       defaultValue={options}
       isMulti
       options={options}
-      onChange={handleChange}
+      // onChange={handleChange}
       />
     </div>
   )

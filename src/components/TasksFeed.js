@@ -14,16 +14,38 @@ import Newtask from '../components/Newtask'
 import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
 
+// Select
+import Select from 'react-select';
+
 // Firebase
 import firebase from 'firebase/app';
 import 'firebase/database';
 
+const options = [
+  { value: 'physical', label: 'Physical' },
+  { value: 'car', label: 'Car' },
+  { value: 'pet', label: 'Pet' }
+];
 
 const TasksFeed = () => {
   const [isLoading, setisLoading] = useState(true)
   const [tasks, setTasks] = useState([])
-  const [query, setQuery] = useState({})
+  // const [query, setQuery] = useState({})
   const [formOpen, setFormOpen] = useState(false)
+  const [filter, setFilter] = useState({});
+
+  const handleDropdownChange = (e) => {
+    let newState = Object.assign({}, filter);
+    if (!e){
+      return
+    }
+    const requirementsArray = []
+    e.map((req, i) => requirementsArray.push([i, req.value]))
+    const entries = new Map(requirementsArray); 
+    newState.requirements = Object.fromEntries(entries)
+    setFilter(newState);
+    console.log(filter);
+}
 
   const useStyles = makeStyles({
     root: {
@@ -58,33 +80,32 @@ const TasksFeed = () => {
     return () => { db.off('value', getFeed); };
   }, []);
 
-  const handleQuery = (query) => {
-    setQuery(query)
-    console.log("QUERY")
-    console.log(query)
-    const newTasks = [...tasks];
-    console.log(newTasks)
-    if (query != null) {
-      for (var query_req in query) {
-        console.log(query_req)
-          newTasks.filter(t => t.requirements[0] === query[query_req].value);
-      }
-    }
-    console.log("These tasks should be filtered")
-    console.log(newTasks)
-    setTasks(newTasks);
-  }
+  // const handleQuery = (query) => {
+  //   setQuery(query)
+  //   console.log("QUERY")
+  //   console.log(query)
+  //   const newTasks = [...tasks];
+  //   console.log(newTasks)
+  //   if (query != null) {
+  //     for (var query_req in query) {
+  //       console.log(query_req)
+  //         newTasks.filter(t => t.requirements[0] === query[query_req].value);
+  //     }
+  //   }
+  //   console.log("These tasks should be filtered")
+  //   console.log(newTasks)
+  //   setTasks(newTasks);
+  // }
 
   const handleAccept = id => {
     const newTasks = [...tasks];
     newTasks.find(t => t.id === id).status = 'in-progress';
     setTasks(newTasks);
   }
+
   const handleClose = () => {
     setFormOpen(false);
   }
-
-  
 
   const Feed = () => {
     let loadingSkeleton = []
@@ -106,17 +127,48 @@ const TasksFeed = () => {
         </div>
       )
     }
+
     return (
         <div>
-          {tasks.filter(t => t.status === 'unstarted').map((task, index) => (
-          <TaskCard 
-                key={task.id}
-                task={task} 
-                index={index}
-                class={task.status}
-                handleAccept={handleAccept}
-                />
-        ))}
+          
+          {tasks.filter(t => t.status === 'unstarted').map((task, index) => {
+            console.log(task.requirements)
+            console.log(filter.requirements)
+            if (filter.requirements){
+              console.log(Object.values(filter.requirements))
+              if (Object.keys(filter).length !== 0){
+                if(Object.values(task.requirements).some(r=> Object.values(filter.requirements).includes(r))){
+                  console.log('hi');
+                  return (
+                    <TaskCard 
+                    key={task.id}
+                    task={task} 
+                    index={index}
+                    class={task.status}
+                    handleAccept={handleAccept}
+                    />
+                  )
+                }
+              }
+            }
+            //const filter_obj = Object.values(filter.requirements)
+            //console.log(Object.values(filter.requirements))
+            // if (Object.keys(filter).length !== 0){
+            //   if(Object.values(task.requirements).includes(Object.values(filter))){
+            //     console.log('hi');
+            //     return (
+            //       <TaskCard 
+            //       key={task.id}
+            //       task={task} 
+            //       index={index}
+            //       class={task.status}
+            //       handleAccept={handleAccept}
+            //       />
+            //     )
+            //   }
+            // }
+         
+          })}
         </div>
       )
   }
@@ -127,7 +179,16 @@ const TasksFeed = () => {
     
     <Grid container spacing={2}>
       <Grid style={{ padding: "1em" }} item xs={3} >
-        <Filter onChange={handleQuery}></Filter>
+        {/* <Filter onChange={handleQuery}></Filter> */}
+        <div>
+          <div>Filter Tasks</div>
+          <Select
+            defaultValue={options}
+            isMulti
+            options={options}
+            onChange={handleDropdownChange}
+          />
+        </div>
         <TaskCart></TaskCart>
         <CompletedTasks></CompletedTasks>
       </Grid>
