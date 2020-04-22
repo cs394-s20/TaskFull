@@ -13,6 +13,7 @@ const Home = ({user}) => {
         <NavBar user={user}></NavBar>
 
         <TasksFeed></TasksFeed>
+        <div className ="addTask"></div>
       </div>
     </TaskCartProvider>
   )
