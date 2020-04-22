@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: 'url(http://porchlink.com/neighborhood-marketing/wp-content/uploads/sites/9/2017/06/neighborhoodsmall-846x450.png)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -81,8 +81,11 @@ export default function Login({ user, history }) {
     }
   };
 
-  if (!user) {
-    return (
+  if (user) {
+    return <Redirect to="/home"></Redirect>
+  }
+
+  return (
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -105,7 +108,4 @@ export default function Login({ user, history }) {
         </Grid>
       </Grid>
     )
-  } else {
-    return <Redirect to="/home"></Redirect>
-  }
 }

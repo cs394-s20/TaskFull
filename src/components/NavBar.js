@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory, Link, Redirect } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -78,12 +78,13 @@ const NavBar = ({ user }) => {
               points: 10
             })
           }
-          else {
-            console.log("user already exists")
-          }
         })
     }
   }, [user])
+
+  if (!user) {
+    return <Redirect to="/"></Redirect>
+  }
 
   return (
       <AppBar position="static" className={classes.menuButton}>
@@ -107,10 +108,10 @@ const NavBar = ({ user }) => {
           onClose={handleClose}
         >
           <MenuItem component={Link} to={'/account'} onClick={handleClose}>My account</MenuItem>
-          <MenuItem primary onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
+          <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
         </Menu>
 
-        {user ? <Button primary onClick={() => firebase.auth().signOut()} color="inherit">Logout</Button> :   <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>}
+        {user ? <Button onClick={() =>  firebase.auth().signOut()} color="inherit">Logout</Button> :   <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>}
       </Toolbar>
     </AppBar>
   )
