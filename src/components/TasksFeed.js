@@ -27,7 +27,7 @@ const options = [
   { value: 'pets', label: 'Pets' }
 ];
 
-const TasksFeed = () => {
+const TasksFeed = ({user}) => {
   const [isLoading, setisLoading] = useState(true)
   const [tasks, setTasks] = useState([])
   // const [query, setQuery] = useState({})
@@ -53,7 +53,7 @@ const TasksFeed = () => {
   const useStyles = makeStyles({
     root: {
       minWidth: 275,
-  
+
     },
     bullet: {
       display: 'inline-block',
@@ -62,7 +62,7 @@ const TasksFeed = () => {
     },
     title: {
       fontSize: 14,
-      
+
     },
     pos: {
       marginBottom: 12,
@@ -112,6 +112,11 @@ const TasksFeed = () => {
     setFormOpen(false);
   }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> f4542502736a59e978b8d5389c41ea26739970a8
   const Feed = () => {
     let loadingSkeleton = []
     for (let i = 0; i < 10; i++) {
@@ -135,6 +140,7 @@ const TasksFeed = () => {
 
     return (
         <div>
+<<<<<<< HEAD
           
           {tasks.filter(t => t.status === 'unstarted').map((task, index) => {
             console.log(task.requirements)
@@ -161,8 +167,12 @@ const TasksFeed = () => {
             else{
               return (
                 <TaskCard 
+=======
+          {tasks.filter(t => t.status === 'unstarted').map((task, index) => (
+          <TaskCard
+>>>>>>> f4542502736a59e978b8d5389c41ea26739970a8
                 key={task.id}
-                task={task} 
+                task={task}
                 index={index}
                 class={task.status}
                 handleAccept={handleAccept}
@@ -190,11 +200,11 @@ const TasksFeed = () => {
         </div>
       )
   }
-  
+
   const classes = useStyles();
 
   return (
-    
+
     <Grid container spacing={2}>
       <Grid style={{ padding: "1em" }} item xs={3} >
         {/* <Filter onChange={handleQuery}></Filter> */}
@@ -224,7 +234,7 @@ const TasksFeed = () => {
         onClose={() => setFormOpen(false)}
         aria-labelledby="newtask-dialog-title"
         aria-describedby="newtask-dialog-description">
-          <Newtask handleclose={handleClose}></Newtask>
+          <Newtask handleclose={handleClose} user={user}></Newtask>
         </Dialog>
         <Feed></Feed>
       </Grid>

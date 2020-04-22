@@ -35,11 +35,11 @@ import 'firebase/database';
 const options = [
   { value: 'physical', label: 'Physical' },
   { value: 'car', label: 'Car' },
-  { value: 'pet', label: 'Pet' }, 
+  { value: 'pet', label: 'Pet' },
   { value: 'none', label: 'None'}
 ];
 
-const Newtask = ({handleclose}) => {
+const Newtask = ({handleclose, user}) => {
   //const [title, setTitle] = useState('');
   //const [author, setAuthor] = useState('');
   //const [description, setDescription] = useState('');
@@ -81,10 +81,10 @@ const Newtask = ({handleclose}) => {
 //     if (!e) return;
 //     const requirementsArray = []
 //     e.map((req, i) => requirementsArray.push([i, req.value]))
-//     const entries = new Map(requirementsArray); 
+//     const entries = new Map(requirementsArray);
 //     console.log(requirements)
 //     setRequirements(Object.fromEntries(entries));
-    
+
 // ;  }
 
   // const [selectedDate, setSelectedDate] = React.useState(new Date());
@@ -97,13 +97,14 @@ const Newtask = ({handleclose}) => {
 
   function submit(){
     if (Object.keys(errors).length === 0){
-      
+
       console.log('Submitted successfully');
       const taskId = uniqid();
       firebase.database().ref('tasks/' + taskId).set({
         id: taskId,
         title: values.title,
         author: values.author,
+        authorid: user.uid,
         description: values.description,
         status: "unstarted",
         requirements: values.requirements
@@ -113,7 +114,7 @@ const Newtask = ({handleclose}) => {
   }
 
 return (
-  <form 
+  <form
     onSubmit={handleSubmit}
     noValidate
   >
@@ -126,11 +127,11 @@ return (
         </Typography>
       <DialogContent>
       <div>
-        <TextField 
-          className="new-task-field" 
-          id="standard-basic" 
+        <TextField
+          className="new-task-field"
+          id="standard-basic"
           label="Title"
-          name="title" 
+          name="title"
           value = {values.title}
           onChange={handleTextChange}
           //onChange={e => setTitle(e.target.value)}
@@ -139,10 +140,10 @@ return (
         { errors.title && <p className='error'>{errors.title}</p>}
       </div>
       <div>
-        <TextField 
-          className="new-task-field" 
-            id="standard-basic" 
-            label="Author" 
+        <TextField
+          className="new-task-field"
+            id="standard-basic"
+            label="Author"
             name="author"
             //onChange ={e => setAuthor(e.target.value)}
             value = {values.author}
@@ -178,12 +179,12 @@ return (
         </MuiPickersUtilsProvider> */}
 
       <div>
-        <TextField 
+        <TextField
             className="new-task-field"
             multiline
             rowsMax={4}
-            id="standard-basic" 
-            label="Description" 
+            id="standard-basic"
+            label="Description"
             name="description"
             //onChange={e => setDescription(e.target.value)}
             value = {values.description}
@@ -192,7 +193,7 @@ return (
             />
           { errors.description && <p className='error'>{errors.description}</p>}
       </div>
-     
+
       <Select
         name='req-dropdown'
         placeholder="Select Task Requirements *"
@@ -204,29 +205,29 @@ return (
       { errors.requirements && <p className='error'>{errors.requirements}</p>}
 
       <div>
-        <TextField 
-          className="new-task-field" 
-          id="standard-basic" 
+        <TextField
+          className="new-task-field"
+          id="standard-basic"
           label="Address"
           name="address"
-          onChange={handleTextChange} 
+          onChange={handleTextChange}
           value = {values.address}
           required
         />
-        <TextField 
-          className="new-task-field" 
-          id="standard-basic" 
-          label="City" 
+        <TextField
+          className="new-task-field"
+          id="standard-basic"
+          label="City"
           name="city"
           onChange={handleTextChange}
           value = {values.city}
           required
         />
-      
-        <TextField 
-          className="new-task-field" 
-          id="standard-basic" 
-          label="State" 
+
+        <TextField
+          className="new-task-field"
+          id="standard-basic"
+          label="State"
           name="state"
           onChange={handleTextChange}
           value = {values.state}
@@ -234,17 +235,17 @@ return (
         />
         </div>
         { errors.address && <p className='error'>{errors.address}</p>}
-        
-     
+
+
       </DialogContent>
                 <DialogActions>
           <Button onClick={() => handleclose()} color="primary">
-            Cancel 
+            Cancel
           </Button>
-          <Button onClick={()=> !errors ? ()=>handleclose() : null } 
-            variant="contained" 
-            type="submit" 
-            value="Submit" 
+          <Button onClick={()=> !errors ? ()=>handleclose() : null }
+            variant="contained"
+            type="submit"
+            value="Submit"
             color="primary"
           >
             Submit
