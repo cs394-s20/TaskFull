@@ -19,7 +19,7 @@ import firebase from 'firebase/app';
 import 'firebase/database';
 
 
-const TasksFeed = () => {
+const TasksFeed = ({user}) => {
   const [isLoading, setisLoading] = useState(true)
   const [tasks, setTasks] = useState([])
   const [query, setQuery] = useState({})
@@ -28,7 +28,7 @@ const TasksFeed = () => {
   const useStyles = makeStyles({
     root: {
       minWidth: 275,
-  
+
     },
     bullet: {
       display: 'inline-block',
@@ -37,7 +37,7 @@ const TasksFeed = () => {
     },
     title: {
       fontSize: 14,
-      
+
     },
     pos: {
       marginBottom: 12,
@@ -84,7 +84,7 @@ const TasksFeed = () => {
     setFormOpen(false);
   }
 
-  
+
 
   const Feed = () => {
     let loadingSkeleton = []
@@ -109,9 +109,9 @@ const TasksFeed = () => {
     return (
         <div>
           {tasks.filter(t => t.status === 'unstarted').map((task, index) => (
-          <TaskCard 
+          <TaskCard
                 key={task.id}
-                task={task} 
+                task={task}
                 index={index}
                 class={task.status}
                 handleAccept={handleAccept}
@@ -120,11 +120,11 @@ const TasksFeed = () => {
         </div>
       )
   }
-  
+
   const classes = useStyles();
 
   return (
-    
+
     <Grid container spacing={2}>
       <Grid style={{ padding: "1em" }} item xs={3} >
         <Filter onChange={handleQuery}></Filter>
@@ -145,7 +145,7 @@ const TasksFeed = () => {
         onClose={() => setFormOpen(false)}
         aria-labelledby="newtask-dialog-title"
         aria-describedby="newtask-dialog-description">
-          <Newtask handleclose={handleClose}></Newtask>
+          <Newtask handleclose={handleClose} user={user}></Newtask>
         </Dialog>
         <Feed></Feed>
       </Grid>

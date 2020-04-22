@@ -12,7 +12,7 @@ const Home = ({user}) => {
       <div>
         <NavBar user={user}></NavBar>
 
-        <TasksFeed></TasksFeed>
+        <TasksFeed user={user}></TasksFeed>
       </div>
     </TaskCartProvider>
   )
