@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useHistory, Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useHistory, Link, Redirect } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -12,6 +12,25 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+
+//Firebase
+import firebase from '../shared/firebase.js';
+import 'firebase/database';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+
+const db = firebase.database().ref()
+
+const uiConfig = {
+  signInFlow: 'popup',
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID
+  ],
+  callbacks: {
+    signInSuccessWithAuthResult: () => {
+
+    }
+  }
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   }
  }));
 
-const NavBar = ({ history }) => {
+const NavBar = ({ user }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null)
 
@@ -46,6 +65,26 @@ const NavBar = ({ history }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    if (user != null) {
+      db.child('/users/' + user.uid).once("value") 
+        .then(snapshot => {
+          if (!snapshot.val()) {
+            db.child('/users/' + user.uid).set({
+              username: user.displayName,
+              tasks: {},
+              acceptedTasks: {},
+              points: 10
+            })
+          }
+        })
+    }
+  }, [user])
+
+  if (!user) {
+    return <Redirect to="/"></Redirect>
+  }
 
   return (
       <AppBar position="static" className={classes.menuButton}>
@@ -69,10 +108,10 @@ const NavBar = ({ history }) => {
           onClose={handleClose}
         >
           <MenuItem component={Link} to={'/account'} onClick={handleClose}>My account</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
+          <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
         </Menu>
 
-        <Button color="inherit">Login</Button>
+        {user ? <Button onClick={() =>  firebase.auth().signOut()} color="inherit">Logout</Button> :   <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>}
       </Toolbar>
     </AppBar>
   )
