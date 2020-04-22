@@ -27,7 +27,7 @@ const options = [
   { value: 'pets', label: 'Pets' }
 ];
 
-const TasksFeed = ({user}) => {
+const TasksFeed = () => {
   const [isLoading, setisLoading] = useState(true)
   const [tasks, setTasks] = useState([])
   // const [query, setQuery] = useState({})
@@ -36,24 +36,23 @@ const TasksFeed = ({user}) => {
 
   const handleDropdownChange = (e) => {
     let newState = Object.assign({}, filter);
-    // if (!e){
-    //   return
-    // }
+    console.log(filter);
     const requirementsArray = []
     if (!e){
       setFilter({})
+      return;
     }
     e.map((req, i) => requirementsArray.push([i, req.value]))
     const entries = new Map(requirementsArray); 
     newState.requirements = Object.fromEntries(entries)
     setFilter(newState);
-    console.log(filter);
+    //console.log(filter);
 }
 
   const useStyles = makeStyles({
     root: {
       minWidth: 275,
-
+  
     },
     bullet: {
       display: 'inline-block',
@@ -62,7 +61,7 @@ const TasksFeed = ({user}) => {
     },
     title: {
       fontSize: 14,
-
+      
     },
     pos: {
       marginBottom: 12,
@@ -85,23 +84,6 @@ const TasksFeed = ({user}) => {
     return () => { db.off('value', getFeed); };
   }, []);
 
-  // const handleQuery = (query) => {
-  //   setQuery(query)
-  //   console.log("QUERY")
-  //   console.log(query)
-  //   const newTasks = [...tasks];
-  //   console.log(newTasks)
-  //   if (query != null) {
-  //     for (var query_req in query) {
-  //       console.log(query_req)
-  //         newTasks.filter(t => t.requirements[0] === query[query_req].value);
-  //     }
-  //   }
-  //   console.log("These tasks should be filtered")
-  //   console.log(newTasks)
-  //   setTasks(newTasks);
-  // }
-
   const handleAccept = id => {
     const newTasks = [...tasks];
     newTasks.find(t => t.id === id).status = 'in-progress';
@@ -112,11 +94,6 @@ const TasksFeed = ({user}) => {
     setFormOpen(false);
   }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> f4542502736a59e978b8d5389c41ea26739970a8
   const Feed = () => {
     let loadingSkeleton = []
     for (let i = 0; i < 10; i++) {
@@ -140,7 +117,6 @@ const TasksFeed = ({user}) => {
 
     return (
         <div>
-<<<<<<< HEAD
           
           {tasks.filter(t => t.status === 'unstarted').map((task, index) => {
             console.log(task.requirements)
@@ -167,44 +143,24 @@ const TasksFeed = ({user}) => {
             else{
               return (
                 <TaskCard 
-=======
-          {tasks.filter(t => t.status === 'unstarted').map((task, index) => (
-          <TaskCard
->>>>>>> f4542502736a59e978b8d5389c41ea26739970a8
                 key={task.id}
-                task={task}
+                task={task} 
                 index={index}
                 class={task.status}
                 handleAccept={handleAccept}
                 />
               )
             }
-            //const filter_obj = Object.values(filter.requirements)
-            //console.log(Object.values(filter.requirements))
-            // if (Object.keys(filter).length !== 0){
-            //   if(Object.values(task.requirements).includes(Object.values(filter))){
-            //     console.log('hi');
-            //     return (
-            //       <TaskCard 
-            //       key={task.id}
-            //       task={task} 
-            //       index={index}
-            //       class={task.status}
-            //       handleAccept={handleAccept}
-            //       />
-            //     )
-            //   }
-            // }
          
           })}
         </div>
       )
   }
-
+  
   const classes = useStyles();
 
   return (
-
+    
     <Grid container spacing={2}>
       <Grid style={{ padding: "1em" }} item xs={3} >
         {/* <Filter onChange={handleQuery}></Filter> */}
@@ -234,7 +190,7 @@ const TasksFeed = ({user}) => {
         onClose={() => setFormOpen(false)}
         aria-labelledby="newtask-dialog-title"
         aria-describedby="newtask-dialog-description">
-          <Newtask handleclose={handleClose} user={user}></Newtask>
+          <Newtask handleclose={handleClose}></Newtask>
         </Dialog>
         <Feed></Feed>
       </Grid>
