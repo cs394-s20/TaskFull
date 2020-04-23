@@ -44,7 +44,7 @@ const Newtask = ({handleclose, user}) => {
   //const [author, setAuthor] = useState('');
   //const [description, setDescription] = useState('');
   //const [values, setValues] = useState({ title: '', author: '', description: ''});//address: '', city: '', state: ''});
-  const [requirements, setRequirements] = useState({});
+  const [inputList, setInputList] = useState([{item: "", quantity: ""}]);
 
   // const db = firebase.database().ref().child('/tasks');
 
@@ -76,6 +76,44 @@ const Newtask = ({handleclose, user}) => {
    }));
 
    const classes = useStyles();
+
+   const ItemInput = ({input}) => {
+     return (
+       <div>
+        <TextField
+          className="item-box"
+          id="standard-basic"
+          label="Item"
+          name="item"
+          value = {input.item}
+          onChange={handleTextChange}
+          //onChange={e => setTitle(e.target.value)}
+          required
+          />
+        <TextField
+          className="item-box"
+          id="standard-basic"
+          label="Quantity"
+          name="quantity"
+          value = {input.quantity}
+          onChange={handleTextChange}
+          //onChange={e => setTitle(e.target.value)}
+          required
+          />
+       </div>
+     )
+   }
+
+  const ItemInputList = ({inputList, setInputList}) => {
+    return (
+      <div>
+        {inputList.map(elem => <ItemInput input={elem}/>)}
+        <div className="item-list-btns">
+          <Button onClick={() => setInputList([...inputList, {item: "", quantity: ""}])}>+</Button>
+        </div>
+      </div>
+    )
+  }
 
 //    const handleSelectChange = (e) => {
 //     if (!e) return;
@@ -194,15 +232,9 @@ return (
           { errors.description && <p className='error'>{errors.description}</p>}
       </div>
 
-      <Select
-        name='req-dropdown'
-        placeholder="Select Task Requirements *"
-        className="new-task-field"
-        isMulti
-        options={options}
-        onChange={handleDropdownChange}
-      />
-      { errors.requirements && <p className='error'>{errors.requirements}</p>}
+      <div className="item-input">
+        <ItemInputList inputList={inputList} setInputList={setInputList}/>
+      </div>
 
       <div>
         <TextField
