@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import DialogContent from '@material-ui/core/DialogContent';
 import { makeStyles } from '@material-ui/core/styles';
 import SnoozeIcon from "@material-ui/icons/Snooze";
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
@@ -45,6 +47,7 @@ const Newtask = ({handleclose, user}) => {
   //const [description, setDescription] = useState('');
   //const [values, setValues] = useState({ title: '', author: '', description: ''});//address: '', city: '', state: ''});
   const [inputList, setInputList] = useState([{item: "", quantity: ""}]);
+  
 
   // const db = firebase.database().ref().child('/tasks');
 
@@ -77,6 +80,7 @@ const Newtask = ({handleclose, user}) => {
 
    const classes = useStyles();
 
+   const [length, setLength] = useState(1);
    const ItemInput = ({input}) => {
      return (
        <div>
@@ -100,20 +104,37 @@ const Newtask = ({handleclose, user}) => {
           //onChange={e => setTitle(e.target.value)}
           required
           />
+          <DeleteForeverIcon onClick={() => {setLength(length-1)}}>-</DeleteForeverIcon>
        </div>
      )
    }
 
+   
   const ItemInputList = ({inputList, setInputList}) => {
+    
+    let lst = [];
+    let children = [];
+    for(let i = 0; i < length; i++){
+      children.push(<ItemInput input={""}/>);
+    }
+    lst.push(children);
+
     return (
+      // <div>
+      //   {inputList.map(elem => <ItemInput input={elem}/>)}
+      //   <div className="item-list-btns">
+      //     <Button onClick={() => {setInputList([...inputList, {item: "", quantity: ""}])}}>+</Button>
+          
+      //   </div>
+      // </div>
       <div>
-        {inputList.map(elem => <ItemInput input={elem}/>)}
-        <div className="item-list-btns">
-          <Button onClick={() => setInputList([...inputList, {item: "", quantity: ""}])}>+</Button>
-        </div>
+        {lst}
+        <AddCircleIcon onClick={() => {setLength(length+1)}}></AddCircleIcon>
       </div>
     )
   }
+
+ 
 
 //    const handleSelectChange = (e) => {
 //     if (!e) return;
