@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
 
 import '../App.css';
+
+// Other components 
 import TaskCard from './TaskCard';
-import Filter from './Filter';
 import TaskCart from './TaskCart';
 import CompletedTasks from './CompletedTasks';
+import FilterCard from './FilterCard'
+
+// Material UI
 import Skeleton from '@material-ui/lab/Skeleton';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -22,6 +26,7 @@ import Select from 'react-select';
 // Firebase
 import firebase from 'firebase/app';
 import 'firebase/database';
+
 
 const options = [
   { value: 'physical', label: 'Physical' },
@@ -165,14 +170,10 @@ const TasksFeed = () => {
     
     <Grid container spacing={2}>
       <Grid style={{ padding: "1em" }} item xs={3} >
-        {/* <Filter onChange={handleQuery}></Filter> */}
+       
         <div>
-          <div>Filter Tasks</div>
-          <Select
-            defaultValue={options}
-            isMulti
-            options={options}
-            onChange={handleDropdownChange}
+          <FilterCard
+            handleDropdownChange={handleDropdownChange}
           />
         </div>
         <TaskCart></TaskCart>
