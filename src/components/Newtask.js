@@ -169,7 +169,9 @@ const Newtask = ({handleclose, user}) => {
       // </div>
       <div>
         {lst}
-        <AddCircleIcon onClick={() => {setLength(length+1)}}></AddCircleIcon>
+        <AddCircleIcon onClick={() => {
+          setLength(length+1); 
+          setInputList({ item: '', quantity: ''})}}></AddCircleIcon>
       </div>
     )
   }
