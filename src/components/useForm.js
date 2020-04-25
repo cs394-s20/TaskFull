@@ -7,18 +7,12 @@ const useForm = (callback, validateForm) =>{
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleTextChange = e =>{
-        //console.log(e.target)
-        
         const {name,value} = e.target;
-        //console.log(name);
-        //console.log(value);
         setValues({
           ...values,
           [name]: value
         })
       }
-
-
     
 
     const handleDropdownChange = (e) => {
@@ -29,34 +23,8 @@ const useForm = (callback, validateForm) =>{
         newState.requirements = Object.fromEntries(entries)
         setValues(newState);
         console.log(values);
-      // if (!e) return;
-    //   const requirementsArray = []
-    //   e.map((req, i) => requirementsArray.push([i, req.value]))
-    //   const entries = new Map(requirementsArray); 
-    //   setValues(Object.fromEntries(entries));
     }
 
-    // const handleSelectChange = name => value => {
-      //const {name,value} = e.target;
-      // console.log(e);
-      //if (!e) return;
-      // const requirementsArray = []
-      //e.map((req, i) => requirementsArray.push([i, req.value]))
-      //const entries = new Map(requirementsArray); 
-    //   console.log(requirementsArray);
-    //   console.log(entries);
-    //   console.log(Object.fromEntries(entries));
-      
-    //   setValues({
-    //       ...values,
-    //       [values.requirements]: Object.fromEntries(entries)});
-      //console.log(values.requirements);
-
-//         setValues({
-//           ...values,
-//           [name]: value
-//     });
-// }
       const handleSubmit = e =>{
         e.preventDefault();
         setErrors(validateForm(values));

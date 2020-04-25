@@ -7,7 +7,7 @@
 
 .status{
   /*border: 1px solid black;*/
-  padding-left:200px;
+  padding-left:300px;
 }
 
 .header{
@@ -92,4 +92,20 @@
 .new-task-field {
   margin: 1em 0em !important;
   margin-right: 30;
+}
+
+.addTask
+{
+  border-radius: 30px;
+  border: 0.02px, solid black;
+  box-shadow: 10px 10px 42px 0px rgba(0,0,0,0.75);
+  height: 50px;
+  width: 50px;
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+}
+.fixPlus
+{
+  padding: 10px;
 }
