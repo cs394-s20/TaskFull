@@ -1,7 +1,15 @@
 import React, {useState, useEffect } from 'react'
+import '../App.css';
 import {Redirect} from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -35,9 +43,37 @@ import Typography from '@material-ui/core/Typography';
 import firebase from 'firebase/app';
 import 'firebase/database';
 
+const useStyles = makeStyles({
+  root: {
+    textAlign: "center"
+  },
+  info: {
+    marginTop: 5,
+    marginBottom: 5,
+    fontSize: 18,
+    
+  },
+  stats: {
+    width: "100%",
+    textAlign: "left",
+    marginTop: 20,
+    padding: "0 0 0 30%" 
+  },
+  preferences: {
+    width: "100%",
+    textAlign: "left",
+    padding: "0 0 0 30%" 
+  },
+  accountinfo: {
+    width: "100%",
+  }
+});
+
 
 const Account = ({ user }) => {
   const [editing, setEditing] = useState(false)
+
+  const classes = useStyles();
 
   const userObject = {
     points: 10,
@@ -54,7 +90,7 @@ const Account = ({ user }) => {
   return (
     <div>
       <Editbutton editing={{ editing, setEditing }}/>
-      <Profile editing={editing} currUser={userinfo} />
+      <Profile editingstate={{ editing, setEditing }} />
     </div>
   )
 }
@@ -63,20 +99,87 @@ const Editbutton = ({editing}) => {
   if (editing.editing) {
     return <div><Button onClick={() => editing.setEditing(!editing.editing)}>Save Edits</Button></div>;
   } else {
-    return <div><Button onClick={() => editing.setEditing(!editing.editing)}>Edit Profile</Button></div>;
+    return <div></div>
   }
 };
 
 
-const Profile = ({ editing, currUser }) => {
-  if (!editing) {
+const Profile = ({ editingstate }) => {
+
+  const classes = useStyles();
+  const bull = <span className={classes.bullet}>•</span>;
+
+  if (!editingstate.editing) {
     return (
       <div>
-      <Typography variant="h3" gutterBottom>
-          Patrice Power
-      </Typography>
-      <p>Current Tasks</p>
-      <p>Past Tasks</p>
+        <Card className={classes.root} variant="outlined">
+          <CardContent>
+            <Typography className={classes.title} color="textSecondary" gutterBottom>
+              My Profile
+        </Typography>
+            <Typography variant="h5" component="h2">
+              Patrice Power
+        </Typography>
+            <Typography className={classes.pos} color="textSecondary">
+              457 points
+        </Typography>
+            <Typography variant="body2" component="p">
+              Vegetarian
+          <br />
+              Trader Joe's
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small" onClick={() => editingstate.setEditing(!editingstate.editing)}>Edit Profile</Button>
+          </CardActions>
+        </Card>
+        <div className="account-task-list">
+          <p>Current Tasks</p>
+          <Grid style={{ padding: "1em", maxWidth:600, minWidth:600 }}>
+            <Card className="current-task">
+              <CardActionArea className="current-task-action">
+                <p className={classes.info}>Linda J.</p>
+                <p className={classes.info}>Whole Foods</p>
+              </CardActionArea>
+            </Card>
+            <Card className="current-task">
+              <CardActionArea className="current-task-action">
+                <p className={classes.info}>Joe S.</p>
+                <p className={classes.info}>Wegman's</p>
+              </CardActionArea>
+            </Card>
+          </Grid>
+      </div>
+        <div className="account-task-list">
+          <p>Past Tasks</p>
+          <Grid style={{ padding: "1em"}} item xs={6} >
+            <Card className="past-task">
+              <CardActionArea className="past-task-action">
+                <p className={classes.info}>Katie P.</p>
+                <p className={classes.info}>CVS</p>
+              </CardActionArea>
+            </Card>
+            <Card className="past-task">
+              <CardActionArea className="past-task-action">
+                <p className={classes.info}>Cameron M.</p>
+                <p className={classes.info}>Shaws</p>
+              </CardActionArea>
+            </Card>
+            <Card className="past-task">
+              <CardActionArea className="past-task-action">
+                <p className={classes.info}>Elizabeth B.</p>
+                <p className={classes.info}>Giant</p>
+              </CardActionArea>
+            </Card>
+            <Card className="past-task">
+              <CardActionArea className="past-task-action">
+                <p className={classes.info}>Dave C.</p>
+                <p className={classes.info}>Jewel</p>
+              </CardActionArea>
+            </Card>
+
+          </Grid>
+        </div>
     </div>
     )
   } 
