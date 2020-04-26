@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 
 const useForm = (callback, validateForm) =>{
-    const [values, setValues] = useState({ title: '', author: '', description: '', requirements: {}, address: '', city: '', state: ''});
+    const [values, setValues] = useState({ title: '', author: '', description: '', items: [{name: "", quantity:""}], address: '', city: '', state: ''});
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -14,16 +14,38 @@ const useForm = (callback, validateForm) =>{
         })
       }
     
-
-    const handleDropdownChange = (e) => {
-        let newState = Object.assign({}, values);
-        const requirementsArray = []
-        e.map((req, i) => requirementsArray.push([i, req.value]))
-        const entries = new Map(requirementsArray); 
-        newState.requirements = Object.fromEntries(entries)
-        setValues(newState);
-        console.log(values);
+    const handleItemsChange = event =>{
+      const tempItems = [...values.items];
+      tempItems[event.target.dataset.id][event.target.name] = event.target.value;
+      setValues({...values, [event.target.name]: tempItems})
     }
+
+    const addNewItem = () => {
+      const tempItems = [...values.items, { name:'',quantity:''}]
+      setValues(prevState => ({ ...prevState, items: tempItems}))
+    };
+
+    const deleteNewItem = index=> ()=>{
+      const tempItems = [...values.items].filter((s, sidx) => index !== sidx)
+      console.log(tempItems);
+      setValues(prevState=>({prevState, items: tempItems}))
+    }
+
+    // const getTotalItems = () => {
+    //   return values.items.reduce((total, item) => {
+    //     return total + Number(item.quantity);
+    //   }, 0);
+    // };
+
+    // const handleDropdownChange = (e) => {
+    //     let newState = Object.assign({}, values);
+    //     const requirementsArray = []
+    //     e.map((req, i) => requirementsArray.push([i, req.value]))
+    //     const entries = new Map(requirementsArray); 
+    //     newState.requirements = Object.fromEntries(entries)
+    //     setValues(newState);
+    //     console.log(values);
+    // }
 
       const handleSubmit = e =>{
         e.preventDefault();
@@ -42,7 +64,9 @@ const useForm = (callback, validateForm) =>{
 
       return {
         handleTextChange,
-        handleDropdownChange,
+        handleItemsChange,
+        addNewItem,
+        deleteNewItem,
         handleSubmit,
         values,
         errors
