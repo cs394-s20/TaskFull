@@ -13,9 +13,9 @@ export default function validateForm(values) {
         errors.description = "Description is required"
     }
 
-    if (Object.keys(values.requirements).length===0){
-        errors.requirements = "Requirements are required"
-    }
+    // if (Object.keys(values.requirements).length===0){
+    //     errors.requirements = "Requirements are required"
+    // }
 
     if (!values.address || !values.city || !values.state || (!values.address && !values.city && !values.state)){
         errors.address = "Address is required"

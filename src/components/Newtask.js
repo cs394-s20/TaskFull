@@ -34,6 +34,8 @@ import TextField from '@material-ui/core/TextField';
 import firebase from 'firebase/app';
 import 'firebase/database';
 
+import "./CostTable.css";
+
 const options = [
   { value: 'physical', label: 'Physical' },
   { value: 'car', label: 'Car' },
@@ -80,7 +82,6 @@ const Newtask = ({handleclose, user}) => {
 
    const classes = useStyles();
 
-   
 
  
 
@@ -99,82 +100,86 @@ const Newtask = ({handleclose, user}) => {
   // const handleDateChange = (date) => {
   //   setSelectedDate(date);
   // };
-  const {handleTextChange, handleDropdownChange, handleSubmit, values, errors} = useForm(submit, validateForm);
+  const {handleTextChange, handleItemsChange, addNewItem, deleteNewItem, getTotalItems, handleSubmit, values, errors} = useForm(submit, validateForm);
 
 
-  function submit(){
-    if (Object.keys(errors).length === 0){
+function submit(){
+  console.log('submitted');
+}
 
-      console.log('Submitted successfully');
-      const taskId = uniqid();
-      firebase.database().ref('tasks/' + taskId).set({
-        id: taskId,
-        title: values.title,
-        author: values.author,
-        authorid: user.uid,
-        description: values.description,
-        status: "unstarted",
-        requirements: values.requirements
-      })
-      handleclose();
-    }
-  }
+  // function submit(){
+  //   if (Object.keys(errors).length === 0){
 
-  const [length, setLength] = useState(1);
-   const ItemInput = () => {
-     return (
-       <div>
-        <TextField
-          className="item-box"
-          id="standard-basic"
-          label="Item"
-          name="item"
-          value = {values.item}
-          onChange={handleTextChange}
-          //onChange={e => setTitle(e.target.value)}
-          required
-          />
-        <TextField
-          className="item-box"
-          id="standard-basic"
-          label="Quantity"
-          name="quantity"
-          value = {values.quantity}
-          onChange={handleTextChange}
-          //onChange={e => setTitle(e.target.value)}
-          required
-          />
-          <DeleteForeverIcon onClick={() => {setLength(length-1)}}>-</DeleteForeverIcon>
-       </div>
-     )
-   }
+  //     console.log('Submitted successfully');
+  //     const taskId = uniqid();
+  //     firebase.database().ref('tasks/' + taskId).set({
+  //       id: taskId,
+  //       title: values.title,
+  //       author: values.author,
+  //       //authorid: user.uid,
+  //       description: values.description,
+  //       status: "unstarted",
+  //       requirements: values.requirements
+  //     })
+  //     handleclose();
+  //   }
+  // }
+
+  // const [length, setLength] = useState(1);
+  //  const ItemInput = () => {
+  //    return (
+  //      <div>
+  //       <TextField
+  //         className="item-box"
+  //         id="standard-basic"
+  //         label="Item"
+  //         name="item"
+  //         value = {values.item}
+  //         onChange={handleTextChange}
+  //         //onChange={e => setTitle(e.target.value)}
+  //         required
+  //         />
+  //       <TextField
+  //         className="item-box"
+  //         id="standard-basic"
+  //         label="Quantity"
+  //         name="quantity"
+  //         value = {values.quantity}
+  //         onChange={handleTextChange}
+  //         //onChange={e => setTitle(e.target.value)}
+  //         required
+  //         />
+  //         <DeleteForeverIcon onClick={() => {setLength(length-1)}}>-</DeleteForeverIcon>
+  //      </div>
+  //    )
+  //  }
 
    
-  const ItemInputList = ({inputList, setInputList}) => {
+  // const ItemInputList = ({inputList, setInputList}) => {
     
-    let lst = [];
-    let children = [];
-    for(let i = 0; i < length; i++){
-      children.push(<ItemInput input={""}/>);
-    }
-    lst.push(children);
+  //   let lst = [];
+  //   let children = [];
+  //   for(let i = 0; i < length; i++){
+  //     children.push(<ItemInput input={""}/>);
+  //   }
+  //   lst.push(children);
 
-    return (
-      // <div>
-      //   {inputList.map(elem => <ItemInput input={elem}/>)}
-      //   <div className="item-list-btns">
-      //     <Button onClick={() => {setInputList([...inputList, {item: "", quantity: ""}])}}>+</Button>
+  //   return (
+  //     // <div>
+  //     //   {inputList.map(elem => <ItemInput input={elem}/>)}
+  //     //   <div className="item-list-btns">
+  //     //     <Button onClick={() => {setInputList([...inputList, {item: "", quantity: ""}])}}>+</Button>
           
-      //   </div>
-      // </div>
-      <div>
-        {lst}
-        <AddCircleIcon onClick={() => {
-          setLength(length+1); 
-          setInputList({ item: '', quantity: ''})}}></AddCircleIcon>
-      </div>
-    )
-  }
+  //     //   </div>
+  //     // </div>
+  //     <div>
+  //       {lst}
+  //       <AddCircleIcon onClick={() => {
+  //         setLength(length+1); 
+  //         setInputList({ item: '', quantity: ''})}}></AddCircleIcon>
+  //     </div>
+  //   )
+  // }
 
 return (
   <form
@@ -257,9 +262,65 @@ return (
           { errors.description && <p className='error'>{errors.description}</p>}
       </div>
 
-      <div className="item-input">
+      {/* <div className="item-input">
         <ItemInputList inputList={inputList} setInputList={setInputList}/>
-      </div>
+      </div> */}
+
+      <div className="table">
+            <div className="table-title">Food costs</div>
+            <div className="table-content">
+              <div className="table-header">
+                <div className="table-row">
+                  <div className="table-data">
+                    <div>Item</div>
+                  </div>
+                  <div className="table-data">
+                    <div>Price</div>
+                  </div>
+                </div>
+              </div>
+              <div className="table-body">
+                {values.items.map((item, index) => (
+                  <div className="table-row" key={index}>
+                    <div className="table-data">
+                      <input
+                        name="name"
+                        data-id={index}
+                        type="text"
+                        value={item.name}
+                        onChange={handleItemsChange}
+                      />
+                    </div>
+                    <div className="table-data">
+                      <input
+                        name="quantity"
+                        data-id={index}
+                        type="text"
+                        value={item.quantity}
+                        onChange={handleItemsChange}
+                      />
+                      <DeleteForeverIcon onClick={deleteNewItem(index)}>-</DeleteForeverIcon>
+                    </div>
+                  </div>
+                ))}
+                <div className="table-row">
+                  <div className="table-data">
+                    <button type="button" onClick={addNewItem}>+</button>
+                  </div>
+                </div>
+              </div>
+              <div className="table-footer">
+                <div className="table-row">
+                  <div className="table-data">
+                    <div>Total</div>
+                  </div>
+                  <div className="table-data">
+                    {/* <div>{getTotalCosts()}</div> */}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
       <div>
         <TextField
