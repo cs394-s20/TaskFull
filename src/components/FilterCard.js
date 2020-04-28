@@ -30,7 +30,7 @@ const FilterCard = (props) => {
   const useStyles = makeStyles({
     root: {
       minWidth: 275,
-      minHeight:135,
+      minHeight: 120,
       background: '#ffecb3',
       marginTop: 5,
       marginBottom: 5,
@@ -66,6 +66,7 @@ const FilterCard = (props) => {
           <Select
             className={filterStyle.root}
             defaultValue={options}
+            maxMenuHeight={50}
             isMulti
             options={options}
             onChange={props.handleDropdownChange}

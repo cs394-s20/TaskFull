@@ -13,9 +13,6 @@ export default function validateForm(values) {
         errors.description = "Description is required"
     }
 
-    if (values.items.length === 1){
-        errors.items = "Must enter an item"
-    }
 
     // if (!values.items.name)
 

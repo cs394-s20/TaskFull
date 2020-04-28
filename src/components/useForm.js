@@ -31,6 +31,12 @@ const useForm = (callback, validateForm) =>{
     };
 
     const deleteNewItem = index=> ()=>{
+      if (values.items.length === 1){
+        //error message
+        return;
+      }
+      // if values.items.length === 1 && if name and quantity fields are blank:
+      //  error message
       const tempItems = [...values.items].filter((s, sidx) => index !== sidx)
       console.log(tempItems);
       setValues(prevState=>({prevState, items: tempItems}))
