@@ -29,7 +29,6 @@ const FilterCard = (props) => {
 
   const useStyles = makeStyles({
     root: {
-      minWidth: 275,
       minHeight:135,
       background: '#ffecb3',
       marginTop: 5,
@@ -39,7 +38,6 @@ const FilterCard = (props) => {
 
   const filterStyles = makeStyles({
     root: {
-      minWidth: 220,
       minHeight:2,
       background: '#ffecb3',
       marginTop: 5,
