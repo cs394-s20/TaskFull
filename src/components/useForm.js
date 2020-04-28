@@ -16,6 +16,11 @@ const useForm = (callback, validateForm) =>{
     
     const handleItemsChange = event =>{
       const tempItems = [...values.items];
+      console.log(tempItems);
+      console.log(tempItems[event.target.dataset.id])
+      console.log(tempItems[event.target.dataset.id][event.target.name])
+
+      // tempItems[event.target.name] = event.target.value;
       tempItems[event.target.dataset.id][event.target.name] = event.target.value;
       setValues({...values, [event.target.name]: tempItems})
     }

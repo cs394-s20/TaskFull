@@ -275,7 +275,7 @@ return (
                     <div>Item</div>
                   </div>
                   <div className="table-data">
-                    <div>Price</div>
+                    <div>Quantity</div>
                   </div>
                 </div>
               </div>
@@ -283,21 +283,27 @@ return (
                 {values.items.map((item, index) => (
                   <div className="table-row" key={index}>
                     <div className="table-data">
-                      <input
-                        name="name"
-                        data-id={index}
-                        type="text"
-                        value={item.name}
-                        onChange={handleItemsChange}
+                    <TextField
+                      className="new-task-field"
+                      id="standard-basic"
+                      inputProps={{'data-id':index}}
+                      label="Item"
+                      name="name"
+                      value = {item.name}
+                      onChange={handleItemsChange}
+                      required
                       />
                     </div>
                     <div className="table-data">
-                      <input
+                      <TextField
+                        className="new-task-field"
+                        id="standard-basic"
+                        inputProps={{'data-id':index}}
+                        label="Item"
                         name="quantity"
-                        data-id={index}
-                        type="text"
-                        value={item.quantity}
+                        value = {item.quantity}
                         onChange={handleItemsChange}
+                        required
                       />
                       <DeleteForeverIcon onClick={deleteNewItem(index)}>-</DeleteForeverIcon>
                     </div>
@@ -305,14 +311,15 @@ return (
                 ))}
                 <div className="table-row">
                   <div className="table-data">
-                    <button type="button" onClick={addNewItem}>+</button>
+                    <AddCircleIcon onClick={addNewItem}></AddCircleIcon>
+                    {/* <button type="button" onClick={addNewItem}>+</button> */}
                   </div>
                 </div>
               </div>
               <div className="table-footer">
                 <div className="table-row">
                   <div className="table-data">
-                    <div>Total</div>
+                <div>Total No. of Items: {values.items.length}</div>
                   </div>
                   <div className="table-data">
                     {/* <div>{getTotalCosts()}</div> */}
