@@ -14,22 +14,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-// ```
-// userID: {
-//   acceptedTasks: {
-
-//   },
-//   CompletedTasks: {
-
-//   },
-//   points:
-// }
-
-// task: {
-
-// }
-// ```
-
 // user - google
 //   - displayname
 //   - uid
@@ -72,20 +56,9 @@ const useStyles = makeStyles({
 
 const Account = ({ user }) => {
   const [editing, setEditing] = useState(false)
-
   const classes = useStyles();
-
-  const userObject = {
-    points: 10,
-    username:'User',
-    preferences: {
-      value: 'vegan', label: 'Vegan'
-    }
-  }
-
   const [userinfo, setUserInfo] = useState([]);
   const [loading, setLoading] = useState(true);
-
 
   return (
     <div>
@@ -106,6 +79,7 @@ const Editbutton = ({editing}) => {
 
 
 const Profile = ({ user, editingstate }) => {
+  const classes = useStyles();
   const [userData, setUserData] = useState({});
   useEffect(() => {
     if (user) {
@@ -120,8 +94,17 @@ const Profile = ({ user, editingstate }) => {
     }
   }, []);
   console.log(userData);
-  const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+
+  const getTask = id => {
+    db.child('/tasks/' + id).once("value") 
+    .then(snapshot => {
+      const task = snapshot.val()
+      if (task) {
+        return task
+      }
+    })
+  }
+
   if (!editingstate.editing && user) {
     return (
       <div>
@@ -129,25 +112,25 @@ const Profile = ({ user, editingstate }) => {
           <CardContent>
             <Typography className={classes.title} color="textSecondary" gutterBottom>
               My Profile
-        </Typography>
-            <Typography variant="h5" component="h2">
-              {user.displayName}
-        </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              {userData.points + " points"}
-        </Typography>
-            <Typography variant="body2" component="p">
-              Vegetarian
-          <br />
-              Trader Joe's
             </Typography>
+            <Typography variant="h5" component="h2">
+              {userData.username}
+            </Typography>
+            <Typography color="textSecondary">
+              {userData.points + " points"}
+            </Typography>
+            {userData.preferences ? userData.preferences.map((pref, i) => 
+              <Typography variant="body2" component="p" key={i}>
+                {pref}
+              </Typography>
+            ): <span></span>}
           </CardContent>
           <CardActions>
             <Button size="small" onClick={() => editingstate.setEditing(!editingstate.editing)}>Edit Profile</Button>
           </CardActions>
         </Card>
         <div className="account-task-list">
-          <p>Current Tasks</p>
+          <p>To Do</p>
           <Grid style={{ padding: "1em", maxWidth:600, minWidth:600 }}>
             <Card className="current-task">
               <CardActionArea className="current-task-action">
@@ -155,16 +138,10 @@ const Profile = ({ user, editingstate }) => {
                 <p className={classes.info}>Whole Foods</p>
               </CardActionArea>
             </Card>
-            <Card className="current-task">
-              <CardActionArea className="current-task-action">
-                <p className={classes.info}>Joe S.</p>
-                <p className={classes.info}>Wegman's</p>
-              </CardActionArea>
-            </Card>
           </Grid>
       </div>
         <div className="account-task-list">
-          <p>Past Tasks</p>
+          <p>Posted Tasks</p>
           <Grid style={{ padding: "1em"}} item xs={6} >
             <Card className="past-task">
               <CardActionArea className="past-task-action">
