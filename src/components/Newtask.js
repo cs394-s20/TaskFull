@@ -34,7 +34,7 @@ import TextField from '@material-ui/core/TextField';
 import firebase from 'firebase/app';
 import 'firebase/database';
 
-import "./CostTable.css";
+import "./ItemsTable.css";
 
 const options = [
   { value: 'physical', label: 'Physical' },
@@ -44,9 +44,6 @@ const options = [
 ];
 
 const Newtask = ({handleclose, user}) => {
-  //const [title, setTitle] = useState('');
-  //const [author, setAuthor] = useState('');
-  //const [description, setDescription] = useState('');
   //const [values, setValues] = useState({ title: '', author: '', description: ''});//address: '', city: '', state: ''});
   const [inputList, setInputList] = useState({ item: '', quantity: ''});
   
@@ -125,61 +122,6 @@ function submit(){
   //   }
   // }
 
-  // const [length, setLength] = useState(1);
-  //  const ItemInput = () => {
-  //    return (
-  //      <div>
-  //       <TextField
-  //         className="item-box"
-  //         id="standard-basic"
-  //         label="Item"
-  //         name="item"
-  //         value = {values.item}
-  //         onChange={handleTextChange}
-  //         //onChange={e => setTitle(e.target.value)}
-  //         required
-  //         />
-  //       <TextField
-  //         className="item-box"
-  //         id="standard-basic"
-  //         label="Quantity"
-  //         name="quantity"
-  //         value = {values.quantity}
-  //         onChange={handleTextChange}
-  //         //onChange={e => setTitle(e.target.value)}
-  //         required
-  //         />
-  //         <DeleteForeverIcon onClick={() => {setLength(length-1)}}>-</DeleteForeverIcon>
-  //      </div>
-  //    )
-  //  }
-
-   
-  // const ItemInputList = ({inputList, setInputList}) => {
-    
-  //   let lst = [];
-  //   let children = [];
-  //   for(let i = 0; i < length; i++){
-  //     children.push(<ItemInput input={""}/>);
-  //   }
-  //   lst.push(children);
-
-  //   return (
-  //     // <div>
-  //     //   {inputList.map(elem => <ItemInput input={elem}/>)}
-  //     //   <div className="item-list-btns">
-  //     //     <Button onClick={() => {setInputList([...inputList, {item: "", quantity: ""}])}}>+</Button>
-          
-  //     //   </div>
-  //     // </div>
-  //     <div>
-  //       {lst}
-  //       <AddCircleIcon onClick={() => {
-  //         setLength(length+1); 
-  //         setInputList({ item: '', quantity: ''})}}></AddCircleIcon>
-  //     </div>
-  //   )
-  // }
 
 return (
   <form
@@ -188,7 +130,7 @@ return (
   >
     <Grid style={{ padding: "1em" }}>
         <Typography className="dialog-header" fontWeight={700} variant="h4">
-            Please fill this form to create your task
+            Please fill this form for your grocery run
         </Typography>
         <Typography className="dialog-header" fontWeight={400} variant="subtitle">
             It only takes 2 minutes!
@@ -213,7 +155,6 @@ return (
             id="standard-basic"
             label="Author"
             name="author"
-            //onChange ={e => setAuthor(e.target.value)}
             value = {values.author}
             onChange={handleTextChange}
             required
@@ -267,7 +208,7 @@ return (
       </div> */}
 
       <div className="table">
-            <div className="table-title">Food costs</div>
+            <div className="table-title">Items List</div>
             <div className="table-content">
               <div className="table-header">
                 <div className="table-row">
@@ -299,7 +240,7 @@ return (
                         className="new-task-field"
                         id="standard-basic"
                         inputProps={{'data-id':index}}
-                        label="Item"
+                        label="Quantity"
                         name="quantity"
                         value = {item.quantity}
                         onChange={handleItemsChange}
@@ -321,13 +262,16 @@ return (
                   <div className="table-data">
                 <div>Total No. of Items: {values.items.length}</div>
                   </div>
+                  
                   <div className="table-data">
-                    {/* <div>{getTotalCosts()}</div> */}
                   </div>
+                  
                 </div>
+               
               </div>
             </div>
           </div>
+          { errors.items && <p className='error'>{errors.items}</p>}
 
       <div>
         <TextField

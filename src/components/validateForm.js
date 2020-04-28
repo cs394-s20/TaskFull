@@ -13,6 +13,10 @@ export default function validateForm(values) {
         errors.description = "Description is required"
     }
 
+    if (values.items.length === 1){
+        errors.items = "Must enter an item"
+    }
+
     // if (Object.keys(values.requirements).length===0){
     //     errors.requirements = "Requirements are required"
     // }
