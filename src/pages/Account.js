@@ -96,7 +96,7 @@ const Profile = ({ user, editingstate }) => {
   console.log(userData);
 
   const getTask = id => {
-    db.child('/tasks/' + id).once("value") 
+    const db = firebase.database().ref().child('/tasks/' + id).once("value") 
     .then(snapshot => {
       const task = snapshot.val()
       if (task) {
