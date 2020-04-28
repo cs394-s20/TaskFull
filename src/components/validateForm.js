@@ -17,6 +17,8 @@ export default function validateForm(values) {
         errors.items = "Must enter an item"
     }
 
+    // if (!values.items.name)
+
     // if (Object.keys(values.requirements).length===0){
     //     errors.requirements = "Requirements are required"
     // }

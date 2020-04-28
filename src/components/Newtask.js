@@ -15,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import SnoozeIcon from "@material-ui/icons/Snooze";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
@@ -30,6 +31,8 @@ import Select from 'react-select'
 
 // Material UI
 import TextField from '@material-ui/core/TextField';
+import Favorite from '@material-ui/icons/Favorite'
+
 
 import firebase from 'firebase/app';
 import 'firebase/database';
@@ -92,11 +95,11 @@ const Newtask = ({handleclose, user}) => {
 
 // ;  }
 
-  // const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
 
-  // const handleDateChange = (date) => {
-  //   setSelectedDate(date);
-  // };
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
   const {handleTextChange, handleItemsChange, addNewItem, deleteNewItem, getTotalItems, handleSubmit, values, errors} = useForm(submit, validateForm);
 
 
@@ -162,7 +165,7 @@ return (
         { errors.author && <p className='error'>{errors.author}</p>}
       </div>
 
-      {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker className={classes.upperfield}
             margin="normal"
             id="date-picker-dialog"
@@ -184,8 +187,9 @@ return (
             KeyboardButtonProps={{
               'aria-label': 'change time',
             }}
+            keyboardIcon={<AccessTimeIcon/>}
           />
-        </MuiPickersUtilsProvider> */}
+        </MuiPickersUtilsProvider>
 
       <div>
         <TextField
