@@ -89,8 +89,9 @@ const Account = ({ user }) => {
 
   return (
     <div>
+      <NavBar user={user}></NavBar>
       <Editbutton editing={{ editing, setEditing }}/>
-      <Profile editingstate={{ editing, setEditing }} />
+      <Profile user={user} editingstate={{ editing, setEditing }} />
     </div>
   )
 }
@@ -104,12 +105,24 @@ const Editbutton = ({editing}) => {
 };
 
 
-const Profile = ({ editingstate }) => {
-
+const Profile = ({ user, editingstate }) => {
+  const [userData, setUserData] = useState({});
+  useEffect(() => {
+    if (user) {
+      const db = firebase.database().ref().child('/users').child('/' + user.uid);
+      const getUserData = snap => {
+        if (snap.val()) {
+          setUserData(snap.val());
+        }
+      }
+      db.on('value', getUserData, error => alert(error));
+      return () => { db.off('value', getUserData); };
+    }
+  }, []);
+  console.log(userData);
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-
-  if (!editingstate.editing) {
+  if (!editingstate.editing && user) {
     return (
       <div>
         <Card className={classes.root} variant="outlined">
@@ -118,10 +131,10 @@ const Profile = ({ editingstate }) => {
               My Profile
         </Typography>
             <Typography variant="h5" component="h2">
-              Patrice Power
+              {user.displayName}
         </Typography>
             <Typography className={classes.pos} color="textSecondary">
-              457 points
+              {userData.points + " points"}
         </Typography>
             <Typography variant="body2" component="p">
               Vegetarian
