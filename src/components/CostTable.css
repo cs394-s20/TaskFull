@@ -1,8 +1,9 @@
 .table {
-  width: 100%;
+  width: calc(100% - 200px);
+  float: right;
+  margin-top: -220px;
   border: 1px solid #ddd;
   border-radius: 0.125rem;
-  margin-bottom: 1rem;
 }
 
 .table .table-title {
@@ -78,6 +79,29 @@
 }
 
 .table-data {
-  padding: 0.75rem 1rem;
+  padding: 0.3rem 1rem;
   flex: 1 0 auto;
+}
+
+#add-item {
+  text-decoration: underline;
+  cursor: pointer;
+  color: rgb(104, 147, 228);
+  font-size: 14px;
+}
+
+#add-item:hover {
+  text-decoration: none;
+}
+
+.delete-item {
+  height: 17px !important;
+  position: relative;
+  top: 4px;
+  left: 30px;
+  cursor: pointer;
+}
+
+.delete-item:hover {
+  color: #aaa
 }

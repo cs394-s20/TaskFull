@@ -14,7 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { makeStyles } from '@material-ui/core/styles';
 import SnoozeIcon from "@material-ui/icons/Snooze";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import HighlightOff from '@material-ui/icons/HighlightOff';
 
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
@@ -267,7 +267,7 @@ return (
       </div> */}
 
       <div className="table">
-            <div className="table-title">Food costs</div>
+            <div className="table-title">Items</div>
             <div className="table-content">
               <div className="table-header">
                 <div className="table-row">
@@ -275,7 +275,7 @@ return (
                     <div>Item</div>
                   </div>
                   <div className="table-data">
-                    <div>Price</div>
+                    <div>Quantity</div>
                   </div>
                 </div>
               </div>
@@ -299,26 +299,27 @@ return (
                         value={item.quantity}
                         onChange={handleItemsChange}
                       />
-                      <DeleteForeverIcon onClick={deleteNewItem(index)}>-</DeleteForeverIcon>
+                      <HighlightOff className="delete-item" onClick={deleteNewItem(index)}>-</HighlightOff>
                     </div>
                   </div>
                 ))}
                 <div className="table-row">
                   <div className="table-data">
-                    <button type="button" onClick={addNewItem}>+</button>
+                    <a id="add-item" onClick={addNewItem}>Add Another Item+</a>
                   </div>
                 </div>
               </div>
+              {/*
               <div className="table-footer">
                 <div className="table-row">
                   <div className="table-data">
                     <div>Total</div>
                   </div>
                   <div className="table-data">
-                    {/* <div>{getTotalCosts()}</div> */}
+                    {/* <div>{getTotalCosts()}</div> }
                   </div>
                 </div>
-              </div>
+              </div>*/}
             </div>
           </div>
 
