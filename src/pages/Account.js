@@ -60,11 +60,11 @@ const Account = ({ user }) => {
   const [userinfo, setUserInfo] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  return (
+return (
     <div>
       <NavBar user={user}></NavBar>
       <Editbutton editing={{ editing, setEditing }}/>
-      <Profile user={user} editingstate={{ editing, setEditing }} />
+      <Profile user={user} editingstate={{ editing, setEditing }} loadingstate={{ loading, setLoading}} />
     </div>
   )
 }
@@ -78,15 +78,17 @@ const Editbutton = ({editing}) => {
 };
 
 
-const Profile = ({ user, editingstate }) => {
+const Profile = ({ user, editingstate, loadingstate }) => {
   const classes = useStyles();
   const [userData, setUserData] = useState({});
+
   useEffect(() => {
     if (user) {
       const db = firebase.database().ref().child('/users').child('/' + user.uid);
       const getUserData = snap => {
         if (snap.val()) {
           setUserData(snap.val());
+          loadingstate.setLoading(false)
         }
       }
       db.on('value', getUserData, error => alert(error));
@@ -95,14 +97,18 @@ const Profile = ({ user, editingstate }) => {
   }, []);
   console.log(userData);
 
+  if (loadingstate.loading) {
+    return <div>Loading</div>
+  }
+
   const getTask = id => {
     console.log(id)
     const db = firebase.database().ref().child('/tasks/' + id).once("value")
       .then(snapshot => {
         const task = snapshot.val()
         if (task) {
-          return <p className={classes.info}>
-            {task.author} </p>
+          console.log(task)
+          return <p className={classes.info}> {task.author}</p>
         }
       })
   }
@@ -167,49 +173,5 @@ const Profile = ({ user, editingstate }) => {
     </div>
   )
 }
-
-
-
-  // useEffect(() => {
-  //   const dbUser = firebase.database().ref().child(`/users/${user.uid}`);
-    
-    // console.log(dbUser)
-
-  //   const getUser = snap => {
-  //     if (snap.val()) {
-  //       setUserInfo(Object.values(snap.val()));
-  //       console.log(userinfo)
-  //       setLoading(false)
-  //     }
-  //   }
-  //   dbUser.on('value', getUser, error => alert(error));
-  //   return () => { dbUser.off('value', getUser); };
-  // }, []);
-
-  // if (loading) {
-  //   return <div>Loading</div>
-  // }
-
-  // if (user) {
-  //   return (<div>
-  //     <NavBar user={user}></NavBar>
-  //     <Paper elevation={6}>
-  //       My Account
-  //     <Typography variant="h3" gutterBottom>
-  //       {userinfo.username}
-  //     </Typography>
-  //     <Typography variant="h6" gutterBottom>
-  //       {userinfo.points}
-  //     </Typography>
-  //     {/* <Typography variant="h6" gutterBottom>
-  //       {user.preferences}
-  //     </Typography> */}
-  //     </Paper>
-  //   </div>)
-  // }
-
-  // return (
-  //   <Redirect to="/"></Redirect>
-  // )
 
 export default Account
