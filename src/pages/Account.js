@@ -96,18 +96,17 @@ const Profile = ({ user, editingstate }) => {
   console.log(userData);
 
   const getTask = id => {
-    const db = firebase.database().ref().child('/tasks/' + id).once("value") 
-    .then(snapshot => {
-      const task = snapshot.val()
-      if (task) {
-        return task
-      }
-    })
+    console.log(id)
+    const db = firebase.database().ref().child('/tasks/' + id).once("value")
+      .then(snapshot => {
+        const task = snapshot.val()
+        if (task) {
+          return <p className={classes.info}>
+            {task.author} </p>
+        }
+      })
   }
 
-  if (!user) {
-    return <div>loading...</div>
-  }
 
   if (!editingstate.editing && user) {
     return (
@@ -123,11 +122,11 @@ const Profile = ({ user, editingstate }) => {
             <Typography color="textSecondary">
               {userData.points + " points"}
             </Typography>
-            {userData.preferences ? userData.preferences.map((pref, i) => 
+            {userData.preferences ? userData.preferences.map((pref, i) =>
               <Typography variant="body2" component="p" key={i}>
                 {pref}
               </Typography>
-            ): <span></span>}
+            ) : <span></span>}
           </CardContent>
           <CardActions>
             <Button size="small" onClick={() => editingstate.setEditing(!editingstate.editing)}>Edit Profile</Button>
@@ -135,46 +134,29 @@ const Profile = ({ user, editingstate }) => {
         </Card>
         <div className="account-task-list">
           <p>To Do</p>
-          <Grid style={{ padding: "1em", maxWidth:600, minWidth:600 }}>
-            <Card className="current-task">
-              <CardActionArea className="current-task-action">
-                <p className={classes.info}>Linda J.</p>
-                <p className={classes.info}>Whole Foods</p>
-              </CardActionArea>
-            </Card>
-          </Grid>
-      </div>
-        <div className="account-task-list">
-          <p>Posted Tasks</p>
-          <Grid style={{ padding: "1em"}} item xs={6} >
-            <Card className="past-task">
-              <CardActionArea className="past-task-action">
-                <p className={classes.info}>Katie P.</p>
-                <p className={classes.info}>CVS</p>
-              </CardActionArea>
-            </Card>
-            <Card className="past-task">
-              <CardActionArea className="past-task-action">
-                <p className={classes.info}>Cameron M.</p>
-                <p className={classes.info}>Shaws</p>
-              </CardActionArea>
-            </Card>
-            <Card className="past-task">
-              <CardActionArea className="past-task-action">
-                <p className={classes.info}>Elizabeth B.</p>
-                <p className={classes.info}>Giant</p>
-              </CardActionArea>
-            </Card>
-            <Card className="past-task">
-              <CardActionArea className="past-task-action">
-                <p className={classes.info}>Dave C.</p>
-                <p className={classes.info}>Jewel</p>
-              </CardActionArea>
-            </Card>
-
+          <Grid style={{ padding: "1em", maxWidth: 600, minWidth: 600 }}>
+            {userData.posted_tasks ? Object.keys(userData.posted_tasks).map((taskid, i) =>
+              <Card className="current-task">
+                <CardActionArea className="current-task-action">
+                  <p className={classes.info}>{taskid}</p>
+                </CardActionArea>
+              </Card>
+            ) : <span></span>}
           </Grid>
         </div>
-    </div>
+        <div className="account-task-list">
+          <p>Posted Tasks</p>
+          <Grid style={{ padding: "1em" }} item xs={6} >
+            {userData.to_do ? Object.keys(userData.to_do).map((taskid, i) =>
+              <Card className="past-task">
+                <CardActionArea className="past-task-action">
+                  {getTask(taskid)}
+                </CardActionArea>
+              </Card>
+            ) : <span></span>}
+          </Grid>
+        </div>
+      </div>
     )
   } 
   return (
