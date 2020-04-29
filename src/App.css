@@ -3,7 +3,11 @@
   font-family: 'Manrope', sans-serif;
 }
 
-
+/* ========= TASKFEED ======== */
+.login-button {
+  text-decoration: none !important;
+  color: white;
+}
 
 .status{
   /*border: 1px solid black;*/

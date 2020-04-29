@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, Link, Redirect } from 'react-router-dom'
+import '../App.css'
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -16,20 +17,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 //Firebase
 import firebase from '../shared/firebase.js';
 import 'firebase/database';
-
-// const db = firebase.database().ref()
-
-const uiConfig = {
-  signInFlow: 'popup',
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID
-  ],
-  callbacks: {
-    signInSuccessWithAuthResult: () => {
-
-    }
-  }
-};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,19 +55,11 @@ const NavBar = ({ user }) => {
 
   const signOutUser = () => {
     firebase.auth().signOut()
-    setSignedIn(false)
+    localStorage.setItem("user", null)
   }
 
-  // if (!user) {
-  //   
-  // }
-
-  if (!user) {
-    return <Redirect to="/"></Redirect>
-  }
-
-  // if (!user) {
-  //   return <div>Loading...</div>
+  // if (!signedIn) {
+  //   return <Redirect to="/"></Redirect>
   // }
 
   return (
@@ -108,7 +87,9 @@ const NavBar = ({ user }) => {
           <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
         </Menu>
 
-        <Button onClick={signOutUser} color="inherit">Logout</Button> 
+        <Link className="login-button" to="/">
+          <Button onClick={signOutUser} color="inherit">Logout</Button> 
+        </Link>
       </Toolbar>
     </AppBar>
   )

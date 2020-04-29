@@ -95,14 +95,14 @@ export default function Login({ user, history }) {
               to_do: null,
               posted_tasks: null,
               points: 10,
-              postedAt: new Date()
             })
           }
         })
     }
+    localStorage.setItem('user', JSON.stringify(user))
   }, [user])
 
-  if (user) {
+  if (loggedIn) {
     return <Redirect to="/home"></Redirect>
   }
 
@@ -119,7 +119,7 @@ export default function Login({ user, history }) {
               Sign in
             </Typography>
             {user ?
-              <Button color="primary" onClick={() => firebase.auth().signOut()} color="inherit">Logout</Button>:  
+              <Button color="primary" onClick={() => setLoggedIn(true)} color="inherit">Go Home</Button>:  
               <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
             }
               <Box mt={5}>

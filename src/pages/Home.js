@@ -7,6 +7,11 @@ import TaskCart from '../components/TaskCart';
 import { TaskCartProvider } from '../components/TaskCartContext';
 
 const Home = ({user}) => {
+
+  if (!user) {
+    return <div>loading...</div>
+  }
+
   return (
     <TaskCartProvider>
       <div>
