@@ -68,7 +68,7 @@ const NavBar = ({ user }) => {
         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
           <MenuIcon />
         </IconButton>
-        <Typography className={classes.title} component={Link} to={'/'}>
+        <Typography className={classes.title} component={Link} to={'/home'}>
           <img src="logo_title.png" className={classes.logo} alt="TaskFull logo"></img>
         </Typography>
         <IconButton color="inherit" aria-label="account" onClick={handleClick}>
