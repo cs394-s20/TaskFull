@@ -24,9 +24,17 @@ const THEME = createMuiTheme({
 
 function App() {
   const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null)
+
   useEffect(() => {
    firebase.auth().onAuthStateChanged(setUser);
   }, []);
+
+  useEffect(() => {
+    if (!user) {
+      localStorage.setItem('user', null)
+    } 
+  }, [user])
 
   return (
     <div className="App">

@@ -60,7 +60,7 @@ const FilterCard = (props) => {
     <Card variant="outlined" className={classes.root}>
  
         <CardContent>
-          <Typography className= {filterStyle.typography} gutterBottom variant="h7" component="h7" fontWeight={200}>
+          <Typography className= {filterStyle.typography} gutterBottom variant="h6" component="h6" fontWeight={200}>
             Filter Tasks
           </Typography>
           <Select

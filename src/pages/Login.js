@@ -1,5 +1,5 @@
   
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -77,9 +77,30 @@ export default function Login({ user, history }) {
       firebase.auth.GoogleAuthProvider.PROVIDER_ID
     ],
     callbacks: {
-      signInSuccessWithAuthResult: () => setLoggedIn(true)
+      signInSuccessWithAuthResult: () => {
+        setLoggedIn(true)
+      }
     }
   };
+
+  useEffect(() => {
+    const db = firebase.database().ref()
+
+    if (user != null) {
+      db.child('/users/' + user.uid).once("value") 
+        .then(snapshot => {
+          if (!snapshot.val()) {
+            db.child('/users/' + user.uid).set({
+              username: user.displayName,
+              to_do: null,
+              posted_tasks: null,
+              points: 10,
+              postedAt: new Date()
+            })
+          }
+        })
+    }
+  }, [user])
 
   if (user) {
     return <Redirect to="/home"></Redirect>

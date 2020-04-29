@@ -16,9 +16,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 //Firebase
 import firebase from '../shared/firebase.js';
 import 'firebase/database';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
-const db = firebase.database().ref()
+// const db = firebase.database().ref()
 
 const uiConfig = {
   signInFlow: 'popup',
@@ -57,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const NavBar = ({ user }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null)
+  const [signedIn, setSignedIn] = useState(true)
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -66,25 +66,22 @@ const NavBar = ({ user }) => {
     setAnchorEl(null);
   };
 
-  useEffect(() => {
-    if (user != null) {
-      db.child('/users/' + user.uid).once("value") 
-        .then(snapshot => {
-          if (!snapshot.val()) {
-            db.child('/users/' + user.uid).set({
-              username: user.displayName,
-              tasks: {},
-              acceptedTasks: {},
-              points: 10
-            })
-          }
-        })
-    }
-  }, [user])
+  const signOutUser = () => {
+    firebase.auth().signOut()
+    setSignedIn(false)
+  }
+
+  // if (!user) {
+  //   
+  // }
 
   if (!user) {
     return <Redirect to="/"></Redirect>
   }
+
+  // if (!user) {
+  //   return <div>Loading...</div>
+  // }
 
   return (
       <AppBar position="static" className={classes.menuButton}>
@@ -111,7 +108,7 @@ const NavBar = ({ user }) => {
           <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
         </Menu>
 
-        {user ? <Button onClick={() =>  firebase.auth().signOut()} color="inherit">Logout</Button> :   <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>}
+        <Button onClick={signOutUser} color="inherit">Logout</Button> 
       </Toolbar>
     </AppBar>
   )
