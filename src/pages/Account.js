@@ -107,8 +107,8 @@ const Profile = ({ user, editingstate, loadingstate }) => {
       .then(snapshot => {
         const task = snapshot.val()
         if (task) {
-          console.log(task)
-          return <p className={classes.info}> {task.author}</p>
+          console.log(JSON.stringify(task))
+          return task
         }
       })
   }
@@ -141,7 +141,7 @@ const Profile = ({ user, editingstate, loadingstate }) => {
         <div className="account-task-list">
           <p>To Do</p>
           <Grid style={{ padding: "1em", maxWidth: 600, minWidth: 600 }}>
-            {userData.posted_tasks ? Object.keys(userData.posted_tasks).map((taskid, i) =>
+            {userData.to_do ? Object.keys(userData.to_do).map((taskid, i) =>
               <Card className="current-task">
                 <CardActionArea className="current-task-action">
                   <p className={classes.info}>{taskid}</p>
@@ -153,10 +153,10 @@ const Profile = ({ user, editingstate, loadingstate }) => {
         <div className="account-task-list">
           <p>Posted Tasks</p>
           <Grid style={{ padding: "1em" }} item xs={6} >
-            {userData.to_do ? Object.keys(userData.to_do).map((taskid, i) =>
-              <Card className="past-task">
+            {userData.posted_tasks ? Object.keys(userData.posted_tasks).map((taskid, i) =>
+              <Card key="i" className="past-task">
                 <CardActionArea className="past-task-action">
-                  {getTask(taskid)}
+                  {getTask(taskid).title}
                 </CardActionArea>
               </Card>
             ) : <span></span>}
