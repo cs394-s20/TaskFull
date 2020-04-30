@@ -3,6 +3,7 @@ import '../App.css';
 import uniqid from 'uniqid';
 import useForm from './useForm';
 import validateForm from './validateForm';
+import moment from 'moment';
 
 import {TaskCartContext} from '../components/TaskCartContext'
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -110,7 +111,7 @@ const Newtask = ({handleclose, user}) => {
       console.log('Submitted successfully');
       const taskId = uniqid();
       const db = firebase.database().ref()
-      const fullAddress = values.address + values.city + ',' + values.state;
+      const fullAddress = values.address + ', ' + values.city + ', ' + values.state;
       db.child('tasks/' + taskId).set({
         id: taskId,
         title: values.title,
@@ -118,9 +119,10 @@ const Newtask = ({handleclose, user}) => {
         author: values.author,
         authorid: user.uid,
         description: values.description,
+        completeBy: selectedDate.toString(),
         address: fullAddress,
         status: "unstarted",
-        postedAt: new Date()
+        postedAt: moment().format('MMMM Do YYYY, h:mm:ss a')
       })
       db.child('users/' + user.uid + '/posted_tasks/' + taskId).set('unstarted');
       handleclose();
