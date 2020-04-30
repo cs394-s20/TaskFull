@@ -77,10 +77,10 @@ const TaskCard = (props) => {
           <Typography variant="body2" color="textSecondary" component="p">
             {props.task.time}
           </Typography>
-          <div>{Object.values(props.task.requirements).map((req, index) => (
+          {/* <div>{Object.values(props.task.requirements).map((req, index) => (
             <Chip label={req} key={index} className="req-chip"></Chip>
           ))}
-          </div>
+          </div> */}
           </div>
         </CardContent>
       </CardActionArea>
@@ -120,11 +120,11 @@ const TaskCard = (props) => {
               {props.task.description}
             </Typography>
           </span>
-          <div className="req-row">
+          {/* <div className="req-row">
             {Object.values(props.task.requirements).map((req, index) => (
                 <Chip label={req} key={index} className="req-row"></Chip>
             ))}
-          </div>
+          </div> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>

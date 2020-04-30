@@ -103,27 +103,29 @@ const Newtask = ({handleclose, user}) => {
   const {handleTextChange, handleItemsChange, addNewItem, deleteNewItem, getTotalItems, handleSubmit, values, errors} = useForm(submit, validateForm);
 
 
-function submit(){
-  console.log('submitted');
-}
 
-  // function submit(){
-  //   if (Object.keys(errors).length === 0){
+  function submit(){
+    if (Object.keys(errors).length === 0){
 
-  //     console.log('Submitted successfully');
-  //     const taskId = uniqid();
-  //     firebase.database().ref('tasks/' + taskId).set({
-  //       id: taskId,
-  //       title: values.title,
-  //       author: values.author,
-  //       //authorid: user.uid,
-  //       description: values.description,
-  //       status: "unstarted",
-  //       requirements: values.requirements
-  //     })
-  //     handleclose();
-  //   }
-  // }
+      console.log('Submitted successfully');
+      const taskId = uniqid();
+      const db = firebase.database().ref()
+      const fullAddress = values.address + values.city + ',' + values.state;
+      db.child('tasks/' + taskId).set({
+        id: taskId,
+        title: values.title,
+        items: values.items,
+        author: values.author,
+        authorid: user.uid,
+        description: values.description,
+        address: fullAddress,
+        status: "unstarted",
+        postedAt: new Date()
+      })
+      db.child('users/' + user.uid + '/posted_tasks/' + taskId).set('unstarted');
+      handleclose();
+    }
+  }
 
 
 return (

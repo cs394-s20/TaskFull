@@ -32,7 +32,7 @@ const options = [
   { value: 'pets', label: 'Pets' }
 ];
 
-const TasksFeed = () => {
+const TasksFeed = ({ user }) => {
   const [isLoading, setisLoading] = useState(true)
   const [tasks, setTasks] = useState([])
   // const [query, setQuery] = useState({})
@@ -191,7 +191,7 @@ const TasksFeed = () => {
         onClose={() => setFormOpen(false)}
         aria-labelledby="newtask-dialog-title"
         aria-describedby="newtask-dialog-description">
-          <Newtask handleclose={handleClose}></Newtask>
+          <Newtask handleclose={handleClose} user={user}></Newtask>
         </Dialog>
         <Feed></Feed>
       </Grid>

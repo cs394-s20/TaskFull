@@ -84,7 +84,7 @@ const Profile = ({ user, editingstate, loadingstate }) => {
 
   useEffect(() => {
     if (user) {
-      const db = firebase.database().ref().child('/users').child('/' + user.uid);
+      const db = firebase.database().ref().child('/users/' + user.uid);
       const getUserData = snap => {
         if (snap.val()) {
           setUserData(snap.val());
