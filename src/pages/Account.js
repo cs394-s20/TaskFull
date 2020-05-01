@@ -5,6 +5,15 @@ import NavBar from '../components/NavBar';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
+// Material UI
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import PinDropIcon from '@material-ui/icons/PinDrop';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import NotesIcon from '@material-ui/icons/Notes';
+
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -50,7 +59,11 @@ const useStyles = makeStyles({
   },
   accountinfo: {
     width: "100%",
-  }
+  },
+  completebutton: {
+    marginBottom: 5,
+    fontSize: 8,
+  },
 });
 
 
@@ -77,8 +90,8 @@ const Editbutton = ({editing}) => {
   }
 };
 
-
 const Profile = ({ user, editingstate, loadingstate }) => {
+  const [open, setOpen] = useState(false);
   const classes = useStyles();
   const [userData, setUserData] = useState({});
   const [alltasks, setAllTasks] = useState([]);
@@ -154,29 +167,15 @@ const Profile = ({ user, editingstate, loadingstate }) => {
         <div className="account-task-list">
           <p>To Do</p>
           <Grid style={{ padding: "1em", maxWidth: 600, minWidth: 600 }}>
-            {alltasks.filter(t => t.acceptedBy === user.uid).map((task) => {
-              return (
-                <Card className="current-task">
-                  <CardActionArea className="current-task-action">
-                    <h3 className={classes.info}>{task.title}</h3>
-                    <p className={classes.info}>{task.author}</p>
-                  </CardActionArea>
-                </Card>)    
-            })}
+            {alltasks.filter(t => t.acceptedBy === user.uid && t.status === 'in-progress').map((task) =>
+              <ToDoTasks user={user} task={task} classes={classes} />)}
           </Grid>
         </div>
         <div className="account-task-list">
           <p>Posted Tasks</p>
           <Grid style={{ padding: "1em" }} item xs={6} >
-            {alltasks.filter(t => t.authorid === user.uid).map((task) => {
-              return (
-                <Card className="past-task">
-                  <CardActionArea className="past-task-action">
-                    <h3 className={classes.info}>{task.title}</h3>
-                    <p className={classes.info}>{task.author}</p>
-                  </CardActionArea>
-                </Card>)
-            })}
+            {alltasks.filter(t => t.authorid === user.uid).map((task) =>
+              <PostedTasks user={user} task={task} classes={classes} />)}
           </Grid>
         </div>
       </div>
@@ -190,5 +189,124 @@ const Profile = ({ user, editingstate, loadingstate }) => {
     </div>
   )
 }
+
+const PostedTasks = ({ user, task, classes }) => {
+  const [open, setOpen] = useState(false);
+
+  const handlePostedCardOpen = () => {
+    setOpen(true);
+  };
+
+  const handleTaskCompleted = () => {
+    setOpen(false);
+    const db = firebase.database().ref()
+    db.child('users/' + user.uid + '/posted_tasks/' + task.id).set('completed');
+    db.child('tasks/' + task.id + '/status/').set('completed');
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (<Card className="past-task">
+    <CardActionArea onClick={() => handlePostedCardOpen(task)} className="past-task-action">
+      <h3 className={classes.info}>{task.title}</h3>
+      <p className={classes.info}>{task.author}</p>
+    </CardActionArea>
+    <Dialog
+      open={open}
+      fullWidth
+      maxWidth={'md'}
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogContent>
+        <span className="field-row">
+        <AccountCircle className="field-icon" />
+        <Typography variant="body1" component="p" color="textSecondary" pb={3}>
+          {task.author}
+        </Typography>
+          </span>
+      <span className="field-row">
+        <ScheduleIcon className="field-icon" />
+        <Typography variant="body2" component="p" color="textSecondary" pb={3}>
+          {task.completeBy}
+        </Typography>
+      </span>
+      <span className="field-row">
+        <NotesIcon className="field-icon" />
+        <Typography gutterBottom component="p" variant="body1">
+          {task.description}
+        </Typography>
+      </span>
+        <span className="field-row">
+          <Typography gutterBottom component="p" variant="body1">
+            Task Accepted By: {task.acceptedBy}
+          </Typography>
+        </span>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => handleTaskCompleted(task)}>
+          Completed
+        </Button>
+      </DialogActions>
+    </Dialog>
+  </Card>)
+}
+
+const ToDoTasks = ({ user, task, classes }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleToDoCardOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (<Card className="current-task">
+    <CardActionArea onClick={() => handleToDoCardOpen(task)} className="current-task-action">
+      <h3 className={classes.info}>{task.title}</h3>
+      <p className={classes.info}>{task.author}</p>
+    </CardActionArea>
+    <Dialog
+      open={open}
+      fullWidth
+      maxWidth={'md'}
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogContent>
+        <span className="field-row">
+            <AccountCircle className="field-icon" />
+            <Typography variant="body1" component="p" color="textSecondary" pb={3}>
+              {task.author}
+            </Typography>
+          </span>
+          <span className="field-row">
+            <ScheduleIcon className="field-icon" />
+            <Typography variant="body2" component="p" color="textSecondary" pb={3}>
+              {task.completeBy}
+            </Typography>
+          </span>
+          <span className="field-row">
+            <NotesIcon className="field-icon" />
+            <Typography gutterBottom component="p" variant="body1">
+              {task.description}
+            </Typography>
+          </span>
+        </DialogContent>
+      <DialogActions>
+        {/* <Button >
+          Completed
+        </Button> */}
+      </DialogActions>
+    </Dialog>
+  </Card>)
+}
+
 
 export default Account
