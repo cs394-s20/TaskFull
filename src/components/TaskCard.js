@@ -45,11 +45,13 @@ const TaskCard = (props) => {
   };
 
   const addToCart = () => {
-    const myTask = props.task;
-    setTaskCart(curr => [...curr, myTask]);
+    let myTask = props.task;
+    myTask.status = 'in-progress';   
+    setTaskCart(curr => [...curr, myTask]); 
 
     const db = firebase.database().ref()
-    db.child('users/' + user.uid + '/to_do/' + myTask.id).set('accepted');
+    db.child('tasks/' + myTask.id + '/status/').set('in-progress');
+    db.child('users/' + user.uid + '/to_do/' + myTask.id).set('in-progress');
   }
   
   const style={
@@ -137,7 +139,7 @@ const TaskCard = (props) => {
           <Button onClick={handleClose}>
             Cancel
           </Button>
-          <Button className={classes.button} onClick={()=>{props.handleAccept(props.task.id); handleClose(); addToCart()} } autoFocus>
+          <Button className={classes.button} onClick={()=>{ handleClose(); addToCart()} } autoFocus>
             Accept Task
           </Button>
         </DialogActions>

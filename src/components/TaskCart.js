@@ -3,7 +3,7 @@ import {TaskCartContext} from '../components/TaskCartContext';
 import TaskCartCard from '../components/TaskCartCard';
 
 
-const TaskCart = () => {
+const TaskCart = ({ user }) => {
     const [taskCart, setTaskCart] = useContext(TaskCartContext);
     const handleComplete = id => {
         const newTaskCart = [...taskCart];

@@ -176,7 +176,7 @@ const TasksFeed = ({ user }) => {
             handleDropdownChange={handleDropdownChange}
           />
         </div>
-        <TaskCart></TaskCart>
+        <TaskCart user={user}></TaskCart>
         <CompletedTasks></CompletedTasks>
       </Grid>
       <Grid style={{ padding: "1em", minWidth: "550"}} item xs={6} >
