@@ -11,6 +11,9 @@ const TaskCart = ({ user }) => {
         setTaskCart(newTaskCart);
       }
 
+    // const db = firebase.database().ref()
+    // const acceptedasks = db.child('users/' + user.uid + '/to_do/').filter(t => t).id = 'in-progress';
+
     return(
         <div>
             <div>My Tasks ({taskCart.length})</div>

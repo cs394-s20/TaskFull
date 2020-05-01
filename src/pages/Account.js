@@ -81,6 +81,7 @@ const Editbutton = ({editing}) => {
 const Profile = ({ user, editingstate, loadingstate }) => {
   const classes = useStyles();
   const [userData, setUserData] = useState({});
+  const [postedtasks, setPostedTasks] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -101,16 +102,32 @@ const Profile = ({ user, editingstate, loadingstate }) => {
     return <div>Loading</div>
   }
 
-  const getTask = id => {
-    console.log(id)
-    const db = firebase.database().ref().child('/tasks/' + id).once("value")
+  function getTask(id) {
+    var this_task = []
+    firebase.database().ref().child('/tasks/' + id).once("value")
       .then(snapshot => {
         const task = snapshot.val()
         if (task) {
-          console.log(JSON.stringify(task))
-          return task
+          this_task = [task]
         }
-      })
+    })
+
+    // posted_task_ids = Object.keys(userData.posted_tasks);
+
+    // for (id in posted_task_ids) {
+    //   firebase.database().ref().child('/tasks/' + id).once("value")
+    //   .then(snapshot => {
+    //     const task = snapshot.val()
+    //     if (task) {
+    //       this_task = task
+    //     }
+    //   })
+    // }
+    // console.log(postedtasks)
+    // console.log(this_task)
+    // return this_task.author
+    console.log(this_task)
+    return 'hello'
   }
 
 
@@ -156,7 +173,7 @@ const Profile = ({ user, editingstate, loadingstate }) => {
             {userData.posted_tasks ? Object.keys(userData.posted_tasks).map((taskid, i) =>
               <Card key="i" className="past-task">
                 <CardActionArea className="past-task-action">
-                  {getTask(taskid).title}
+                  {getTask(taskid)}
                 </CardActionArea>
               </Card>
             ) : <span></span>}
