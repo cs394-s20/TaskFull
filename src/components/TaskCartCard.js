@@ -19,6 +19,10 @@ import PinDropIcon from '@material-ui/icons/PinDrop';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import NotesIcon from '@material-ui/icons/Notes';
 
+// Firebase
+import firebase from 'firebase/app';
+import 'firebase/database';
+
 const DialogHeader = (props) => {
   return (
     <Typography className="dialog-header" fontWeight={700} variant="h4">{props.children}</Typography>
@@ -35,6 +39,13 @@ const TaskCartCard = (props) => {
   };
 
   const handleClose = () => {
+    let myTask = props.task;
+    myTask.acceptedBy = ' ';
+    myTask.status = 'unstarted';
+    const db = firebase.database().ref()
+    db.child('tasks/' + myTask.id + '/acceptedBy/').set(' ');
+    db.child('tasks/' + myTask.id + '/status/').set('unstarted');
+    db.child('users/' + props.user.uid + '/to_do/' + myTask.id).remove();
     setOpen(false);
   };
 

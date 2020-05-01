@@ -16,7 +16,8 @@ const TaskCart = ({ user }) => {
 
     return(
         <div>
-            <div>My Tasks ({taskCart.length})</div>
+            {/* <div>My Tasks ({taskCart.length})</div> */}
+            <div>My Tasks </div>
             <div>{taskCart.filter(t=>t.status==='in-progress').map((task,index)=>(
                 <TaskCartCard
                 key={task.id}
@@ -24,6 +25,7 @@ const TaskCart = ({ user }) => {
                 index={index}
                 class={task.status}
                 handleComplete={handleComplete}
+                user={user}
                 >
                     {task.title}
             </TaskCartCard>)
