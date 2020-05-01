@@ -266,6 +266,14 @@ const ToDoTasks = ({ user, task, classes }) => {
     setOpen(false);
   };
 
+  const handleUnaccept = () => {
+    setOpen(false);
+    const db = firebase.database().ref()
+    db.child('tasks/' + task.id + '/acceptedBy/').set(' ');
+    db.child('tasks/' + task.id + '/status/').set('unstarted');
+    db.child('users/' + user.uid + '/to_do/' + task.id).remove();
+  };
+
   return (<Card className="current-task">
     <CardActionArea onClick={() => handleToDoCardOpen(task)} className="current-task-action">
       <h3 className={classes.info}>{task.title}</h3>
@@ -300,9 +308,9 @@ const ToDoTasks = ({ user, task, classes }) => {
           </span>
         </DialogContent>
       <DialogActions>
-        {/* <Button >
-          Completed
-        </Button> */}
+        <Button onClick={() => handleUnaccept(task)}>
+          Unaccept Task
+        </Button>
       </DialogActions>
     </Dialog>
   </Card>)
