@@ -47,10 +47,12 @@ const TaskCard = (props) => {
   const addToCart = () => {
     let myTask = props.task;
     myTask.status = 'in-progress';   
+    myTask.acceptedBy = user.uid;  
     setTaskCart(curr => [...curr, myTask]); 
 
     const db = firebase.database().ref()
     db.child('tasks/' + myTask.id + '/status/').set('in-progress');
+    db.child('tasks/' + myTask.id + '/acceptedBy/').set(user.uid);
     db.child('users/' + user.uid + '/to_do/' + myTask.id).set('in-progress');
   }
   

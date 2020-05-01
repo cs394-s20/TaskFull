@@ -122,7 +122,8 @@ const Newtask = ({handleclose, user}) => {
         completeBy: selectedDate.toString(),
         address: fullAddress,
         status: "unstarted",
-        postedAt: moment().format('MMMM Do YYYY, h:mm:ss a')
+        postedAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
+        acceptedBy: " ",
       })
       db.child('users/' + user.uid + '/posted_tasks/' + taskId).set('unstarted');
       handleclose();

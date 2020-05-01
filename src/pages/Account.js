@@ -81,7 +81,7 @@ const Editbutton = ({editing}) => {
 const Profile = ({ user, editingstate, loadingstate }) => {
   const classes = useStyles();
   const [userData, setUserData] = useState({});
-  const [postedtasks, setPostedTasks] = useState([]);
+  const [alltasks, setAllTasks] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -93,7 +93,17 @@ const Profile = ({ user, editingstate, loadingstate }) => {
         }
       }
       db.on('value', getUserData, error => alert(error));
-      return () => { db.off('value', getUserData); };
+      // return () => { db.off('value', getUserData); };
+
+      const db2 = firebase.database().ref().child('/tasks');
+
+      const getAllTasks = snap => {
+        if (snap.val()) {
+          setAllTasks(Object.values(snap.val()));
+        }
+      }
+      db2.on('value', getAllTasks, error => alert(error));
+      return () => { db2.off('value', getUserData); db.off('value', getAllTasks); };
     }
   }, []);
   console.log(userData);
@@ -102,32 +112,18 @@ const Profile = ({ user, editingstate, loadingstate }) => {
     return <div>Loading</div>
   }
 
-  function getTask(id) {
-    var this_task = []
-    firebase.database().ref().child('/tasks/' + id).once("value")
-      .then(snapshot => {
-        const task = snapshot.val()
-        if (task) {
-          this_task = [task]
-        }
-    })
+  console.log(alltasks);
 
-    // posted_task_ids = Object.keys(userData.posted_tasks);
 
-    // for (id in posted_task_ids) {
-    //   firebase.database().ref().child('/tasks/' + id).once("value")
-    //   .then(snapshot => {
-    //     const task = snapshot.val()
-    //     if (task) {
-    //       this_task = task
-    //     }
-    //   })
-    // }
-    // console.log(postedtasks)
-    // console.log(this_task)
-    // return this_task.author
-    console.log(this_task)
-    return 'hello'
+  function getPostedTasks() {
+    alltasks.filter(t => t.authorid === user.uid).map((task) => {
+        return (
+          <Card className="past-task">
+            <CardActionArea className="past-task-action">
+              <p className={classes.info}>{task.title}</p>
+            </CardActionArea>
+          </Card>)
+      })
   }
 
 
@@ -158,25 +154,29 @@ const Profile = ({ user, editingstate, loadingstate }) => {
         <div className="account-task-list">
           <p>To Do</p>
           <Grid style={{ padding: "1em", maxWidth: 600, minWidth: 600 }}>
-            {userData.to_do ? Object.keys(userData.to_do).map((taskid, i) =>
-              <Card className="current-task">
-                <CardActionArea className="current-task-action">
-                  <p className={classes.info}>{taskid}</p>
-                </CardActionArea>
-              </Card>
-            ) : <span></span>}
+            {alltasks.filter(t => t.acceptedBy === user.uid).map((task) => {
+              return (
+                <Card className="current-task">
+                  <CardActionArea className="current-task-action">
+                    <h3 className={classes.info}>{task.title}</h3>
+                    <p className={classes.info}>{task.author}</p>
+                  </CardActionArea>
+                </Card>)    
+            })}
           </Grid>
         </div>
         <div className="account-task-list">
           <p>Posted Tasks</p>
           <Grid style={{ padding: "1em" }} item xs={6} >
-            {userData.posted_tasks ? Object.keys(userData.posted_tasks).map((taskid, i) =>
-              <Card key="i" className="past-task">
-                <CardActionArea className="past-task-action">
-                  {getTask(taskid)}
-                </CardActionArea>
-              </Card>
-            ) : <span></span>}
+            {alltasks.filter(t => t.authorid === user.uid).map((task) => {
+              return (
+                <Card className="past-task">
+                  <CardActionArea className="past-task-action">
+                    <h3 className={classes.info}>{task.title}</h3>
+                    <p className={classes.info}>{task.author}</p>
+                  </CardActionArea>
+                </Card>)
+            })}
           </Grid>
         </div>
       </div>
