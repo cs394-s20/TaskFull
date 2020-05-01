@@ -21,6 +21,8 @@ import NotesIcon from '@material-ui/icons/Notes';
 
 import { makeStyles } from '@material-ui/core/styles';
 
+import "./ItemsTable.css";
+
 import firebase from 'firebase/app';
 import 'firebase/database';
 
@@ -72,6 +74,8 @@ const TaskCard = (props) => {
     }
   });
 
+  console.log(props.task.items);
+
   const classes = useStyles();
 
   return (
@@ -116,13 +120,13 @@ const TaskCard = (props) => {
           <span className="field-row">
           <PinDropIcon className="field-icon" />
           <Typography variant="body2" component="p" color="textSecondary" pb={3}>
-            {props.task.location}
+            {props.task.address}
           </Typography>
           </span>
           <span className="field-row">
             <ScheduleIcon className="field-icon"/>
             <Typography variant="body2" component="p" color="textSecondary" pb={3}>
-              {props.task.time}
+              {props.task.completeBy}
             </Typography>
           </span>
           <span className="field-row">
@@ -131,6 +135,45 @@ const TaskCard = (props) => {
               {props.task.description}
             </Typography>
           </span>
+          <div className="table">
+            <div className="table-title">Items List</div>
+            <div className="table-content">
+              <div className="table-header">
+                <div className="table-row">
+                  <div className="table-data">
+                    <div>Item</div>
+                  </div>
+                  <div className="table-data">
+                    <div>Quantity</div>
+                  </div>
+                </div>
+              </div>
+              <div className="table-body">
+                {props.task.items.map((item, index) => (
+                  <div className="table-row" key={index}>
+                    <div className="table-data">
+                      <div>{item.name}</div>
+                    </div>
+                    <div className="table-data">
+                    <div>{item.quantity}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="table-footer">
+                <div className="table-row">
+                  <div className="table-data">
+                {/* <div>Total No. of Items: {values.items.length}</div> */}
+                  </div>
+                  
+                  <div className="table-data">
+                  </div>
+                  
+                </div>
+               
+              </div>
+            </div>
+          </div>
           {/* <div className="req-row">
             {Object.values(props.task.requirements).map((req, index) => (
                 <Chip label={req} key={index} className="req-row"></Chip>

@@ -262,7 +262,6 @@ return (
                 <div className="table-row">
                   <div className="table-data">
                     <AddCircleIcon onClick={addNewItem}></AddCircleIcon>
-                    {/* <button type="button" onClick={addNewItem}>+</button> */}
                   </div>
                 </div>
               </div>

@@ -124,9 +124,12 @@ const TasksFeed = ({ user }) => {
         <div>
           
           {tasks.filter(t => t.status === 'unstarted').map((task, index) => {
-            console.log(task.requirements)
-            console.log(filter)
-            console.log(filter.requirements)
+            // console.log(task.requirements)
+            // console.log(filter)
+            // console.log(filter.requirements)
+            console.log(task)
+
+            // Filtering the feed
             if (filter.requirements){
               console.log(Object.values(filter.requirements))
               if (Object.keys(filter).length !== 0){
