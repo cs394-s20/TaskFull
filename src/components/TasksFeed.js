@@ -139,6 +139,7 @@ const TasksFeed = ({ user }) => {
                     index={index}
                     class={task.status}
                     handleAccept={handleAccept}
+                    user={user}
                     />
                   )
                 }
@@ -153,6 +154,7 @@ const TasksFeed = ({ user }) => {
                 index={index}
                 class={task.status}
                 handleAccept={handleAccept}
+                user={user}
                 />
               )
             }

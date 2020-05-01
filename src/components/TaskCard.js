@@ -21,6 +21,9 @@ import NotesIcon from '@material-ui/icons/Notes';
 
 import { makeStyles } from '@material-ui/core/styles';
 
+import firebase from 'firebase/app';
+import 'firebase/database';
+
 const DialogHeader = (props) => {
   return (
     <Typography className="dialog-header" fontWeight={700} variant="h4">{props.children}</Typography>
@@ -31,6 +34,7 @@ const DialogHeader = (props) => {
 const TaskCard = (props) => {
   const [open, setOpen] = useState(false);
   const [taskCart, setTaskCart] = useContext(TaskCartContext);
+  const user = props.user
 
   const handleCardOpen = () => {
     setOpen(true);
@@ -43,6 +47,9 @@ const TaskCard = (props) => {
   const addToCart = () => {
     const myTask = props.task;
     setTaskCart(curr => [...curr, myTask]);
+
+    const db = firebase.database().ref()
+    db.child('users/' + user.uid + '/to_do/' + myTask.id).set('accepted');
   }
   
   const style={
