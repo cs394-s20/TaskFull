@@ -191,6 +191,8 @@ const Profile = ({ user, editingstate, loadingstate }) => {
 }
 
 const PostedTasks = ({ user, task, classes }) => {
+  const db = firebase.database().ref()
+
   const [open, setOpen] = useState(false);
 
   const handlePostedCardOpen = () => {
@@ -199,7 +201,6 @@ const PostedTasks = ({ user, task, classes }) => {
 
   const handleTaskCompleted = () => {
     setOpen(false);
-    const db = firebase.database().ref()
     db.child('users/' + user.uid + '/posted_tasks/' + task.id).set('completed');
     db.child('tasks/' + task.id + '/status/').set('completed');
   };
@@ -207,6 +208,28 @@ const PostedTasks = ({ user, task, classes }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const getUser = acceptedBy => {
+    if (user != null) {
+      db.child('/users/' + acceptedBy).once("value") 
+        .then(snapshot => {
+          if (snapshot.val()) {
+            console.log("here1" + JSON.stringify(snapshot.val()))
+            return snapshot.val()
+          }
+        })
+        .catch(e => console.error(e))
+    }
+  }
+
+  const UserBox = ({ acceptedUser }) => {
+    console.log("here2" + JSON.stringify(acceptedUser))
+    return (
+      <div>
+        {acceptedUser.username}
+      </div>
+    )
+  }
 
   return (<Card className="past-task">
     <CardActionArea onClick={() => handlePostedCardOpen(task)} className="past-task-action">
@@ -242,7 +265,8 @@ const PostedTasks = ({ user, task, classes }) => {
       </span>
         <span className="field-row">
           <Typography gutterBottom component="p" variant="body1">
-            Task Accepted By: {task.acceptedBy}
+            Task Accepted By:
+            <UserBox acceptedUser={getUser(task.acceptedBy)} />
           </Typography>
         </span>
       </DialogContent>

@@ -38,7 +38,7 @@ const TaskCartCard = (props) => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleUnaccept = () => {
     let myTask = props.task;
     myTask.acceptedBy = ' ';
     myTask.status = 'unstarted';
@@ -46,6 +46,10 @@ const TaskCartCard = (props) => {
     db.child('tasks/' + myTask.id + '/acceptedBy/').set(' ');
     db.child('tasks/' + myTask.id + '/status/').set('unstarted');
     db.child('users/' + props.user.uid + '/to_do/' + myTask.id).remove();
+    setOpen(false);
+  };
+
+  const handleClose = () => {
     setOpen(false);
   };
 
@@ -126,12 +130,12 @@ const TaskCartCard = (props) => {
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
+          <Button onClick={handleUnaccept} color="primary">
+            Unaccept Task
           </Button>
-          <Button onClick={()=>{props.handleComplete(props.task.id); handleClose();}} disabled={disable} autoFocus>
+          {/* <Button onClick={()=>{props.handleComplete(props.task.id); handleClose();}} disabled={disable} autoFocus>
             Complete Task
-          </Button>
+          </Button> */}
         </DialogActions>
       </Dialog>
     </Card>

@@ -17,6 +17,9 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Newtask from '../components/Newtask'
 import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
+import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
 
 // Select
 import Select from 'react-select';
@@ -119,52 +122,59 @@ const TasksFeed = ({ user }) => {
         </div>
       )
     }
-
+    
+    if (tasks.filter(t => t.status === 'unstarted').length === 0) {
+      return (
+        <div> 
+          <p>No Posted Tasks :(</p> 
+        </div>
+      )
+    }
     return (
         <div>
-          
-          {tasks.filter(t => t.status === 'unstarted').map((task, index) => {
+        {tasks.filter(t => t.status === 'unstarted').map((task, index) => {
             // console.log(task.requirements)
-            // console.log(filter)
-            // console.log(filter.requirements)
-            console.log(task)
+          // console.log(filter)
+          // console.log(filter.requirements)
+          console.log(task)
 
-            // Filtering the feed
-            if (filter.requirements){
-              console.log(Object.values(filter.requirements))
-              if (Object.keys(filter).length !== 0){
-                if(Object.values(task.requirements).some(r=> Object.values(filter.requirements).includes(r))){
-                  console.log('hi');
-                  return (
-                    <TaskCard 
+          // Filtering the feed
+          if (filter.requirements ) {
+            console.log(Object.values(filter.requirements))
+            if (Object.keys(filter).length !== 0) {
+              if (Object.values(task.requirements).some(r => Object.values(filter.requirements).includes(r))) {
+                console.log('hi');
+                return (
+                  <TaskCard
                     key={task.id}
-                    task={task} 
+                    task={task}
                     index={index}
                     class={task.status}
                     handleAccept={handleAccept}
                     user={user}
-                    />
-                  )
-                }
+                  />
+                )
               }
-              
             }
-            else{
-              return (
-                <TaskCard 
+
+          }
+          else {
+            return (
+              <TaskCard
                 key={task.id}
-                task={task} 
+                task={task}
                 index={index}
                 class={task.status}
                 handleAccept={handleAccept}
                 user={user}
-                />
-              )
-            }
-         
-          })}
-        </div>
-      )
+              />
+            )
+          }
+
+        })
+      } 
+      </div>
+    )
   }
   
   const classes = useStyles();
@@ -173,21 +183,23 @@ const TasksFeed = ({ user }) => {
     
     <Grid container spacing={2}>
       <Grid style={{ padding: "1em" }} item xs={3} >
-       
+        <Button
+          variant="contained"
+          size="large"
+          onClick={() => setFormOpen(true)}
+          startIcon={<AddIcon />}
+        >
+          Add New Task
+        </Button>
         <div>
           <FilterCard
             handleDropdownChange={handleDropdownChange}
           />
         </div>
         <TaskCart user={user}></TaskCart>
-        <CompletedTasks></CompletedTasks>
+        {/* <CompletedTasks></CompletedTasks> */}
       </Grid>
       <Grid style={{ padding: "1em", minWidth: "550"}} item xs={6} >
-        <Card style={{ width: "550" }}>
-          <CardActionArea className="add-task-card" onClick={() => setFormOpen(true)}>
-          Add New Task
-          </CardActionArea>
-        </Card>
       <Dialog
         scroll="body"
         open={formOpen}
@@ -199,6 +211,7 @@ const TasksFeed = ({ user }) => {
           <Newtask handleclose={handleClose} user={user}></Newtask>
         </Dialog>
         <Feed></Feed>
+        {/* <Tooltip className="addTask" style={{cursor:'pointer'} }title="Add New Task" onClick={() => setFormOpen(true)}><AddIcon className='fixPlus'/></Tooltip> */}
       </Grid>
     </Grid>
   )
