@@ -57,12 +57,9 @@ const options = [
 
 // ------- STATE DROPDOWN COMPONENT STYLING --------
 const stateDropdownStyles = makeStyles(theme => ({
-  button: {
-    display: "block",
-    marginTop: theme.spacing(2)
-  },
+ 
   formControl: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(2.05),
     minWidth: 120
   }
 }));
@@ -87,7 +84,7 @@ const Newtask = ({handleclose, user}) => {
     newtaskfield:{
       marginTop: 1,
       marginRight: 40,
-      width: 220,
+      width: 220
     },
     selector: {
      marginTop: 40,
@@ -99,26 +96,14 @@ const Newtask = ({handleclose, user}) => {
 
    const classes = useStyles();
 
-
- 
-
-//    const handleSelectChange = (e) => {
-//     if (!e) return;
-//     const requirementsArray = []
-//     e.map((req, i) => requirementsArray.push([i, req.value]))
-//     const entries = new Map(requirementsArray);
-//     console.log(requirements)
-//     setRequirements(Object.fromEntries(entries));
-
-// ;  }
-
   const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
-  const {handleTextChange, handleItemsChange, handleStateChange, addNewItem, deleteNewItem, getTotalItems, handleSubmit, values, errors} = useForm(submit, validateForm);
+  const {handleTextChange, handleItemsChange, addNewItem, deleteNewItem, getTotalItems, handleSubmit, values, errors} = useForm(submit, validateForm);
 
+  // ----- STATE DROPDOWN FIELD COMPONENT ------
   const StateSelect = ({}) => {
     const classes = stateDropdownStyles();
     const [state, setState] = useState("");
@@ -152,20 +137,18 @@ const Newtask = ({handleclose, user}) => {
   
     return (
       <div>
-        {/* <Button className={classes.button} onClick={handleOpen}>
-          Open the select
-        </Button> */}
         <FormControl className={classes.formControl} required>
-          <InputLabel id="demo-controlled-open-select-label">State</InputLabel>
-          <Select
-            labelId="demo-controlled-open-select-label"
-            id="demo-controlled-open-select"
+          <InputLabel id="state-select-label">State</InputLabel>
+          <Select 
+            labelId="state-controlled-open-select-label"
+            id="state-controlled-open-select"
             open={open}
             onClose={handleClose}
             onOpen={handleOpen}
             value={values.state}
             name="state"
             onChange={handleTextChange}
+            className='.state-select-field'
           >
             <MenuItem value="">
               <em>Choose a State</em>
@@ -225,7 +208,6 @@ return (
           name="title"
           value = {values.title}
           onChange={handleTextChange}
-          //onChange={e => setTitle(e.target.value)}
           required
           />
         { errors.title && <p className='error'>{errors.title}</p>}
@@ -340,7 +322,7 @@ return (
           </div>
           { errors.items && <p className='error'>{errors.items}</p>}
 
-      <div>
+      <div className='entire-address-field'>
         <TextField
           className="new-task-field"
           id="standard-basic"
@@ -359,16 +341,6 @@ return (
           value = {values.city}
           required
         />
-
-        {/* <TextField
-          className="new-task-field"
-          id="standard-basic"
-          label="State"
-          name="state"
-          onChange={handleTextChange}
-          value = {values.state}
-          required
-        /> */}
 
         <StateSelect/>  
         </div>

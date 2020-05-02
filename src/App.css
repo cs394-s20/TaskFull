@@ -94,12 +94,23 @@
 
 /* ========= NEWTASK ======== */
 .new-task-field {
-  margin: 1em 0em !important;
-  margin-right: 30;
+  margin: 1em 1em 0 0 !important;
 }
 
-.addTask
-{
+.state-select-field{
+  margin:1em -1em 0 0 !important;
+}
+
+.entire-address-field{
+  display:flex;
+  /* justify-content: space-between; */
+}
+
+.entire-address-field > * {
+  margin: 0px 10px;
+}
+
+.addTask{
   border-radius: 30px;
   border: 0.02px, solid black;
   box-shadow: 10px 10px 42px 0px rgba(0,0,0,0.75);
@@ -109,6 +120,7 @@
   bottom: 15px;
   left: 15px;
 }
+
 .fixPlus
 {
   padding: 10px;
