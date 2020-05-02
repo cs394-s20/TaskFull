@@ -1,17 +1,20 @@
 .table {
   width: 100%;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   border-radius: 0.125rem;
   margin-bottom: 1rem;
 }
 
 .table .table-title {
   display: flex;
-  width: 100%;
+  /* border-bottom: 1px solid #ededed; */
+  width: 96.45%;
   padding: 1rem;
   font-weight: 500;
   font-size: 1.25rem;
   line-height: 1.5rem;
+  background-color: #ffde59 
+  
 }
 
 .table-content {
@@ -50,6 +53,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  background-color: #ffde59 
 }
 
 .table-body,
@@ -75,7 +79,19 @@
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  /* border:1px solid black; */
+  
 }
+
+.table-body{
+  background-color:#ffecb3;
+}
+
+.table-footer{
+  background-color:#ffecb3;
+}
+
+
 
 .table-data {
   padding: 0.75rem 1rem;

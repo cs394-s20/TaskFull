@@ -152,10 +152,10 @@ const TaskCard = (props) => {
                 {props.task.items.map((item, index) => (
                   <div className="table-row" key={index}>
                     <div className="table-data">
-                      <div>{item.name}</div>
+                      <div key={index}>{item.name}</div>
                     </div>
                     <div className="table-data">
-                    <div>{item.quantity}</div>
+                    <div key={index}>{item.quantity}</div>
                     </div>
                   </div>
                 ))}

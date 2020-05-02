@@ -219,7 +219,7 @@ return (
       <div className="table">
             <div className="table-title">Items List</div>
             <div className="table-content">
-              <div className="table-header">
+              {/* <div className="table-header">
                 <div className="table-row">
                   <div className="table-data">
                     <div>Item</div>
@@ -228,7 +228,7 @@ return (
                     <div>Quantity</div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="table-body">
                 {values.items.map((item, index) => (
                   <div className="table-row" key={index}>
@@ -255,13 +255,13 @@ return (
                         onChange={handleItemsChange}
                         required
                       />
-                      <DeleteForeverIcon onClick={deleteNewItem(index)}>-</DeleteForeverIcon>
+                      <DeleteForeverIcon style={{display: 'inline', fill:"#616161", fontSize:27, cursor: 'pointer'}} onClick={deleteNewItem(index)}>-</DeleteForeverIcon>
                     </div>
                   </div>
                 ))}
                 <div className="table-row">
                   <div className="table-data">
-                    <AddCircleIcon onClick={addNewItem}></AddCircleIcon>
+                    <AddCircleIcon style={{fill:"#616161", cursor: 'pointer'}} onClick={addNewItem}></AddCircleIcon>
                   </div>
                 </div>
               </div>
