@@ -14,6 +14,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import stateList from '../states.json'
+
 
 
 // Select
@@ -30,19 +32,26 @@ const FilterCard = (props) => {
   const useStyles = makeStyles({
     root: {
       minWidth: 275,
-      minHeight: 120,
+      minHeight: 420,
       background: '#ffecb3',
       marginTop: 5,
       marginBottom: 5,
+    },
+    formControl: {
+     
+      minWidth: 275,
+    },
+    selectEmpty: {
+    
     },
   });
 
   const filterStyles = makeStyles({
     root: {
       minWidth: 220,
-      minHeight:2,
+      minHeight: 2,
       background: '#ffecb3',
-      marginTop: 5,
+     
     //   marginBottom: 100,
     },
 
@@ -53,6 +62,20 @@ const FilterCard = (props) => {
   });
 
   const classes = useStyles();
+  const [state, setState] = React.useState({
+    age: '',
+    name: 'hai',
+  });
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    setState({
+      ...state,
+      [name]: event.target.value,
+    });
+  };
+
+
   const filterStyle = filterStyles()
   const selectStyles = { menu: styles => ({ ...styles, zIndex: 999 }) };
 
@@ -61,18 +84,36 @@ const FilterCard = (props) => {
  
         <CardContent>
           <Typography className= {filterStyle.typography} gutterBottom variant="h6" component="h6" fontWeight={200}>
-            Filter Tasks
+            Filter Tasks:
           </Typography>
+
+          <Typography className= {filterStyle.typography} gutterBottom variant="h6" component="h6" fontWeight={200}>
+            Filter by Requirments
+          </Typography>
+
           <Select
             className={filterStyle.root}
             defaultValue={options}
-            maxMenuHeight={50}
+            maxMenuHeight={120}
             isMulti
             options={options}
             onChange={props.handleDropdownChange}
           />
+
+          <br/>
+          <br/>
+          <Typography className= {filterStyle.typography} gutterBottom variant="h6" component="h6" fontWeight={200}>
+            Filter by States:
+          </Typography>
           
-       
+          <Select
+            className={filterStyle.root}
+            defaultValue={" "}
+            maxMenuHeight={150}
+            options={stateList}
+            onChange={props.handleStatesChange}
+          />
+          
           
         </CardContent>
 

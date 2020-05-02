@@ -41,6 +41,9 @@ const TasksFeed = ({ user }) => {
   // const [query, setQuery] = useState({})
   const [formOpen, setFormOpen] = useState(false)
   const [filter, setFilter] = useState({});
+  const [states, setStates] = useState('');
+  const [statesFilter, setStatesFilter] = useState();
+
 
   const handleDropdownChange = (e) => {
     let newState = Object.assign({}, filter);
@@ -56,6 +59,11 @@ const TasksFeed = ({ user }) => {
     setFilter(newState);
     //console.log(filter);
 }
+
+  //filter the states(location) of each task
+  const handleStatesChange = (e) => {
+    setStates(e.value);
+  }
 
   const useStyles = makeStyles({
     root: {
@@ -82,8 +90,8 @@ const TasksFeed = ({ user }) => {
 
     const getFeed = snap => {
       if (snap.val()) {
+        
         setTasks(Object.values(snap.val()));
-        console.log(filter)
         setFilter(Object.values(filter))
         setisLoading(false)
       }
@@ -103,6 +111,7 @@ const TasksFeed = ({ user }) => {
   }
 
   const Feed = () => {
+    let stateNameList = []
     let loadingSkeleton = []
     for (let i = 0; i < 10; i++) {
       loadingSkeleton.push(
@@ -132,32 +141,68 @@ const TasksFeed = ({ user }) => {
     }
     return (
         <div>
-        {tasks.filter(t => t.status === 'unstarted').map((task, index) => {
+        { 
+          tasks.filter(t => t.status === 'unstarted').map((task, index) => {
             // console.log(task.requirements)
           // console.log(filter)
           // console.log(filter.requirements)
-          console.log(task)
+          
+          
+          
+          let stateName = task.address.split(', ')[2];
+         
+
+
+          
 
           // Filtering the feed
-          if (filter.requirements ) {
-            console.log(Object.values(filter.requirements))
-            if (Object.keys(filter).length !== 0) {
-              if (Object.values(task.requirements).some(r => Object.values(filter.requirements).includes(r))) {
-                console.log('hi');
-                return (
-                  <TaskCard
-                    key={task.id}
-                    task={task}
-                    index={index}
-                    class={task.status}
-                    handleAccept={handleAccept}
-                    user={user}
-                  />
-                )
-              }
-            }
+            //filter by sates
 
+            console.log("++++" + stateName + "+++");
+            console.log("++++" + states + "+++");
+
+            // console.log(stateName + " compare to " + states);
+
+          console.log(stateName == states)
+          console.log("teste   " + states)
+          console.log(states.length)
+
+          if(states.length == 0 || states == "ALL"){
+            return (
+              <TaskCard
+                key={task.id}
+                task={task}
+                index={index}
+                class={task.status}
+                handleAccept={handleAccept}
+                user={user}
+              />
+            )
           }
+            
+          else if(stateName != states){
+            return;
+          }
+
+          // if (filter.requirements ) {
+          //   console.log(Object.values(filter.requirements))
+          //   if (Object.keys(filter).length !== 0) {
+          //     if (Object.values(task.requirements).some(r => Object.values(filter.requirements).includes(r))) {
+          //       console.log('hi');
+          //       return (
+          //         <TaskCard
+          //           key={task.id}
+          //           task={task}
+          //           index={index}
+          //           class={task.status}
+          //           handleAccept={handleAccept}
+          //           user={user}
+          //         />
+          //       )
+          //     }
+          //   }
+
+          // }
           else {
             return (
               <TaskCard
@@ -194,6 +239,7 @@ const TasksFeed = ({ user }) => {
         <div>
           <FilterCard
             handleDropdownChange={handleDropdownChange}
+            handleStatesChange = {handleStatesChange}
           />
         </div>
         <TaskCart user={user}></TaskCart>
