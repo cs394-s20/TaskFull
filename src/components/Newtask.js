@@ -33,8 +33,6 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 
-
-
 // Custom
 //import Select from 'react-select'
 
@@ -48,12 +46,12 @@ import 'firebase/database';
 
 import "./ItemsTable.css";
 
-const options = [
-  { value: 'AL', label: 'AL' },
-  { value: 'MA', label: 'MA' },
-  { value: 'GA', label: 'GA' },
-  { value: 'CA', label: 'CA'}
-];
+// const options = [
+//   { value: 'AL', label: 'AL' },
+//   { value: 'MA', label: 'MA' },
+//   { value: 'GA', label: 'GA' },
+//   { value: 'CA', label: 'CA'}
+// ];
 
 // ------- STATE DROPDOWN COMPONENT STYLING --------
 const stateDropdownStyles = makeStyles(theme => ({
