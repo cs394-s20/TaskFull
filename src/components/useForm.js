@@ -14,6 +14,10 @@ const useForm = (callback, validateForm) =>{
           [name]: value
         })
       }
+
+    const handleStateChange = e => {
+        setValues({...values, [e.target.name]: e.target.value});
+      };
     
     const handleItemsChange = event =>{
       const tempItems = [...values.items];
@@ -49,15 +53,15 @@ const useForm = (callback, validateForm) =>{
     //   }, 0);
     // };
 
-    // const handleDropdownChange = (e) => {
-    //     let newState = Object.assign({}, values);
-    //     const requirementsArray = []
-    //     e.map((req, i) => requirementsArray.push([i, req.value]))
-    //     const entries = new Map(requirementsArray); 
-    //     newState.requirements = Object.fromEntries(entries)
-    //     setValues(newState);
-    //     console.log(values);
-    // }
+    const handleDropdownChange = (e) => {
+        let newState = Object.assign({}, values);
+        const statesArray = []
+        e.map((state, i) => statesArray.push([i, state.name]))
+        const entries = new Map(statesArray); 
+        newState.requirements = Object.fromEntries(entries)
+        setValues(newState);
+        console.log(values);
+    }
 
       const handleSubmit = e =>{
         e.preventDefault();
@@ -77,6 +81,7 @@ const useForm = (callback, validateForm) =>{
       return {
         handleTextChange,
         handleItemsChange,
+        handleStateChange,
         addNewItem,
         deleteNewItem,
         handleSubmit,

@@ -6,6 +6,8 @@ import validateForm from './validateForm';
 import moment from 'moment';
 
 import {TaskCartContext} from '../components/TaskCartContext'
+
+// Material UI
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
@@ -26,9 +28,15 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+
+
 
 // Custom
-import Select from 'react-select'
+//import Select from 'react-select'
 
 // Material UI
 import TextField from '@material-ui/core/TextField';
@@ -41,19 +49,27 @@ import 'firebase/database';
 import "./ItemsTable.css";
 
 const options = [
-  { value: 'physical', label: 'Physical' },
-  { value: 'car', label: 'Car' },
-  { value: 'pet', label: 'Pet' },
-  { value: 'none', label: 'None'}
+  { value: 'AL', label: 'AL' },
+  { value: 'MA', label: 'MA' },
+  { value: 'GA', label: 'GA' },
+  { value: 'CA', label: 'CA'}
 ];
 
+// ------- STATE DROPDOWN COMPONENT STYLING --------
+const stateDropdownStyles = makeStyles(theme => ({
+  button: {
+    display: "block",
+    marginTop: theme.spacing(2)
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120
+  }
+}));
+
+// ------- NEWTASK FORM COMPONENT --------
 const Newtask = ({handleclose, user}) => {
-  //const [values, setValues] = useState({ title: '', author: '', description: ''});//address: '', city: '', state: ''});
   const [inputList, setInputList] = useState({ item: '', quantity: ''});
-  
-
-  // const db = firebase.database().ref().child('/tasks');
-
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -101,8 +117,65 @@ const Newtask = ({handleclose, user}) => {
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
-  const {handleTextChange, handleItemsChange, addNewItem, deleteNewItem, getTotalItems, handleSubmit, values, errors} = useForm(submit, validateForm);
+  const {handleTextChange, handleItemsChange, handleStateChange, addNewItem, deleteNewItem, getTotalItems, handleSubmit, values, errors} = useForm(submit, validateForm);
 
+  const StateSelect = ({}) => {
+    const classes = stateDropdownStyles();
+    const [state, setState] = useState("");
+    const [open, setOpen] = useState(false);
+
+    const USstates = ['AK', 'AL', 'AR', 'AS', 'AZ', 
+                      'CA', 'CO', 'CT', 'DC', 'DE', 
+                      'FL', 'FM', 'GA', 'GU', 'HI', 
+                      'IA', 'ID', 'IL', 'IN', 'KS', 
+                      'KY', 'LA', 'MA', 'MD', 'ME', 
+                      'MH', 'MI', 'MN', 'MO', 'MP', 
+                      'MS', 'MT', 'NC', 'ND', 'NE', 
+                      'NH', 'NJ', 'NM', 'NV', 'NY', 
+                      'OH', 'OK', 'OR', 'PA', 'PR', 
+                      'PW', 'RI', 'SC', 'SD', 'TN', 
+                      'TX', 'UT', 'VA', 'VI', 'VT', 
+                      'WA', 'WI', 'WV', 'WY'];
+
+  
+    const handleChange = event => {
+      setState(event.target.value);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+  
+    const handleOpen = () => {
+      setOpen(true);
+    };
+  
+    return (
+      <div>
+        {/* <Button className={classes.button} onClick={handleOpen}>
+          Open the select
+        </Button> */}
+        <FormControl className={classes.formControl} required>
+          <InputLabel id="demo-controlled-open-select-label">State</InputLabel>
+          <Select
+            labelId="demo-controlled-open-select-label"
+            id="demo-controlled-open-select"
+            open={open}
+            onClose={handleClose}
+            onOpen={handleOpen}
+            value={values.state}
+            name="state"
+            onChange={handleTextChange}
+          >
+            <MenuItem value="">
+              <em>Choose a State</em>
+            </MenuItem>
+            {USstates.map( state => (<MenuItem value ={state}>{state}</MenuItem>))}
+          </Select>
+        </FormControl>
+      </div>
+    );
+  }
 
 
   function submit(){
@@ -204,7 +277,6 @@ return (
             id="standard-basic"
             label="Description"
             name="description"
-            //onChange={e => setDescription(e.target.value)}
             value = {values.description}
             onChange={handleTextChange}
             required
@@ -212,23 +284,10 @@ return (
           { errors.description && <p className='error'>{errors.description}</p>}
       </div>
 
-      {/* <div className="item-input">
-        <ItemInputList inputList={inputList} setInputList={setInputList}/>
-      </div> */}
-
       <div className="table">
             <div className="table-title">Items List</div>
             <div className="table-content">
-              {/* <div className="table-header">
-                <div className="table-row">
-                  <div className="table-data">
-                    <div>Item</div>
-                  </div>
-                  <div className="table-data">
-                    <div>Quantity</div>
-                  </div>
-                </div>
-              </div> */}
+
               <div className="table-body">
                 {values.items.map((item, index) => (
                   <div className="table-row" key={index}>
@@ -301,7 +360,7 @@ return (
           required
         />
 
-        <TextField
+        {/* <TextField
           className="new-task-field"
           id="standard-basic"
           label="State"
@@ -309,7 +368,9 @@ return (
           onChange={handleTextChange}
           value = {values.state}
           required
-        />
+        /> */}
+
+        <StateSelect/>  
         </div>
         { errors.address && <p className='error'>{errors.address}</p>}
 

@@ -13,15 +13,33 @@ export default function validateForm(values) {
         errors.description = "Description is required"
     }
 
-
-    // if (!values.items.name)
-
-    // if (Object.keys(values.requirements).length===0){
-    //     errors.requirements = "Requirements are required"
-    // }
-
-    if (!values.address || !values.city || !values.state || (!values.address && !values.city && !values.state)){
+    if (!values.address && values.city && values.state){
         errors.address = "Address is required"
     }
+
+    if (values.address && !values.city && !values.state){
+        errors.address = "City and State are required"
+    } 
+
+    if (!values.address && values.city && !values.state){
+        errors.address = "Address and State are required"
+    } 
+
+    if (!values.address && !values.city && values.state){
+        errors.address = "Address and City are required"
+    } 
+
+    if(!values.city && values.address && values.state){
+        errors.address = "City is required"
+    }
+
+    if( !values.state && values.city && values.address){
+        errors.address = "State is required"
+    }
+
+    if ((!values.address && !values.city && !values.state)){
+        errors.address = "Address, City, and State are required"
+    }
+
     return errors;
 }
