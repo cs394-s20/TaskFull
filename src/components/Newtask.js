@@ -19,6 +19,8 @@ import SnoozeIcon from "@material-ui/icons/Snooze";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import citylist from '../cities.json'
+import stateList from '../states.json'
 
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
@@ -101,6 +103,81 @@ const Newtask = ({handleclose, user}) => {
   };
   const {handleTextChange, handleItemsChange, addNewItem, deleteNewItem, getTotalItems, handleSubmit, values, errors} = useForm(submit, validateForm);
 
+  // ----- CITY DROPDOWN FIELD COMPONENT ------
+  const CitySelect = ({}) => {
+    const classes = stateDropdownStyles();
+    const [state, setState] = useState("");
+    const [open, setOpen] = useState(false);
+
+    const list = [];
+    let stateFullname = [];
+    stateList.map(each => {
+      if(values.state == each.value){
+        stateFullname.push(each.label);
+      }
+    })
+
+    citylist.map(each => {
+      if(each.state == stateFullname[0]){
+        list.push(each.label);
+      }
+    })
+
+    console.log(list)
+    
+
+    const USstates = ['AK', 'AL', 'AR', 'AS', 'AZ', 
+                      'CA', 'CO', 'CT', 'DC', 'DE', 
+                      'FL', 'FM', 'GA', 'GU', 'HI', 
+                      'IA', 'ID', 'IL', 'IN', 'KS', 
+                      'KY', 'LA', 'MA', 'MD', 'ME', 
+                      'MH', 'MI', 'MN', 'MO', 'MP', 
+                      'MS', 'MT', 'NC', 'ND', 'NE', 
+                      'NH', 'NJ', 'NM', 'NV', 'NY', 
+                      'OH', 'OK', 'OR', 'PA', 'PR', 
+                      'PW', 'RI', 'SC', 'SD', 'TN', 
+                      'TX', 'UT', 'VA', 'VI', 'VT', 
+                      'WA', 'WI', 'WV', 'WY'];
+
+  
+    const handleChange = event => {
+      setState(event.target.value);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+  
+    const handleOpen = () => {
+      setOpen(true);
+    };
+
+    
+    return (
+      <div>
+        <FormControl className={classes.formControl} required>
+          <InputLabel id="state-select-label">State</InputLabel>
+          <Select 
+            labelId="state-controlled-open-select-label"
+            id="state-controlled-open-select"
+            open={open}
+            onClose={handleClose}
+            onOpen={handleOpen}
+            value={values.city}
+            name="city"
+            onChange={handleTextChange}
+            className='.state-select-field'
+          >
+            <MenuItem value="">
+              <em>Choose a City</em>
+            </MenuItem>
+            {list.map( city => (<MenuItem value ={city}>{city}</MenuItem>))}
+          </Select>
+        </FormControl>
+      </div>
+    );
+  }
+
   // ----- STATE DROPDOWN FIELD COMPONENT ------
   const StateSelect = ({}) => {
     const classes = stateDropdownStyles();
@@ -132,6 +209,7 @@ const Newtask = ({handleclose, user}) => {
     const handleOpen = () => {
       setOpen(true);
     };
+    
   
     return (
       <div>
@@ -321,6 +399,9 @@ return (
           { errors.items && <p className='error'>{errors.items}</p>}
 
       <div className='entire-address-field'>
+      <StateSelect/>  
+      <CitySelect/>
+
         <TextField
           className="new-task-field"
           id="standard-basic"
@@ -330,17 +411,9 @@ return (
           value = {values.address}
           required
         />
-        <TextField
-          className="new-task-field"
-          id="standard-basic"
-          label="City"
-          name="city"
-          onChange={handleTextChange}
-          value = {values.city}
-          required
-        />
+        
 
-        <StateSelect/>  
+        
         </div>
         { errors.address && <p className='error'>{errors.address}</p>}
 
