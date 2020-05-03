@@ -74,7 +74,11 @@ const TaskCard = (props) => {
     }
   });
 
-  console.log(props.task.items);
+  
+  const cityName = props.task.address.split(", ")[1];
+  const stateName = props.task.address.split(", ")[2];
+
+
 
   const classes = useStyles();
 
@@ -120,7 +124,7 @@ const TaskCard = (props) => {
           <span className="field-row">
           <PinDropIcon className="field-icon" />
           <Typography variant="body2" component="p" color="textSecondary" pb={3}>
-            {props.task.address}
+              {cityName}, {stateName}
           </Typography>
           </span>
           <span className="field-row">
