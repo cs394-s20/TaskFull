@@ -4,7 +4,7 @@ import React from 'react'
 import TasksFeed from '../components/TasksFeed';
 import NavBar from '../components/NavBar';
 import TaskCart from '../components/TaskCart';
-import { TaskCartProvider } from '../components/TaskCartContext';
+import { TasksProvider } from '../components/TasksContext';
 
 const Home = ({user}) => {
 
@@ -13,13 +13,13 @@ const Home = ({user}) => {
   }
 
   return (
-    <TaskCartProvider>
+    <TasksProvider>
       <div>
         <NavBar user={user}></NavBar>
 
         <TasksFeed user={user}></TasksFeed>
       </div>
-    </TaskCartProvider>
+    </TasksProvider>
   )
 }
 

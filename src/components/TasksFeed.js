@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useContext } from 'react'
 
 import '../App.css';
 
@@ -29,7 +29,8 @@ import Select from 'react-select';
 import firebase from 'firebase/app';
 import 'firebase/database';
 
-
+import {TasksContext} from './TasksContext';
+import TaskCartCard from '../components/TaskCartCard';
 
 const options = [
   { value: 'physical', label: 'Physical' },
@@ -39,8 +40,7 @@ const options = [
 
 const TasksFeed = ({ user }) => {
   const [isLoading, setisLoading] = useState(true)
-  const [tasks, setTasks] = useState([])
-  // const [query, setQuery] = useState({})
+  const [tasks, setTasks] = useContext(TasksContext);
   const [formOpen, setFormOpen] = useState(false)
   const [filter, setFilter] = useState({});
   const [states, setStates] = useState('');

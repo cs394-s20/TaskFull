@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import '../App.css';
-import {TaskCartContext} from '../components/TaskCartContext'
+import {TasksContext} from './TasksContext'
 
 // Material UI
 import Dialog from '@material-ui/core/Dialog';
@@ -32,7 +32,7 @@ const DialogHeader = (props) => {
 // This will be updated to have more than just a title!
 const TaskCartCard = (props) => {
   const [open, setOpen] = useState(false);
-  const [completeList, setCompleteList] = useContext(TaskCartContext);
+  const [completeList, setCompleteList] = useContext(TasksContext);
 
   const handleCardOpen = () => {
     setOpen(true);

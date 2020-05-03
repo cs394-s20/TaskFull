@@ -5,7 +5,7 @@ import useForm from './useForm';
 import validateForm from './validateForm';
 import moment from 'moment';
 
-import {TaskCartContext} from '../components/TaskCartContext'
+import {TasksContext} from './TasksContext'
 
 // Material UI
 import DialogContentText from '@material-ui/core/DialogContentText';

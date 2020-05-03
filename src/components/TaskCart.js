@@ -1,30 +1,21 @@
-import React, { useContext } from 'react';
-import {TaskCartContext} from '../components/TaskCartContext';
+import React, { useContext, useEffect } from 'react';
+import {TasksContext} from './TasksContext';
 import TaskCartCard from '../components/TaskCartCard';
 
 
 const TaskCart = ({ user }) => {
-    const [taskCart, setTaskCart] = useContext(TaskCartContext);
-    const handleComplete = id => {
-        const newTaskCart = [...taskCart];
-        newTaskCart.find(t => t.id === id).status = 'complete';
-        setTaskCart(newTaskCart);
-      }
-
-    // const db = firebase.database().ref()
-    // const acceptedasks = db.child('users/' + user.uid + '/to_do/').filter(t => t).id = 'in-progress';
+    const [tasks, setTasks] = useContext(TasksContext);
 
     return(
         <div>
             {/* <div>My Tasks ({taskCart.length})</div> */}
             <div>My Tasks </div>
-            <div>{taskCart.filter(t=>t.status==='in-progress').map((task,index)=>(
+            <div>{tasks.filter(t=>t.status==='in-progress').map((task,index)=>(
                 <TaskCartCard
                 key={task.id}
                 task={task}
                 index={index}
                 class={task.status}
-                handleComplete={handleComplete}
                 user={user}
                 >
                     {task.title}

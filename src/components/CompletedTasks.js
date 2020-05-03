@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
-import {TaskCartContext} from '../components/TaskCartContext';
+import {TasksContext} from './TasksContext';
 import TaskCartCard from '../components/TaskCartCard';
 
 const CompletedTasks = () =>{
-    const [completeList, setCompleteList] = useContext(TaskCartContext);
+    const [completeList, setCompleteList] = useContext(TasksContext);
 
 
     const filteredList = completeList.filter(t=>t.status==='complete');

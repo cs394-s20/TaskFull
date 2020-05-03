@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import '../App.css';
-import {TaskCartContext} from '../components/TaskCartContext'
+import {TasksContext} from './TasksContext'
 
 // Material UI
 import Dialog from '@material-ui/core/Dialog';
