@@ -35,7 +35,7 @@ const FilterCard = (props) => {
   const useStyles = makeStyles({
     root: {
       minWidth: 275,
-      minHeight: 420,
+      minHeight: 220,
       background: '#ffecb3',
       marginTop: 5,
       marginBottom: 5,
@@ -68,22 +68,22 @@ const FilterCard = (props) => {
     <Card variant="outlined" className={classes.root}>
  
         <CardContent>
-          <Typography className= {filterStyle.typography} gutterBottom variant="h6" component="h6" fontWeight={200}>
+          {/* <Typography className= {filterStyle.typography} gutterBottom variant="h6" component="h6" fontWeight={200}>
             Filter Tasks:
-          </Typography>
+          </Typography> */}
 
-          <Typography className= {filterStyle.typography} gutterBottom variant="h6" component="h6" fontWeight={200}>
+          {/* <Typography className= {filterStyle.typography} gutterBottom variant="h6" component="h6" fontWeight={200}>
             Filter by Requirments
-          </Typography>
+          </Typography> */}
 
-          <Select
+          {/* <Select
             className={filterStyle.root}
             defaultValue={options}
             maxMenuHeight={120}
             isMulti
             options={options}
             onChange={props.handleDropdownChange}
-          />
+          /> */}
 
           <br/>
           <Typography className= {filterStyle.typography} gutterBottom variant="h6" component="h6" fontWeight={200}>
