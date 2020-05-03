@@ -108,7 +108,7 @@ const FilterCard = (props) => {
             defaultValue={" "}
             maxMenuHeight={150}
             options={props.curCity}
-          
+            onChange={props.handleCityChange}
           />
           
         </CardContent>

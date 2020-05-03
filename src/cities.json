@@ -1,5 +1,242 @@
 
 [
+        {
+            "state": "Alabama",
+            "label": "ALL"
+        },
+        {
+            "state": "Alaska",
+            "label": "ALL"
+        },
+        {
+            "state": "American Samoa",
+            "label": "ALL"
+        },
+        {
+            "state": "Arizona",
+            "label": "ALL"
+        },
+        {
+            "state": "Arkansas",
+            "label": "ALL"
+        },
+        {
+            "state": "California",
+            "label": "ALL"
+        },
+        {
+            "state": "Colorado",
+            "label": "ALL"
+        },
+        {
+            "state": "Connecticut",
+            "label": "ALL"
+        },
+        {
+            "state": "Delaware",
+            "label": "ALL"
+        },
+        {
+            "state": "District Of Columbia",
+            "label": "ALL"
+        },
+        {
+            "state": "Federated States Of Micronesia",
+            "label": "ALL"
+        },
+        {
+            "state": "Florida",
+            "label": "ALL"
+        },
+        {
+            "state": "Georgia",
+            "label": "ALL"
+        },
+        {
+            "state": "Guam",
+            "label": "ALL"
+        },
+        {
+            "state": "Hawaii",
+            "label": "ALL"
+        },
+        {
+            "state": "Idaho",
+            "label": "ALL"
+        },
+        {
+            "state": "Illinois",
+            "label": "ALL"
+        },
+        {
+            "state": "Indiana",
+            "label": "ALL"
+        },
+        {
+            "state": "Iowa",
+            "label": "ALL"
+        },
+        {
+            "state": "Kansas",
+            "label": "ALL"
+        },
+        {
+            "state": "Kentucky",
+            "label": "ALL"
+        },
+        {
+            "state": "Louisiana",
+            "label": "ALL"
+        },
+        {
+            "state": "Maine",
+            "label": "ALL"
+        },
+        {
+            "state": "Marshall Islands",
+            "label": "ALL"
+        },
+        {
+            "state": "Maryland",
+            "label": "ALL"
+        },
+        {
+            "state": "Massachusetts",
+            "label": "ALL"
+        },
+        {
+            "state": "Michigan",
+            "label": "ALL"
+        },
+        {
+            "state": "Minnesota",
+            "label": "ALL"
+        },
+        {
+            "state": "Mississippi",
+            "label": "ALL"
+        },
+        {
+            "state": "Missouri",
+            "label": "ALL"
+        },
+        {
+            "state": "Montana",
+            "label": "ALL"
+        },
+        {
+            "state": "Nebraska",
+            "label": "ALL"
+        },
+        {
+            "state": "Nevada",
+            "label": "ALL"
+        },
+        {
+            "state": "New Hampshire",
+            "label": "ALL"
+        },
+        {
+            "state": "New Jersey",
+            "label": "ALL"
+        },
+        {
+            "state": "New Mexico",
+            "label": "ALL"
+        },
+        {
+            "state": "New York",
+            "label": "ALL"
+        },
+        {
+            "state": "North Carolina",
+            "label": "ALL"
+        },
+        {
+            "state": "North Dakota",
+            "label": "ALL"
+        },
+        {
+            "state": "Northern Mariana Islands",
+            "label": "ALL"
+        },
+        {
+            "state": "Ohio",
+            "label": "ALL"
+        },
+        {
+            "state": "Oklahoma",
+            "label": "ALL"
+        },
+        {
+            "state": "Oregon",
+            "label": "ALL"
+        },
+        {
+            "state": "Palau",
+            "label": "ALL"
+        },
+        {
+            "state": "Pennsylvania",
+            "label": "ALL"
+        },
+        {
+            "state": "Puerto Rico",
+            "label": "ALL"
+        },
+        {
+            "state": "Rhode Island",
+            "label": "ALL"
+        },
+        {
+            "state": "South Carolina",
+            "label": "ALL"
+        },
+        {
+            "state": "South Dakota",
+            "label": "ALL"
+        },
+        {
+            "state": "Tennessee",
+            "label": "ALL"
+        },
+        {
+            "state": "Texas",
+            "label": "ALL"
+        },
+        {
+            "state": "Utah",
+            "label": "ALL"
+        },
+        {
+            "state": "Vermont",
+            "label": "ALL"
+        },
+        {
+            "state": "Virgin Islands",
+            "label": "ALL"
+        },
+        {
+            "state": "Virginia",
+            "label": "ALL"
+        },
+        {
+            "state": "Washington",
+            "label": "ALL"
+        },
+        {
+            "state": "West Virginia",
+            "label": "ALL"
+        },
+        {
+            "state": "Wisconsin",
+            "label": "ALL"
+        },
+        {
+            "state": "Wyoming",
+            "label": "ALL"
+        },
+    
   
     {"label": "Abbeville", "state": "Louisiana"},
     {"label": "Aberdeen", "state": "Maryland"},

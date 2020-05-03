@@ -46,7 +46,7 @@ const TasksFeed = ({ user }) => {
   const [states, setStates] = useState('');
   const [fullname, setFullName] = useState('');
   const [curCity, setCurCity] = useState('');
-
+  const [city, setCity] = useState('');
 
   let list = [];
 
@@ -76,7 +76,12 @@ const TasksFeed = ({ user }) => {
       }
     })
     setCurCity(list);
-    console.log(list)
+  }
+
+  //filter the city(location) of each task
+  const handleCityChange = (e) => {
+    console.log(e.label)
+    setCity(e.label);
   }
 
   const useStyles = makeStyles({
@@ -161,6 +166,7 @@ const TasksFeed = ({ user }) => {
           // console.log(filter.requirements)
           
           let stateName = task.address.split(', ')[2];
+          let cityName = task.address.split(', ')[1];
 
           if(states.length == 0 || states == "ALL"){
             return (
@@ -199,16 +205,36 @@ const TasksFeed = ({ user }) => {
 
           // }
           else {
-            return (
-              <TaskCard
-                key={task.id}
-                task={task}
-                index={index}
-                class={task.status}
-                handleAccept={handleAccept}
-                user={user}
-              />
-            )
+
+            if(city.length == 0 || city == "ALL"){
+              return (
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  index={index}
+                  class={task.status}
+                  handleAccept={handleAccept}
+                  user={user}
+                />
+              )
+            }
+
+            else if(cityName != city){
+              return;
+            }
+            else{
+              return (
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  index={index}
+                  class={task.status}
+                  handleAccept={handleAccept}
+                  user={user}
+                />
+              )
+            }
+            
           }
 
         })
@@ -235,6 +261,7 @@ const TasksFeed = ({ user }) => {
           <FilterCard
             handleDropdownChange={handleDropdownChange}
             handleStatesChange = {handleStatesChange}
+            handleCityChange = {handleCityChange}
             curCity = {curCity}
           />
         </div>

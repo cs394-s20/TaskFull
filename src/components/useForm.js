@@ -8,7 +8,6 @@ const useForm = (callback, validateForm) =>{
 
     const handleTextChange = e =>{
         const {name,value} = e.target;
-        console.log(name)
         setValues({
           ...values,
           [name]: value
@@ -59,7 +58,6 @@ const useForm = (callback, validateForm) =>{
         const entries = new Map(statesArray); 
         newState.requirements = Object.fromEntries(entries)
         setValues(newState);
-        console.log(values);
     }
 
       const handleSubmit = e =>{
