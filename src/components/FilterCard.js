@@ -15,11 +15,14 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import stateList from '../states.json'
+import citylist from '../cities.json'
 
 
 
 // Select
 import Select from 'react-select';
+
+var list = [];
 
 const options = [
     { value: 'physical', label: 'Physical' },
@@ -38,11 +41,7 @@ const FilterCard = (props) => {
       marginBottom: 5,
     },
     formControl: {
-     
       minWidth: 275,
-    },
-    selectEmpty: {
-    
     },
   });
 
@@ -51,8 +50,6 @@ const FilterCard = (props) => {
       minWidth: 220,
       minHeight: 2,
       background: '#ffecb3',
-     
-    //   marginBottom: 100,
     },
 
     typography: {
@@ -62,22 +59,10 @@ const FilterCard = (props) => {
   });
 
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    age: '',
-    name: 'hai',
-  });
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
-  };
-
 
   const filterStyle = filterStyles()
   const selectStyles = { menu: styles => ({ ...styles, zIndex: 999 }) };
+
 
   return (
     <Card variant="outlined" className={classes.root}>
@@ -101,7 +86,6 @@ const FilterCard = (props) => {
           />
 
           <br/>
-          <br/>
           <Typography className= {filterStyle.typography} gutterBottom variant="h6" component="h6" fontWeight={200}>
             Filter by States:
           </Typography>
@@ -113,7 +97,19 @@ const FilterCard = (props) => {
             options={stateList}
             onChange={props.handleStatesChange}
           />
+
+          <Typography className= {filterStyle.typography} gutterBottom variant="h6" component="h6" fontWeight={200}>
+            Filter by Cities:
+          </Typography>
           
+
+          <Select
+            className={filterStyle.root}
+            defaultValue={" "}
+            maxMenuHeight={150}
+            options={props.curCity}
+          
+          />
           
         </CardContent>
 

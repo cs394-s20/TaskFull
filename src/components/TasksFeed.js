@@ -20,6 +20,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
+import citylist from '../cities.json'
 
 // Select
 import Select from 'react-select';
@@ -27,6 +28,7 @@ import Select from 'react-select';
 // Firebase
 import firebase from 'firebase/app';
 import 'firebase/database';
+
 
 
 const options = [
@@ -42,8 +44,11 @@ const TasksFeed = ({ user }) => {
   const [formOpen, setFormOpen] = useState(false)
   const [filter, setFilter] = useState({});
   const [states, setStates] = useState('');
-  const [statesFilter, setStatesFilter] = useState();
+  const [fullname, setFullName] = useState('');
+  const [curCity, setCurCity] = useState('');
 
+
+  let list = [];
 
   const handleDropdownChange = (e) => {
     let newState = Object.assign({}, filter);
@@ -63,6 +68,15 @@ const TasksFeed = ({ user }) => {
   //filter the states(location) of each task
   const handleStatesChange = (e) => {
     setStates(e.value);
+    setFullName(e.label)
+
+    citylist.map(each => {
+      if(each.state == e.label){
+        list.push(each);
+      }
+    })
+    setCurCity(list);
+    console.log(list)
   }
 
   const useStyles = makeStyles({
@@ -90,7 +104,6 @@ const TasksFeed = ({ user }) => {
 
     const getFeed = snap => {
       if (snap.val()) {
-        
         setTasks(Object.values(snap.val()));
         setFilter(Object.values(filter))
         setisLoading(false)
@@ -147,25 +160,7 @@ const TasksFeed = ({ user }) => {
           // console.log(filter)
           // console.log(filter.requirements)
           
-          
-          
           let stateName = task.address.split(', ')[2];
-         
-
-
-          
-
-          // Filtering the feed
-            //filter by sates
-
-            console.log("++++" + stateName + "+++");
-            console.log("++++" + states + "+++");
-
-            // console.log(stateName + " compare to " + states);
-
-          console.log(stateName == states)
-          console.log("teste   " + states)
-          console.log(states.length)
 
           if(states.length == 0 || states == "ALL"){
             return (
@@ -240,6 +235,7 @@ const TasksFeed = ({ user }) => {
           <FilterCard
             handleDropdownChange={handleDropdownChange}
             handleStatesChange = {handleStatesChange}
+            curCity = {curCity}
           />
         </div>
         <TaskCart user={user}></TaskCart>
