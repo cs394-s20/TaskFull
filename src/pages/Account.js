@@ -164,19 +164,21 @@ const Profile = ({ user, editingstate, loadingstate }) => {
             <Button size="small" onClick={() => editingstate.setEditing(!editingstate.editing)}>Edit Profile</Button>
           </CardActions>
         </Card>
-        <div className="account-task-list">
-          <p>To Do</p>
-          <Grid style={{ padding: "1em", maxWidth: 600, minWidth: 600 }}>
-            {alltasks.filter(t => t.acceptedBy === user.uid && t.status === 'in-progress').map((task) =>
-              <ToDoTasks user={user} task={task} classes={classes} />)}
-          </Grid>
-        </div>
-        <div className="account-task-list">
-          <p>Posted Tasks</p>
-          <Grid style={{ padding: "1em" }} item xs={6} >
-            {alltasks.filter(t => t.authorid === user.uid).map((task) =>
-              <PostedTasks user={user} task={task} classes={classes} />)}
-          </Grid>
+        <div className="my-tasks">
+          <div className="account-task-list">
+            <p>To Do</p>
+            <Grid style={{ padding: "1em", maxWidth: 600 }}>
+              {alltasks.filter(t => t.acceptedBy === user.uid && t.status === 'in-progress').map((task) =>
+                <ToDoTasks user={user} task={task} classes={classes} />)}
+            </Grid>
+          </div>
+          <div className="account-task-list">
+            <p>Posted Tasks</p>
+            <Grid style={{ padding: "1em", maxWidth: 600 }} >
+              {alltasks.filter(t => t.authorid === user.uid).map((task) =>
+                <PostedTasks user={user} task={task} classes={classes} />)}
+            </Grid>
+          </div>
         </div>
       </div>
     )
