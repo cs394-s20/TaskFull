@@ -119,6 +119,7 @@ const Profile = ({ user, editingstate, loadingstate }) => {
       return () => { db2.off('value', getUserData); db.off('value', getAllTasks); };
     }
   }, []);
+  console.log(user);
   console.log(userData);
 
   if (loadingstate.loading) {
@@ -150,6 +151,9 @@ const Profile = ({ user, editingstate, loadingstate }) => {
             </Typography>
             <Typography variant="h5" component="h2">
               {userData.username}
+            </Typography>
+            <Typography variant="body1" component="h2">
+              {user.email}
             </Typography>
             <Typography color="textSecondary">
               {userData.points + " points"}
@@ -228,7 +232,7 @@ const PostedTasks = ({ user, task, classes }) => {
     console.log("here2" + JSON.stringify(acceptedUser))
     return (
       <div>
-        {acceptedUser.username}
+        {acceptedUser ? acceptedUser.username : "N/A"}
       </div>
     )
   }

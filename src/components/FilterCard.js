@@ -34,11 +34,11 @@ const FilterCard = (props) => {
 
   const useStyles = makeStyles({
     root: {
-      minWidth: 275,
       minHeight: 220,
       background: '#ffecb3',
       marginTop: 5,
       marginBottom: 5,
+      overflow: 'visible'
     },
     formControl: {
       minWidth: 275,
@@ -47,7 +47,6 @@ const FilterCard = (props) => {
 
   const filterStyles = makeStyles({
     root: {
-      minWidth: 220,
       minHeight: 2,
       background: '#ffecb3',
     },
@@ -65,7 +64,7 @@ const FilterCard = (props) => {
 
 
   return (
-    <Card variant="outlined" className={classes.root}>
+    <Card variant="outlined" className={classes.root + " filter-card"}>
  
         <CardContent>
           {/* <Typography className= {filterStyle.typography} gutterBottom variant="h6" component="h6" fontWeight={200}>
