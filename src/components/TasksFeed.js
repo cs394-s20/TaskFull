@@ -101,7 +101,23 @@ const TasksFeed = ({ user }) => {
     pos: {
       marginBottom: 12,
     },
+    BUTTON: {
+      backgroundColor: '#3f51b5',
+      color:'white',
+    }
   });
+
+  const buttonStyle = makeStyles({
+    root: {minWidth: 275,
+      minHeight: 220,
+      background: '#ffecb3',
+      marginTop: 5,
+      marginBottom: 5,
+      overflow: 'visible'
+    },
+  });
+
+  
 
 
   useEffect(() => {
@@ -185,25 +201,6 @@ const TasksFeed = ({ user }) => {
             return;
           }
 
-          // if (filter.requirements ) {
-          //   console.log(Object.values(filter.requirements))
-          //   if (Object.keys(filter).length !== 0) {
-          //     if (Object.values(task.requirements).some(r => Object.values(filter.requirements).includes(r))) {
-          //       console.log('hi');
-          //       return (
-          //         <TaskCard
-          //           key={task.id}
-          //           task={task}
-          //           index={index}
-          //           class={task.status}
-          //           handleAccept={handleAccept}
-          //           user={user}
-          //         />
-          //       )
-          //     }
-          //   }
-
-          // }
           else {
 
             if(city.length == 0 || city == "ALL"){
@@ -245,15 +242,19 @@ const TasksFeed = ({ user }) => {
   
   const classes = useStyles();
 
+
   return (
     
     <Grid container spacing={2}>
       <Grid style={{ padding: "1em" }} item xs={3} >
+
         <Button
+          className = {classes.BUTTON}
           variant="contained"
           size="large"
           onClick={() => setFormOpen(true)}
           startIcon={<AddIcon />}
+          style={{backgroundColor: '#3f51b5', color:'white'}}
         >
           Add New Task
         </Button>
@@ -265,10 +266,11 @@ const TasksFeed = ({ user }) => {
             curCity = {curCity}
           />
         </div>
-        <TaskCart user={user}></TaskCart>
+        
         {/* <CompletedTasks></CompletedTasks> */}
       </Grid>
-      <Grid style={{ padding: "1em", minWidth: "550"}} item xs={6} >
+      <Grid style={{ minWidth: "550"}} item xs={6} >
+        <div style={{marginBottom: '2.9%', marginTop:'1em'}}>Tasks' Feed</div>
       <Dialog
         scroll="body"
         open={formOpen}
@@ -280,8 +282,9 @@ const TasksFeed = ({ user }) => {
           <Newtask handleclose={handleClose} user={user}></Newtask>
         </Dialog>
         <Feed></Feed>
-        {/* <Tooltip className="addTask" style={{cursor:'pointer'} }title="Add New Task" onClick={() => setFormOpen(true)}><AddIcon className='fixPlus'/></Tooltip> */}
-      </Grid>
+        
+        </Grid>
+      <TaskCart user={user}></TaskCart>
     </Grid>
   )
 }

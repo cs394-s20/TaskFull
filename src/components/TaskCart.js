@@ -7,7 +7,7 @@ const TaskCart = ({ user }) => {
     const [tasks, setTasks] = useContext(TasksContext);
 
     return(
-        <div>
+        <div style={{ margin:"1em -1em 1em -1em"}} >
             {/* <div>My Tasks ({taskCart.length})</div> */}
             <div>My Tasks </div>
             <div>{tasks.filter(t=>t.status==='in-progress').map((task,index)=>(

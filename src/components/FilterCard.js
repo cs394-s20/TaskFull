@@ -92,7 +92,7 @@ const FilterCard = (props) => {
           <Select
             className={filterStyle.root}
             defaultValue={" "}
-            maxMenuHeight={150}
+            maxMenuHeight={200}
             options={stateList}
             onChange={props.handleStatesChange}
           />

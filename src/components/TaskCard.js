@@ -64,7 +64,8 @@ const TaskCard = (props) => {
 
   const useStyles = makeStyles({
     root: {
-      minWidth: 275,
+      // minWidth: 190,
+      width:550,
       background: '#ffecb3',
       marginTop: 5,
       marginBottom: 5,
@@ -77,7 +78,6 @@ const TaskCard = (props) => {
   
   const cityName = props.task.address.split(", ")[1];
   const stateName = props.task.address.split(", ")[2];
-
 
 
   const classes = useStyles();
