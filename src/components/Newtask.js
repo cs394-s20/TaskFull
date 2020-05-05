@@ -156,7 +156,7 @@ const Newtask = ({handleclose, user}) => {
     return (
       <div>
         <FormControl className={classes.formControl} required>
-          <InputLabel id="state-select-label">State</InputLabel>
+          <InputLabel id="state-select-label">City</InputLabel>
           <Select 
             labelId="state-controlled-open-select-label"
             id="state-controlled-open-select"
@@ -399,10 +399,7 @@ return (
           { errors.items && <p className='error'>{errors.items}</p>}
 
       <div className='entire-address-field'>
-      <StateSelect/>  
-      <CitySelect/>
-
-        <TextField
+      <TextField
           className="new-task-field"
           id="standard-basic"
           label="Address"
@@ -411,8 +408,11 @@ return (
           value = {values.address}
           required
         />
-        
+      <CitySelect/>
+      <StateSelect/>  
+      
 
+        
         
         </div>
         { errors.address && <p className='error'>{errors.address}</p>}
