@@ -92,8 +92,7 @@ export default function Login({ user, history }) {
           if (!snapshot.val()) {
             db.child('/users/' + user.uid).set({
               username: user.displayName,
-              to_do: null,
-              posted_tasks: null,
+              email: user.email,
               points: 10,
             })
           }

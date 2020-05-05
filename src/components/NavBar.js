@@ -65,9 +65,6 @@ const NavBar = ({ user }) => {
   return (
       <AppBar position="static" className={classes.menuButton}>
       <Toolbar >
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-          <MenuIcon />
-        </IconButton>
         <Typography className={classes.title} component={Link} to={'/home'}>
           <img src="logo_title.png" className={classes.logo} alt="TaskFull logo"></img>
         </Typography>
