@@ -399,10 +399,7 @@ return (
           { errors.items && <p className='error'>{errors.items}</p>}
 
       <div className='entire-address-field'>
-      <StateSelect/>  
-      <CitySelect/>
-
-        <TextField
+      <TextField
           className="new-task-field"
           id="standard-basic"
           label="Address"
@@ -411,8 +408,11 @@ return (
           value = {values.address}
           required
         />
-        
+      <CitySelect/>
+      <StateSelect/>  
+      
 
+        
         
         </div>
         { errors.address && <p className='error'>{errors.address}</p>}
