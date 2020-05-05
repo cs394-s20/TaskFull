@@ -129,6 +129,7 @@
 
 /* ========= ACCOUNT ======== */
 .current-task {
+  margin: auto;
   margin-bottom: 0.2em;
   text-align: center !important;
   width: 200px;
@@ -147,6 +148,7 @@
 }
 
 .past-task {
+  margin: auto;
   margin-bottom: 0.2em;
   text-align: center !important;
   width: 200px;

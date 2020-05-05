@@ -38,7 +38,8 @@ import 'firebase/database';
 
 const useStyles = makeStyles({
   root: {
-    textAlign: "center"
+    textAlign: "center !important",
+    margin: "auto !important"
   },
   info: {
     marginTop: 5,
@@ -229,10 +230,9 @@ const PostedTasks = ({ user, task, classes }) => {
   }
 
   const UserBox = ({ acceptedUser }) => {
-    console.log("here2" + JSON.stringify(acceptedUser))
     return (
       <div>
-        {acceptedUser ? acceptedUser.username : "N/A"}
+        {acceptedUser ? acceptedUser.username : "None"}
       </div>
     )
   }
@@ -271,7 +271,7 @@ const PostedTasks = ({ user, task, classes }) => {
       </span>
         <span className="field-row">
           <Typography gutterBottom component="p" variant="body1">
-            Task Accepted By:
+            This task was accepted by {task.acceptedByEmail}
             <UserBox acceptedUser={getUser(task.acceptedBy)} />
           </Typography>
         </span>

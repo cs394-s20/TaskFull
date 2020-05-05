@@ -50,10 +50,11 @@ const TaskCartCard = (props) => {
 
   const handleUnaccept = () => {
     let myTask = props.task;
-    myTask.acceptedBy = ' ';
+    myTask.acceptedBy = null;
     myTask.status = 'unstarted';
     const db = firebase.database().ref()
-    db.child('tasks/' + myTask.id + '/acceptedBy/').set(' ');
+    db.child('tasks/' + myTask.id + '/acceptedBy/').set(null);
+    db.child('tasks/' + myTask.id + '/acceptedByEmail/').set(null);
     db.child('tasks/' + myTask.id + '/status/').set('unstarted');
     db.child('users/' + props.user.uid + '/to_do/' + myTask.id).remove();
     setOpen(false);
