@@ -9,8 +9,8 @@ const TaskCart = ({ user }) => {
     return(
         <div style={{ margin:"1em -1em 1em -1em"}} >
             {/* <div>My Tasks ({taskCart.length})</div> */}
-            <div>My Tasks </div>
-            <div>{tasks.filter(t=>t.status==='in-progress').map((task,index)=>(
+            <div>To Do List</div>
+            <div>{tasks.filter(t=>t.status==='in-progress' && t.acceptedBy == user.uid).map((task,index)=>(
                 <TaskCartCard
                 key={task.id}
                 task={task}
