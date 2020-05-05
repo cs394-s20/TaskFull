@@ -36,7 +36,7 @@ const DialogHeader = (props) => {
 const TaskCard = (props) => {
   const [open, setOpen] = useState(false);
   const [taskCart, setTaskCart] = useContext(TasksContext);
-  const user = props.user
+  const { user } = props
 
   const handleCardOpen = () => {
     setOpen(true);
@@ -49,7 +49,8 @@ const TaskCard = (props) => {
   const addToCart = () => {
     let myTask = props.task;
     myTask.status = 'in-progress';   
-    myTask.acceptedBy = user.uid;  
+    myTask.acceptedBy = user.uid; 
+    myTask.acceptedByEmail = user.email; 
     setTaskCart(curr => [...curr, myTask]); 
 
     const db = firebase.database().ref()
