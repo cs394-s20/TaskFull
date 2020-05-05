@@ -55,6 +55,7 @@ const TaskCard = (props) => {
     const db = firebase.database().ref()
     db.child('tasks/' + myTask.id + '/status/').set('in-progress');
     db.child('tasks/' + myTask.id + '/acceptedBy/').set(user.uid);
+    db.child('tasks/' + myTask.id + '/acceptedByEmail/').set(user.email);
     db.child('users/' + user.uid + '/to_do/' + myTask.id).set('in-progress');
   }
   
