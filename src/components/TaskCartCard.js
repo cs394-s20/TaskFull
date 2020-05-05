@@ -33,7 +33,9 @@ const DialogHeader = (props) => {
 const myTasksStyles = makeStyles({
   root: {
     marginTop: 25,
-    marginBottom: -17,
+    marginBottom: -20,
+    width: 250,
+    height:107,
     background: '#FFE4C4',
   },
 });

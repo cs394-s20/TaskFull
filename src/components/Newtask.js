@@ -409,8 +409,8 @@ return (
           value = {values.address}
           required
         />
-      <CitySelect/>
       <StateSelect/>  
+      <CitySelect/>
       
 
         

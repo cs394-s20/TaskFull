@@ -176,13 +176,14 @@ const TasksFeed = ({ user }) => {
     return (
         <div>
         { 
-          tasks.filter(t => t.status === 'unstarted').map((task, index) => {
+          tasks.filter(t => t.status === 'unstarted').reverse().map((task, index) => {
             // console.log(task.requirements)
           // console.log(filter)
           // console.log(filter.requirements)
           
           let stateName = task.address.split(', ')[2];
           let cityName = task.address.split(', ')[1];
+          console.log(task.completeBy)
 
           if(states.length == 0 || states == "ALL"){
             return (
@@ -270,7 +271,7 @@ const TasksFeed = ({ user }) => {
         {/* <CompletedTasks></CompletedTasks> */}
       </Grid>
       <Grid style={{ minWidth: "550"}} item xs={6} >
-        <div style={{marginBottom: '2.9%', marginTop:'1em'}}>Tasks' Feed</div>
+        <div style={{marginBottom: '2.9%', marginTop:'1em'}}>Task Feed</div>
       <Dialog
         scroll="body"
         open={formOpen}

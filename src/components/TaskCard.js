@@ -98,6 +98,9 @@ const TaskCard = (props) => {
           <Typography variant="body2" color="textSecondary" component="p">
             {props.task.time}
           </Typography>
+          {/* <div>
+          <Chip label={props.task.address} className="req-chip"></Chip>
+          </div> */}
           {/* <div>{Object.values(props.task.requirements).map((req, index) => (
             <Chip label={req} key={index} className="req-chip"></Chip>
           ))}
