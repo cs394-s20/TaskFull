@@ -35,7 +35,7 @@ const myTasksStyles = makeStyles({
     marginTop: 25,
     marginBottom: -20,
     width: 250,
-    height:107,
+    //height:107,
     background: '#ffecb3'
     // background: '#FFE4C4'
     // background: '#3f51b5',
