@@ -72,15 +72,18 @@ const Account = ({ user }) => {
   const [editing, setEditing] = useState(false)
   const classes = useStyles();
   const [userinfo, setUserInfo] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-return (
-    <div>
-      <NavBar user={user}></NavBar>
-      <Editbutton editing={{ editing, setEditing }}/>
-      <Profile user={user} editingstate={{ editing, setEditing }} loadingstate={{ loading, setLoading}} />
-    </div>
-  )
+  if (!user) {
+    return <div>Loading</div>
+  }
+
+  return (
+      <div>
+        <NavBar user={user}></NavBar>
+        <Editbutton editing={{ editing, setEditing }}/>
+        <Profile user={user} editingstate={{ editing, setEditing }} />
+      </div>
+    )
 }
 
 const Editbutton = ({editing}) => {
@@ -103,7 +106,6 @@ const Profile = ({ user, editingstate, loadingstate }) => {
       const getUserData = snap => {
         if (snap.val()) {
           setUserData(snap.val());
-          loadingstate.setLoading(false)
         }
       }
       db.on('value', getUserData, error => alert(error));
@@ -120,14 +122,6 @@ const Profile = ({ user, editingstate, loadingstate }) => {
       return () => { db2.off('value', getUserData); db.off('value', getAllTasks); };
     }
   }, []);
-  console.log(user);
-  console.log(userData);
-
-  if (loadingstate.loading) {
-    return <div>Loading</div>
-  }
-
-  console.log(alltasks);
 
 
   function getPostedTasks() {
@@ -259,7 +253,6 @@ const PostedTasks = ({ user, task, classes }) => {
       db.child('/users/' + acceptedBy).once("value") 
         .then(snapshot => {
           if (snapshot.val()) {
-            console.log("here1" + JSON.stringify(snapshot.val()))
             return snapshot.val()
           }
         })

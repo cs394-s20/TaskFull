@@ -121,10 +121,7 @@ const Newtask = ({handleclose, user}) => {
       if(each.state == stateFullname[0]){
         list.push(each.label);
       }
-    })
-
-    console.log(list)
-    
+    })    
 
     const USstates = ['AK', 'AL', 'AR', 'AS', 'AZ', 
                       'CA', 'CO', 'CT', 'DC', 'DE', 
@@ -239,8 +236,6 @@ const Newtask = ({handleclose, user}) => {
 
   function submit(){
     if (Object.keys(errors).length === 0){
-
-      console.log('Submitted successfully');
       const taskId = uniqid();
       const db = firebase.database().ref()
       const fullAddress = values.address + ', ' + values.city + ', ' + values.state;
