@@ -171,7 +171,7 @@ const Profile = ({ user, editingstate, loadingstate }) => {
         </Card>
         <div className="my-tasks">
           <div className="account-task-list">
-            <p>To Do</p>
+            <p>To Do List</p>
             <Grid style={{ padding: "1em", maxWidth: 600 }}>
               {alltasks.filter(t => t.acceptedBy === user.uid && t.status === 'in-progress').map((task) =>
                 <ToDoTasks user={user} task={task} classes={classes} />)}

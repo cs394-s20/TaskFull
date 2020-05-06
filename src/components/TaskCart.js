@@ -6,6 +6,17 @@ import TaskCartCard from '../components/TaskCartCard';
 const TaskCart = ({ user }) => {
     const [tasks, setTasks] = useContext(TasksContext);
 
+    if (tasks.filter(t => t.status === 'in-progress' && t.acceptedBy == user.uid).length === 0) {
+        return (
+            <div style={{ margin: "1em -1em 1em -1em" }} >
+                <div>To Do List</div>
+            <div>
+                <p>You have no active tasks to do.</p>
+            </div>
+            </div>
+        )
+    } else {
+
     return(
         <div style={{ margin:"1em -1em 1em -1em"}} >
             {/* <div>My Tasks ({taskCart.length})</div> */}
@@ -23,6 +34,6 @@ const TaskCart = ({ user }) => {
             )}</div>
         </div>
     )
-}
+}}
 
 export default TaskCart;
