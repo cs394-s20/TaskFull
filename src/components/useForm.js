@@ -2,11 +2,17 @@ import React, { useState, useEffect } from 'react';
 
 
 const useForm = (callback, validateForm) =>{
-    const [values, setValues] = useState({ title: '', author: '', description: '', items: [{name: "", quantity:""}], address: '', city: '', state: ''});
+    const [values, setValues] = useState({ title: '', author: '', description: '', date: new Date(), items: [{name: "", quantity:""}], address: '', city: '', state: ''});
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    const handleDateChange2 = e =>{
+      console.log(e.target)
+      setValues({...values, ['date']: e})
+    }
+
     const handleTextChange = e =>{
+      console.log(e)
         const {name,value} = e.target;
         setValues({
           ...values,
@@ -78,6 +84,7 @@ const useForm = (callback, validateForm) =>{
       return {
         handleTextChange,
         handleItemsChange,
+        handleDateChange2,
         handleStateChange,
         addNewItem,
         deleteNewItem,

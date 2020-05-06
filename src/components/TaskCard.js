@@ -32,7 +32,6 @@ const DialogHeader = (props) => {
   )
 }
 
-// This will be updated to have more than just a title!
 const TaskCard = (props) => {
   const [open, setOpen] = useState(false);
   const [taskCart, setTaskCart] = useContext(TasksContext);
@@ -66,20 +65,24 @@ const TaskCard = (props) => {
 
   const useStyles = makeStyles({
     root: {
-      minWidth: 275,
-      background: '#ffecb3',
+      // minWidth: 190,
+      width:550,
+      // background: '#ffecb3',
+      background: '#3f51b5',
+      color: 'white',
       marginTop: 5,
       marginBottom: 5,
     },
     button: {
-      background: '#ff9e80',
+      // background: '#ff9e80',
+      background: '#3f51b5',
+      color: 'white',
     }
   });
 
   
   const cityName = props.task.address.split(", ")[1];
   const stateName = props.task.address.split(", ")[2];
-
 
 
   const classes = useStyles();
@@ -98,6 +101,9 @@ const TaskCard = (props) => {
           <Typography variant="body2" color="textSecondary" component="p">
             {props.task.time}
           </Typography>
+          {/* <div>
+          <Chip label={props.task.address} className="req-chip"></Chip>
+          </div> */}
           {/* <div>{Object.values(props.task.requirements).map((req, index) => (
             <Chip label={req} key={index} className="req-chip"></Chip>
           ))}

@@ -72,15 +72,18 @@ const Account = ({ user }) => {
   const [editing, setEditing] = useState(false)
   const classes = useStyles();
   const [userinfo, setUserInfo] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-return (
-    <div>
-      <NavBar user={user}></NavBar>
-      <Editbutton editing={{ editing, setEditing }}/>
-      <Profile user={user} editingstate={{ editing, setEditing }} loadingstate={{ loading, setLoading}} />
-    </div>
-  )
+  if (!user) {
+    return <div>Loading</div>
+  }
+
+  return (
+      <div>
+        <NavBar user={user}></NavBar>
+        <Editbutton editing={{ editing, setEditing }}/>
+        <Profile user={user} editingstate={{ editing, setEditing }} />
+      </div>
+    )
 }
 
 const Editbutton = ({editing}) => {
@@ -103,7 +106,6 @@ const Profile = ({ user, editingstate, loadingstate }) => {
       const getUserData = snap => {
         if (snap.val()) {
           setUserData(snap.val());
-          loadingstate.setLoading(false)
         }
       }
       db.on('value', getUserData, error => alert(error));
@@ -120,14 +122,6 @@ const Profile = ({ user, editingstate, loadingstate }) => {
       return () => { db2.off('value', getUserData); db.off('value', getAllTasks); };
     }
   }, []);
-  console.log(user);
-  console.log(userData);
-
-  if (loadingstate.loading) {
-    return <div>Loading</div>
-  }
-
-  console.log(alltasks);
 
 
   function getPostedTasks() {
@@ -139,6 +133,32 @@ const Profile = ({ user, editingstate, loadingstate }) => {
             </CardActionArea>
           </Card>)
       })
+  }
+
+  const checkIfPostedTasks = () => {
+    if (alltasks.filter(t => t.authorid === user.uid && t.status == 'in-progress').length == 0){
+      return <div>You have no active posted tasks.</div>
+    } else {
+      return (
+      <Grid style={{ padding: "1em", maxWidth: 600 }} >
+        {alltasks.filter(t => t.authorid === user.uid && t.status == 'in-progress').map((task) =>
+          <PostedTasks user={user} task={task} classes={classes} />)}
+      </Grid>
+      )
+    }            
+  }
+
+  const checkIfToDoTasks = () => {
+    if (alltasks.filter(t => t.acceptedBy === user.uid && t.status === 'in-progress').length == 0) {
+      return <div>You have no tasks to complete.</div>
+    } else {
+      return (
+        <Grid style={{ padding: "1em", maxWidth: 600 }}>
+          {alltasks.filter(t => t.acceptedBy === user.uid && t.status === 'in-progress').map((task) =>
+            <ToDoTasks user={user} task={task} classes={classes} />)}
+        </Grid>
+      )
+    }
   }
 
 
@@ -171,18 +191,12 @@ const Profile = ({ user, editingstate, loadingstate }) => {
         </Card>
         <div className="my-tasks">
           <div className="account-task-list">
-            <p>To Do</p>
-            <Grid style={{ padding: "1em", maxWidth: 600 }}>
-              {alltasks.filter(t => t.acceptedBy === user.uid && t.status === 'in-progress').map((task) =>
-                <ToDoTasks user={user} task={task} classes={classes} />)}
-            </Grid>
+            <h3>To Do List</h3>
+            {checkIfToDoTasks()}
           </div>
           <div className="account-task-list">
-            <p>Posted Tasks</p>
-            <Grid style={{ padding: "1em", maxWidth: 600 }} >
-              {alltasks.filter(t => t.authorid === user.uid).map((task) =>
-                <PostedTasks user={user} task={task} classes={classes} />)}
-            </Grid>
+            <h3>Posted Tasks</h3>
+            {checkIfPostedTasks()}
           </div>
         </div>
       </div>
@@ -198,6 +212,23 @@ const Profile = ({ user, editingstate, loadingstate }) => {
 }
 
 const PostedTasks = ({ user, task, classes }) => {
+  const useStyles = makeStyles({
+    root: {
+      // minWidth: 190,
+      width: 550,
+      background: '#ffecb3',
+      // background: '#3f51b5',
+      // color: 'white',
+      marginTop: 5,
+      marginBottom: 5,
+    },
+    button: {
+      // background: '#ff9e80',
+      background: '#3f51b5',
+      color: 'white',
+    }
+  });
+  
   const db = firebase.database().ref()
 
   const [open, setOpen] = useState(false);
@@ -210,6 +241,7 @@ const PostedTasks = ({ user, task, classes }) => {
     setOpen(false);
     db.child('users/' + user.uid + '/posted_tasks/' + task.id).set('completed');
     db.child('tasks/' + task.id + '/status/').set('completed');
+    // db.child('/users/' + task.acceptedBy + '/points/').set()
   };
 
   const handleClose = () => {
@@ -221,7 +253,6 @@ const PostedTasks = ({ user, task, classes }) => {
       db.child('/users/' + acceptedBy).once("value") 
         .then(snapshot => {
           if (snapshot.val()) {
-            console.log("here1" + JSON.stringify(snapshot.val()))
             return snapshot.val()
           }
         })
@@ -281,8 +312,8 @@ const PostedTasks = ({ user, task, classes }) => {
         </span>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => handleTaskCompleted(task)}>
-          Completed
+        <Button style={{ background: '#3f51b5', color: 'white' }} onClick={() => handleTaskCompleted(task)}>
+          Task Completed
         </Button>
       </DialogActions>
     </Dialog>
@@ -342,13 +373,12 @@ const ToDoTasks = ({ user, task, classes }) => {
           </span>
         </DialogContent>
       <DialogActions>
-        <Button onClick={() => handleUnaccept(task)}>
+        <Button style={{ background: '#3f51b5', color: 'white'}} onClick={() => handleUnaccept(task)}>
           Unaccept Task
         </Button>
       </DialogActions>
     </Dialog>
   </Card>)
 }
-
 
 export default Account

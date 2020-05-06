@@ -18,6 +18,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import PinDropIcon from '@material-ui/icons/PinDrop';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import NotesIcon from '@material-ui/icons/Notes';
+import { makeStyles } from '@material-ui/core/styles';
 
 // Firebase
 import firebase from 'firebase/app';
@@ -29,10 +30,24 @@ const DialogHeader = (props) => {
   )
 }
 
+const myTasksStyles = makeStyles({
+  root: {
+    marginTop: 5,
+    marginBottom: 5,
+    width: 250,
+    //height:107,
+    background: '#ffecb3'
+    // background: '#FFE4C4'
+    // background: '#3f51b5',
+    // color: 'white'
+  },
+});
+
 // This will be updated to have more than just a title!
 const TaskCartCard = (props) => {
   const [open, setOpen] = useState(false);
   const [completeList, setCompleteList] = useContext(TasksContext);
+  const classes = myTasksStyles();
 
   const handleCardOpen = () => {
     setOpen(true);
@@ -69,7 +84,7 @@ const TaskCartCard = (props) => {
   const disable = disabled();
 
   return (
-    <Card className={"task-card-unstarted"}>
+    <Card className={classes.root}>
       <CardActionArea onClick={() => handleCardOpen(props.task)}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h5" fontWeight={700}>
@@ -109,13 +124,13 @@ const TaskCartCard = (props) => {
           <span className="field-row">
           <PinDropIcon className="field-icon" />
           <Typography variant="body2" component="p" color="textSecondary" pb={3}>
-            {props.task.location}
+            {props.task.address}
           </Typography>
           </span>
           <span className="field-row">
             <ScheduleIcon className="field-icon"/>
             <Typography variant="body2" component="p" color="textSecondary" pb={3}>
-              {props.task.time}
+              {props.task.completeBy}
             </Typography>
           </span>
           <span className="field-row">

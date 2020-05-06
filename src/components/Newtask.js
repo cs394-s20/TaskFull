@@ -99,9 +99,16 @@ const Newtask = ({handleclose, user}) => {
   const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    console.log(date.valueOf())
+    console.log(Date.now())
+    if (date.valueOf() > Date.now()){
+      setSelectedDate(date);
+    }
+    else{
+      return
+    }
   };
-  const {handleTextChange, handleItemsChange, addNewItem, deleteNewItem, getTotalItems, handleSubmit, values, errors} = useForm(submit, validateForm);
+  const {handleTextChange, handleItemsChange, addNewItem, deleteNewItem, handleDateChange2, handleSubmit, values, errors} = useForm(submit, validateForm);
 
   // ----- CITY DROPDOWN FIELD COMPONENT ------
   const CitySelect = ({}) => {
@@ -121,10 +128,7 @@ const Newtask = ({handleclose, user}) => {
       if(each.state == stateFullname[0]){
         list.push(each.label);
       }
-    })
-
-    console.log(list)
-    
+    })    
 
     const USstates = ['AK', 'AL', 'AR', 'AS', 'AZ', 
                       'CA', 'CO', 'CT', 'DC', 'DE', 
@@ -239,8 +243,6 @@ const Newtask = ({handleclose, user}) => {
 
   function submit(){
     if (Object.keys(errors).length === 0){
-
-      console.log('Submitted successfully');
       const taskId = uniqid();
       const db = firebase.database().ref()
       const fullAddress = values.address + ', ' + values.city + ', ' + values.state;
@@ -252,6 +254,7 @@ const Newtask = ({handleclose, user}) => {
         authorid: user.uid,
         description: values.description,
         completeBy: selectedDate.toString(),
+        milliseconds: selectedDate.valueOf(),
         address: fullAddress,
         status: "unstarted",
         postedAt: moment().format('MMMM Do YYYY, h:mm:ss a'),
@@ -308,6 +311,7 @@ return (
             id="date-picker-dialog"
             label="Choose a date"
             format="MM/dd/yyyy"
+            name="date"
             value={selectedDate}
             onChange={handleDateChange}
             KeyboardButtonProps={{
@@ -409,8 +413,8 @@ return (
           value = {values.address}
           required
         />
-      <CitySelect/>
       <StateSelect/>  
+      <CitySelect/>
       
 
         
