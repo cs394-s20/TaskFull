@@ -176,7 +176,7 @@ const TasksFeed = ({ user }) => {
         <div>
         { 
         
-          tasks.filter(t => (t.status === 'unstarted')).reverse().map((task, index) => {
+          tasks.filter(t => (t.status === 'unstarted') && (t.milliseconds > currDate)).reverse().map((task, index) => {
             // console.log(task.requirements)
           // console.log(filter)
           // console.log(filter.requirements)
