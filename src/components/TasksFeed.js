@@ -147,6 +147,7 @@ const TasksFeed = ({ user }) => {
   const Feed = () => {
     let stateNameList = []
     let loadingSkeleton = []
+    const currDate = Date.now();
     for (let i = 0; i < 10; i++) {
       loadingSkeleton.push(
         <div key={i} className="skeleton-card">
@@ -176,7 +177,8 @@ const TasksFeed = ({ user }) => {
     return (
         <div>
         { 
-          tasks.filter(t => t.status === 'unstarted').reverse().map((task, index) => {
+        
+          tasks.filter(t => (t.status === 'unstarted') && (t.milliseconds > currDate)).reverse().map((task, index) => {
             // console.log(task.requirements)
           // console.log(filter)
           // console.log(filter.requirements)
