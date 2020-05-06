@@ -259,7 +259,7 @@ const TasksFeed = ({ user }) => {
         >
           Add New Task
         </Button>
-        <div>
+        <div style={{ paddingTop: '0.5em'}}>
           <FilterCard
             handleDropdownChange={handleDropdownChange}
             handleStatesChange = {handleStatesChange}
@@ -271,7 +271,7 @@ const TasksFeed = ({ user }) => {
         {/* <CompletedTasks></CompletedTasks> */}
       </Grid>
       <Grid style={{ minWidth: "550"}} item xs={6} >
-        <div style={{marginBottom: '2.9%', marginTop:'1em'}}>Task Feed</div>
+        <h3 style={{marginBottom: '2.9%', marginTop:'1em'}}>Task Feed</h3>
       <Dialog
         scroll="body"
         open={formOpen}

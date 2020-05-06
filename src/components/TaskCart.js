@@ -9,7 +9,7 @@ const TaskCart = ({ user }) => {
     if (tasks.filter(t => t.status === 'in-progress' && t.acceptedBy == user.uid).length === 0) {
         return (
             <div style={{ margin: "1em -1em 1em -1em" }} >
-                <div>To Do List</div>
+                <h3>To Do List</h3>
             <div>
                 <p>You have no active tasks to do.</p>
             </div>

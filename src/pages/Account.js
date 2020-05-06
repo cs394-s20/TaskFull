@@ -141,6 +141,32 @@ const Profile = ({ user, editingstate, loadingstate }) => {
       })
   }
 
+  const checkIfPostedTasks = () => {
+    if (alltasks.filter(t => t.authorid === user.uid && t.status == 'in-progress').length == 0){
+      return <div>You have no active posted tasks.</div>
+    } else {
+      return (
+      <Grid style={{ padding: "1em", maxWidth: 600 }} >
+        {alltasks.filter(t => t.authorid === user.uid && t.status == 'in-progress').map((task) =>
+          <PostedTasks user={user} task={task} classes={classes} />)}
+      </Grid>
+      )
+    }            
+  }
+
+  const checkIfToDoTasks = () => {
+    if (alltasks.filter(t => t.acceptedBy === user.uid && t.status === 'in-progress').length == 0) {
+      return <div>You have no tasks to complete.</div>
+    } else {
+      return (
+        <Grid style={{ padding: "1em", maxWidth: 600 }}>
+          {alltasks.filter(t => t.acceptedBy === user.uid && t.status === 'in-progress').map((task) =>
+            <ToDoTasks user={user} task={task} classes={classes} />)}
+        </Grid>
+      )
+    }
+  }
+
 
   if (!editingstate.editing && user) {
     return (
@@ -171,18 +197,12 @@ const Profile = ({ user, editingstate, loadingstate }) => {
         </Card>
         <div className="my-tasks">
           <div className="account-task-list">
-            <p>To Do List</p>
-            <Grid style={{ padding: "1em", maxWidth: 600 }}>
-              {alltasks.filter(t => t.acceptedBy === user.uid && t.status === 'in-progress').map((task) =>
-                <ToDoTasks user={user} task={task} classes={classes} />)}
-            </Grid>
+            <h3>To Do List</h3>
+            {checkIfToDoTasks()}
           </div>
           <div className="account-task-list">
-            <p>Posted Tasks</p>
-            <Grid style={{ padding: "1em", maxWidth: 600 }} >
-              {alltasks.filter(t => t.authorid === user.uid).map((task) =>
-                <PostedTasks user={user} task={task} classes={classes} />)}
-            </Grid>
+            <h3>Posted Tasks</h3>
+            {checkIfPostedTasks()}
           </div>
         </div>
       </div>
@@ -210,6 +230,7 @@ const PostedTasks = ({ user, task, classes }) => {
     setOpen(false);
     db.child('users/' + user.uid + '/posted_tasks/' + task.id).set('completed');
     db.child('tasks/' + task.id + '/status/').set('completed');
+    // db.child('/users/' + task.acceptedBy + '/points/').set()
   };
 
   const handleClose = () => {
