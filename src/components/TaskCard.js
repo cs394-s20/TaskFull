@@ -68,12 +68,16 @@ const TaskCard = (props) => {
     root: {
       // minWidth: 190,
       width:550,
-      background: '#ffecb3',
+      // background: '#ffecb3',
+      background: '#3f51b5',
+      color: 'white',
       marginTop: 5,
       marginBottom: 5,
     },
     button: {
-      background: '#ff9e80',
+      // background: '#ff9e80',
+      background: '#3f51b5',
+      color: 'white',
     }
   });
 

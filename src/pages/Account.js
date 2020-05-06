@@ -218,6 +218,23 @@ const Profile = ({ user, editingstate, loadingstate }) => {
 }
 
 const PostedTasks = ({ user, task, classes }) => {
+  const useStyles = makeStyles({
+    root: {
+      // minWidth: 190,
+      width: 550,
+      background: '#ffecb3',
+      // background: '#3f51b5',
+      // color: 'white',
+      marginTop: 5,
+      marginBottom: 5,
+    },
+    button: {
+      // background: '#ff9e80',
+      background: '#3f51b5',
+      color: 'white',
+    }
+  });
+  
   const db = firebase.database().ref()
 
   const [open, setOpen] = useState(false);
@@ -293,13 +310,13 @@ const PostedTasks = ({ user, task, classes }) => {
         <span className="field-row">
           <Typography gutterBottom component="p" variant="body1">
             This task was accepted by {task.acceptedByEmail}
-            <UserBox acceptedUser={getUser(task.acceptedBy)} />
+            {/* <UserBox acceptedUser={getUser(task.acceptedBy)} /> */}
           </Typography>
         </span>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => handleTaskCompleted(task)}>
-          Completed
+        <Button style={{ background: '#3f51b5', color: 'white' }} onClick={() => handleTaskCompleted(task)}>
+          Task Completed
         </Button>
       </DialogActions>
     </Dialog>
@@ -359,13 +376,12 @@ const ToDoTasks = ({ user, task, classes }) => {
           </span>
         </DialogContent>
       <DialogActions>
-        <Button onClick={() => handleUnaccept(task)}>
+        <Button style={{ background: '#3f51b5', color: 'white'}} onClick={() => handleUnaccept(task)}>
           Unaccept Task
         </Button>
       </DialogActions>
     </Dialog>
   </Card>)
 }
-
 
 export default Account
