@@ -52,7 +52,6 @@ const TasksFeed = ({ user }) => {
 
   const handleDropdownChange = (e) => {
     let newState = Object.assign({}, filter);
-    console.log(filter);
     const requirementsArray = []
     if (!e){
       setFilter({})
@@ -80,7 +79,6 @@ const TasksFeed = ({ user }) => {
 
   //filter the city(location) of each task
   const handleCityChange = (e) => {
-    console.log(e.label)
     setCity(e.label);
   }
 
@@ -185,7 +183,6 @@ const TasksFeed = ({ user }) => {
           
           let stateName = task.address.split(', ')[2];
           let cityName = task.address.split(', ')[1];
-          console.log(task.completeBy)
 
           if(states.length == 0 || states == "ALL"){
             return (
