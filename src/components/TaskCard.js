@@ -32,7 +32,6 @@ const DialogHeader = (props) => {
   )
 }
 
-// This will be updated to have more than just a title!
 const TaskCard = (props) => {
   const [open, setOpen] = useState(false);
   const [taskCart, setTaskCart] = useContext(TasksContext);
