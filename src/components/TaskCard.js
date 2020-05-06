@@ -35,7 +35,7 @@ const DialogHeader = (props) => {
 const TaskCard = (props) => {
   const [open, setOpen] = useState(false);
   const [taskCart, setTaskCart] = useContext(TasksContext);
-  const { user } = props
+  const user = props.user
 
   const handleCardOpen = () => {
     setOpen(true);

@@ -136,12 +136,12 @@ const Profile = ({ user, editingstate, loadingstate }) => {
   }
 
   const checkIfPostedTasks = () => {
-    if (alltasks.filter(t => t.authorid === user.uid && t.status == 'in-progress').length == 0){
+    if (alltasks.filter(t => t.authorid === user.uid && t.status !== 'completed').length == 0){
       return <div>You have no active posted tasks.</div>
     } else {
       return (
       <Grid style={{ padding: "1em", maxWidth: 600 }} >
-        {alltasks.filter(t => t.authorid === user.uid && t.status == 'in-progress').map((task) =>
+          {alltasks.filter(t => t.authorid === user.uid && t.status !== 'completed').map((task) =>
           <PostedTasks user={user} task={task} classes={classes} />)}
       </Grid>
       )
@@ -260,12 +260,19 @@ const PostedTasks = ({ user, task, classes }) => {
     }
   }
 
-  const UserBox = ({ acceptedUser }) => {
-    return (
-      <div>
-        {acceptedUser ? acceptedUser.username : "None"}
-      </div>
-    )
+  const ContactBox = ({ task }) => {
+    if (!task.acceptedByEmail) {
+      return <div>No one has accepted your task yet 😢</div>
+    } else {
+      return (
+        <div>
+          <Typography gutterBottom component="p" variant="body1">
+            Your task was accepted! 😄
+          </Typography>
+          <a href={"mailto:" + task.acceptedByEmail} style={{ textDecoration: 'none' }}><Button variant="contained" color="primary">Contact Runner</Button></a>
+        </div>
+      )
+    }
   }
 
   return (<Card className="past-task">
@@ -301,10 +308,7 @@ const PostedTasks = ({ user, task, classes }) => {
         </Typography>
       </span>
         <span className="field-row">
-          <Typography gutterBottom component="p" variant="body1">
-            This task was accepted by {task.acceptedByEmail}
-            {/* <UserBox acceptedUser={getUser(task.acceptedBy)} /> */}
-          </Typography>
+          <ContactBox task={task}></ContactBox>
         </span>
       </DialogContent>
       <DialogActions>
