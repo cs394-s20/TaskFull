@@ -124,13 +124,13 @@ const TaskCartCard = (props) => {
           <span className="field-row">
           <PinDropIcon className="field-icon" />
           <Typography variant="body2" component="p" color="textSecondary" pb={3}>
-            {props.task.location}
+            {props.task.address}
           </Typography>
           </span>
           <span className="field-row">
             <ScheduleIcon className="field-icon"/>
             <Typography variant="body2" component="p" color="textSecondary" pb={3}>
-              {props.task.time}
+              {props.task.completeBy}
             </Typography>
           </span>
           <span className="field-row">
