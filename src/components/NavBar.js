@@ -54,6 +54,7 @@ const NavBar = ({ user }) => {
   };
 
   const signOutUser = () => {
+    handleClose()
     firebase.auth().signOut()
     localStorage.setItem("user", null)
   }
@@ -81,12 +82,8 @@ const NavBar = ({ user }) => {
           onClose={handleClose}
         >
           <MenuItem component={Link} to={'/account'} onClick={handleClose}>My account</MenuItem>
-          <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
+          <MenuItem component={Link} to={'/'} onClick={signOutUser}>Logout</MenuItem>
         </Menu>
-
-        <Link className="login-button" to="/">
-          <Button onClick={signOutUser} color="inherit">Logout</Button> 
-        </Link>
       </Toolbar>
     </AppBar>
   )
