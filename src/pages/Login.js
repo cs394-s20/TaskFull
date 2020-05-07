@@ -85,7 +85,6 @@ export default function Login({ user, history }) {
 
   useEffect(() => {
     const db = firebase.database().ref()
-
     if (user != null) {
       db.child('/users/' + user.uid).once("value") 
         .then(snapshot => {
@@ -93,7 +92,7 @@ export default function Login({ user, history }) {
             db.child('/users/' + user.uid).set({
               username: user.displayName,
               email: user.email,
-              points: 10,
+              points: 0,
             })
           }
         })

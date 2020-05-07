@@ -1,6 +1,6 @@
-import React, {useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../App.css';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -45,18 +45,18 @@ const useStyles = makeStyles({
     marginTop: 5,
     marginBottom: 5,
     fontSize: 18,
-    
+
   },
   stats: {
     width: "100%",
     textAlign: "left",
     marginTop: 20,
-    padding: "0 0 0 30%" 
+    padding: "0 0 0 30%"
   },
   preferences: {
     width: "100%",
     textAlign: "left",
-    padding: "0 0 0 30%" 
+    padding: "0 0 0 30%"
   },
   accountinfo: {
     width: "100%",
@@ -78,15 +78,15 @@ const Account = ({ user }) => {
   }
 
   return (
-      <div>
-        <NavBar user={user}></NavBar>
-        <Editbutton editing={{ editing, setEditing }}/>
-        <Profile user={user} editingstate={{ editing, setEditing }} />
-      </div>
-    )
+    <div>
+      <NavBar user={user}></NavBar>
+      <Editbutton editing={{ editing, setEditing }} />
+      <Profile user={user} editingstate={{ editing, setEditing }} />
+    </div>
+  )
 }
 
-const Editbutton = ({editing}) => {
+const Editbutton = ({ editing }) => {
   if (editing.editing) {
     return <div><Button onClick={() => editing.setEditing(!editing.editing)}>Save Edits</Button></div>;
   } else {
@@ -126,26 +126,26 @@ const Profile = ({ user, editingstate, loadingstate }) => {
 
   function getPostedTasks() {
     alltasks.filter(t => t.authorid === user.uid).map((task) => {
-        return (
-          <Card className="past-task">
-            <CardActionArea className="past-task-action">
-              <p className={classes.info}>{task.title}</p>
-            </CardActionArea>
-          </Card>)
-      })
+      return (
+        <Card className="past-task">
+          <CardActionArea className="past-task-action">
+            <p className={classes.info}>{task.title}</p>
+          </CardActionArea>
+        </Card>)
+    })
   }
 
   const checkIfPostedTasks = () => {
-    if (alltasks.filter(t => t.authorid === user.uid && t.status !== 'completed').length == 0){
+    if (alltasks.filter(t => t.authorid === user.uid && t.status !== 'completed').length == 0) {
       return <div>You have no active posted tasks.</div>
     } else {
       return (
-      <Grid style={{ padding: "1em", maxWidth: 600 }} >
+        <Grid style={{ padding: "1em", maxWidth: 600 }} >
           {alltasks.filter(t => t.authorid === user.uid && t.status !== 'completed').map((task) =>
-          <PostedTasks user={user} task={task} classes={classes} />)}
-      </Grid>
+            <PostedTasks user={user} task={task} classes={classes} />)}
+        </Grid>
       )
-    }            
+    }
   }
 
   const checkIfToDoTasks = () => {
@@ -201,7 +201,7 @@ const Profile = ({ user, editingstate, loadingstate }) => {
         </div>
       </div>
     )
-  } 
+  }
   return (
     <div>
       <Typography variant="h3" gutterBottom>
@@ -228,7 +228,7 @@ const PostedTasks = ({ user, task, classes }) => {
       color: 'white',
     }
   });
-  
+
   const db = firebase.database().ref()
 
   const [open, setOpen] = useState(false);
@@ -241,7 +241,15 @@ const PostedTasks = ({ user, task, classes }) => {
     setOpen(false);
     db.child('users/' + user.uid + '/posted_tasks/' + task.id).set('completed');
     db.child('tasks/' + task.id + '/status/').set('completed');
-    // db.child('/users/' + task.acceptedBy + '/points/').set()
+    db.child('/users/' + task.acceptedBy + '/points/').once("value")
+        .then(snapshot => {
+          if (snapshot.val()) {
+            const points = snapshot.val()
+            console.log(points)
+            db.child('users/' + task.acceptedBy + '/points/').set(points + 1);
+          }
+        })
+        .catch(e => console.error(e))
   };
 
   const handleClose = () => {
@@ -250,7 +258,7 @@ const PostedTasks = ({ user, task, classes }) => {
 
   const getUser = acceptedBy => {
     if (user != null) {
-      db.child('/users/' + acceptedBy).once("value") 
+      db.child('/users/' + acceptedBy).once("value")
         .then(snapshot => {
           if (snapshot.val()) {
             return snapshot.val()
@@ -290,23 +298,23 @@ const PostedTasks = ({ user, task, classes }) => {
     >
       <DialogContent>
         <span className="field-row">
-        <AccountCircle className="field-icon" />
-        <Typography variant="body1" component="p" color="textSecondary" pb={3}>
-          {task.author}
-        </Typography>
-          </span>
-      <span className="field-row">
-        <ScheduleIcon className="field-icon" />
-        <Typography variant="body2" component="p" color="textSecondary" pb={3}>
-          {task.completeBy}
-        </Typography>
-      </span>
-      <span className="field-row">
-        <NotesIcon className="field-icon" />
-        <Typography gutterBottom component="p" variant="body1">
-          {task.description}
-        </Typography>
-      </span>
+          <AccountCircle className="field-icon" />
+          <Typography variant="body1" component="p" color="textSecondary" pb={3}>
+            {task.author}
+          </Typography>
+        </span>
+        <span className="field-row">
+          <ScheduleIcon className="field-icon" />
+          <Typography variant="body2" component="p" color="textSecondary" pb={3}>
+            {task.completeBy}
+          </Typography>
+        </span>
+        <span className="field-row">
+          <NotesIcon className="field-icon" />
+          <Typography gutterBottom component="p" variant="body1">
+            {task.description}
+          </Typography>
+        </span>
         <span className="field-row">
           <ContactBox task={task}></ContactBox>
         </span>
@@ -354,26 +362,26 @@ const ToDoTasks = ({ user, task, classes }) => {
     >
       <DialogContent>
         <span className="field-row">
-            <AccountCircle className="field-icon" />
-            <Typography variant="body1" component="p" color="textSecondary" pb={3}>
-              {task.author}
-            </Typography>
-          </span>
-          <span className="field-row">
-            <ScheduleIcon className="field-icon" />
-            <Typography variant="body2" component="p" color="textSecondary" pb={3}>
-              {task.completeBy}
-            </Typography>
-          </span>
-          <span className="field-row">
-            <NotesIcon className="field-icon" />
-            <Typography gutterBottom component="p" variant="body1">
-              {task.description}
-            </Typography>
-          </span>
-        </DialogContent>
+          <AccountCircle className="field-icon" />
+          <Typography variant="body1" component="p" color="textSecondary" pb={3}>
+            {task.author}
+          </Typography>
+        </span>
+        <span className="field-row">
+          <ScheduleIcon className="field-icon" />
+          <Typography variant="body2" component="p" color="textSecondary" pb={3}>
+            {task.completeBy}
+          </Typography>
+        </span>
+        <span className="field-row">
+          <NotesIcon className="field-icon" />
+          <Typography gutterBottom component="p" variant="body1">
+            {task.description}
+          </Typography>
+        </span>
+      </DialogContent>
       <DialogActions>
-        <Button style={{ background: '#3f51b5', color: 'white'}} onClick={() => handleUnaccept(task)}>
+        <Button style={{ background: '#3f51b5', color: 'white' }} onClick={() => handleUnaccept(task)}>
           Unaccept Task
         </Button>
       </DialogActions>
